@@ -1,0 +1,37 @@
+{% macro main(params,requestCache) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    {% import "partials/components/_svg-shapes.twig" as shape %}
+    {% import "partials/components/_svg-icons.twig" as icon %}
+
+    {% set video = params.video %}
+    {% set tabletImg = params.tabletImg %}
+    {% set mobileImg = params.mobileImg %}
+
+    <div class="home-video" data-js-hook="home-video" data-loop-from="{{ params.duration }}" id="home-sections-1" data-magellan-target="home-sections-1">
+        {% if tabletImg or mobileImg %}
+            <div class="home-video__images {% if video %}hide-for-large{% endif %}" data-js-hook="home-video-images">
+                {% if tabletImg %}
+                    <img src="{{ tabletImg.url }}" alt="" class="home-video__img--tablet">
+                {% endif %}
+
+                {% if mobileImg %}
+                    <img src="{{ mobileImg.url }}" alt="" class="home-video__img--mobile">
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {% if video %}
+            <div class="home-video__wrapper show-for-large">
+                {{ brightcoveStore(video) }}
+                {{ helper.video(video|merge({
+                    loop: false
+                })) }}
+            </div>
+        {% endif %}
+
+        {% if video or mobileImg or tabletImg %}
+            <a href="#" rel="nofollow" class="home-video__scroll" data-js-hook="home-video-scroll">Scroll <span class="home-video__arrow">{{ icon.back_arrow }}</span></a>
+            <div class="home-video__shape" data-js-hook="home-video-shape">{{ shape.home_video_shape(requestCache) }}</div>
+        {% endif %}
+    </div>
+{% endmacro %}

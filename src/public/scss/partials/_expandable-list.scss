@@ -1,0 +1,158 @@
+.expandable-list{
+    $rolloverItem: '.expandable-list__item:hover';
+    $activeItem: '.expandable-list__item.is-active';
+
+    $itemHeight: rem-calc(155px);
+    $hoverHeight: rem-calc(205px);
+
+    $timingFunction: cubic-bezier(0.4, 0, 1, 1);
+    $transitionDuration: 0.25s;
+
+
+    margin-bottom: $moduleMargin;
+
+    &__item{
+        box-shadow: 0px 9px 20px 0px rgba(get-color('black'), 0.25);
+        // overflow: hidden;
+        overflow: visible;
+        transition: transform $transitionDuration $timingFunction;
+
+        &:not(.is-active){
+            background-color: get-color('white');
+        }
+
+        &:hover,
+        &.is-active{
+            @include breakpoint(medium) {
+                transform: scaleX(1.3);
+            }
+        }
+
+        &:hover,
+        &.is-active{
+            z-index: 100;
+        }
+    }
+
+    &__visible{
+        position: relative;
+        display: block;
+        transition: transform $transitionDuration $timingFunction;
+
+        #{$activeItem} &{
+            padding-top: 22px;
+        }
+
+        #{$rolloverItem} &,
+        #{$activeItem} &{
+            @include breakpoint(medium) {
+                transform: scaleY(1.3);
+            }
+        }
+    }
+
+    &__visible-content{
+        height: $itemHeight;
+        transition: height $transitionDuration $timingFunction;
+
+        #{$rolloverItem} &,
+        #{$activeItem} &{
+            @include breakpoint(medium) {
+                height: rem-calc($hoverHeight);
+            }
+        }
+    }
+
+    &__index,
+    &__header-text{
+        width: 100%;
+    }
+
+    &__index{
+        width: 100%;
+        font-size: rem-calc(120px);
+        transition-property: color, opacity;
+        transition-duration: $transitionDuration;
+        transition-timing-function: $timingFunction;
+
+        #{$activeItem} &{
+            opacity: 0
+        }
+
+        @include breakpoint(small only) {
+            .expandable-list__item:not(.is-active) &{
+                color: get-color('gray4');
+            }
+        }
+
+        @include breakpoint(medium) {
+            .expandable-list__item:not(:hover) &{
+                color: get-color('gray4');
+            }
+        }
+    }
+
+    &__header-text{
+        font-size: rem-calc(18px);
+        line-height: rem-calc(22px);
+        padding: 0 rem-calc(22px);
+        margin-left: -100%;
+
+        @include breakpoint(medium) {
+            font-size: rem-calc(24px);
+            line-height: rem-calc(24px);
+        }
+
+        @include breakpoint(medium) {
+            font-size: rem-calc(24px);
+            line-height: rem-calc(24px);
+        }
+
+        @include breakpoint(medium) {
+            font-size: rem-calc(28px);
+            line-height: rem-calc(28px);
+        }
+    }
+
+    &__hidden{
+        display: none;
+        z-index: 1;
+
+        @include breakpoint(medium) {
+            transform: scaleX(0.7);
+            margin-top: -50px;
+        }
+    }
+
+    &__sub-text{
+        margin-bottom: rem-calc(35px);
+        line-height: rem-calc(20px);
+        padding: 0 rem-calc(20px);
+        transition: opacity $transitionDuration $timingFunction;
+
+        .expandable-list__item:not(.is-active) &{
+            opacity: 0;
+        }
+
+        @include breakpoint(medium) {
+            padding: 0 rem-calc(100px);
+        }
+
+        @include breakpoint(large) {
+            padding: 0 rem-calc(140px);
+        }
+    }
+
+    &__close{
+        cursor: pointer;
+        transition: transform 0.25s;
+        width: 15px;
+        margin: 0 auto rem-calc(40px);
+
+        @include breakpoint(medium) {
+            &:hover {
+                transform: scale(1.5);
+            }
+        }
+    }
+}

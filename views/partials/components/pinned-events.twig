@@ -1,0 +1,87 @@
+{% macro main(entries,requestCache) %}
+    {% if entries|length > 0 %}
+        <div class="pinned-events grid-x grid-margin-x align-top">
+            {{ _self.layout(entries, requestCache) }}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro layout(entries, requestCache) %}
+    {% for entry in entries %}
+        <div class="pinned-events__item pinned-events__item--{{ entry.section }} pinned-events__item--{{ loop.index }} cell small-12 medium-6 large-4 u-background-{{ entry.eventColor }}" data-js-hook="pinned-events-item ui-scroll-reveal-animation" data-index="{{ loop.index }}">
+            <div class="pinned-events__content">
+                {{ attribute(_self, entry.section, [entry, requestCache]) }}
+            </div>
+        </div>
+    {% endfor %}
+{% endmacro %}
+
+{#
+Entry {
+    eventDate
+    eventColor
+    eventLocation
+    eventVenue
+    id
+    section
+    slug
+    title
+}
+#}
+{% macro events(entry, requestCache) %}
+    <div class="pinned-events__section u-style-weight-bold">{{ entry.section }}</div>
+
+    <div class="pinned-events__info">
+        <time datetime="{{ entry.eventDate|date('Y-m-dTh:i') }}">
+            <span class="pinned-events__date pinned-events__date--number u-style-weight-bold">{{ entry.eventDate|date('d') }}</span>
+            <span class="pinned-events__date pinned-events__date--month u-style-display-xs u-style-weight-bold">{{ entry.eventDate|date('F') }}</span>
+        </time>
+        <div class="pinned-events__venue u-style-body-2">{{ entry.eventVenue }}</div>
+    </div>
+
+    <a href="{{ url(requestCache, ['event', entry.slug]) }}">
+        <h2 class="pinned-events__title u-color-black u-style-display-m u-style-weight-bold">{{ entry.title|raw }}</h2>
+    </a>
+
+    <div class="pinned-events__body u-style-body-2">{{ entry.summaryHtml|raw }} <a href="{{ url(requestCache, ['event', entry.slug]) }}" class="u-style-weight-bold">Watch now</a></div>
+{% endmacro %}
+
+{#
+Entry {
+    eventDate
+    eventDuration
+    eventSpeakers
+    id
+    section
+    slug
+    title
+}
+#}
+{% macro webinars(entry, requestCache) %}
+    <div class="pinned-events__section u-style-weight-bold">{{ entry.section }}</div>
+
+    {% if entry.section == "webinars" and entry.eventSpeakers|length > 0 %}
+        {% set firstSpeaker = entry.eventSpeakers|first %}
+
+        <figure class="firstSpeaker">
+            {{ helper.image(firstSpeaker.personImage, {
+                class: 'pinned-events__speaker-image',
+                alt: firstSpeaker.title|striptags|raw
+            }) }}
+        </figure>
+    {% endif %}
+
+    <a href="{{ url(requestCache, ['webinar', entry.slug]) }}">
+        <h2 class="pinned-events__title u-color-black u-style-display-m u-style-weight-bold">{{ entry.title|raw }}</h2>
+    </a>
+
+    <div class="pinned-events__body u-style-body-2">{{ entry.summaryHtml|raw }} <a href="{{ url(requestCache, ['webinar', entry.slug]) }}" class="u-style-weight-bold">Watch now</a></div>
+
+    {% if entry.section == "webinars" and entry.eventSpeakers|length > 0 %}
+        <div class="pinned-events__speaker-name u-style-body-1 u-style-weight-bold">{{ entry.eventSpeakers[0].title|raw }}</div>
+        <div class="pinned-events__speaker-title u-style-body-2">{{ entry.eventSpeakers[0].personTitle|raw }}</div>
+    {% endif %}
+
+    <time class="pinned-events__webinar-date u-tyle-body-2 u-style-weight-bold" datetime="{{ entry.eventDate|date('Y-m-dTh:i') }}">{{ entry.eventDate|date('F d, Y') }}</time>
+    <div class="pinned-events__duration u-style-display-xxs">{{ entry.eventDuration }}</div>
+{% endmacro %}

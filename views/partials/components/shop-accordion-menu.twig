@@ -1,0 +1,46 @@
+{% macro main(params,requestCache) %}
+    {% import "partials/components/_svg-icons.twig" as icon %}
+
+    {% set active = params.active|default(true) ?: false %}
+    {% set opener = params.opener is defined ? params.opener : {title:'Shop categories'} %}
+    {% set type = params.type is defined ? params.type : 'primary' %}
+    {% set openerTag = active ? 'a' : 'div' %}
+    {% set weight = type == 'primary' ? 'bold' : 'normal' %}
+
+    {% if params.items is defined %}
+        <ul class="shop-categories shop-categories--{{ type }} {% if active %}shop-categories--active{% endif %}" {% if active %}data-accordion-menu{% endif %}>
+            <li class="shop-categories__group">
+                <{{openerTag}} href="{{ opener.url|default('#') }}" class="shop-categories__heading u-style-display-xs u-style-weight-bold" data-js-hook="opener-tag">
+                    {% if active %}
+                        <span class="shop-categories__arrow">{{ icon.back_arrow }}</span>
+                    {% endif %}
+                    {{ opener.title }} {% if opener.count is defined %}<span class="shop-categories__count u-style-body-2 js-all-count">({{ opener.count }})</span>{% endif %}
+                </{{openerTag}}>
+                <ul class="shop-categories__list">
+                    {% for item in params.items %}
+                        {% set url = params.urlRoot is defined ? params.urlRoot ~ item.url : item.url %}
+                        <li>
+                            <a
+                                href="{{ url|default('#') }}"
+                                data-url="{{ item.url }}"
+                                class="shop-categories__link u-style-display-s u-style-weight-{{ weight }}{% if item.active %} active{% endif %}"
+                                rel="category"
+                                {% if params.hookName %} data-js-hook="{{ params.hookName }}"{% endif %}
+                                {% if params.dataGtmType is iterable %}
+                                    {% for type in params.dataGtmType %}
+                                        {% if item.active %} data-gtm-{{ type }}="{{ item.title }}"{% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    {% if params.dataGtmType and item.active %} data-gtm-{{ params.dataGtmType }}="{{ item.title }}"{% endif %}
+                                {% endif %}
+
+                            >
+                                {{ item.title }} {% if item.count is defined %}<span class="shop-categories__count u-style-body-2">({{ item.count }})</span>{% endif %}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
+        </ul>
+    {% endif %}
+{% endmacro %}

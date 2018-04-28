@@ -1,0 +1,116 @@
+{% macro main(data,categories,requestCache) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    {% import 'partials/core/modules-importer.twig' as modules %}
+    {% import 'partials/core/components-importer.twig' as components %}
+
+    <div class="classroom-solutions-landing__body-content grid-x">
+        <div class="classroom-solutions-landing__category-links-container cell large-10 large-offset-1 u-background-white">
+            <div class="classroom-solutions-landing__category-links-columns-container grid-x align-justify">
+                {% for category in categories %}
+                    {% set extraClass = cycle(["large-offset-1", "", "large-offset-1"], loop.index) %}
+                    {{ _self.categoryLink({
+                        text: category.title,
+                        url: category.url,
+                        extraClass: extraClass}
+                    ) }}
+                {% endfor %}
+            </div>
+        </div>
+
+        {% for block in data.classroomSolutionsBodyContainer %}
+
+            {% if block.type == "groupLabel" %}
+                <div class="classroom-solutions-landing__featured-programs-header cell small-12 medium-10 medium-offset-1 large-6 large-offset-3 grid-x">
+                    <div class="classroom-solutions-landing__line-container cell small-2">
+                        <div class="classroom-solutions-landing__line"></div>
+                    </div>
+                    <div class="classroom-solutions-landing__featured-programs-title text-center small-8 medium-12">
+                        {{ block.text }}
+                    </div>
+                    <div class="classroom-solutions-landing__line-container cell small-2">
+                        <div class="classroom-solutions-landing__line"></div>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if block.type == "richText" %}
+                <div class="classroom-solutions-landing__featured-programs-header cel small-12 medium-10 medium-offset-1 large-6 large-offset-3">
+                    <div class="classroom-solutions-landing__featured-programs-description text-center">
+                        {{ block.text | raw }}
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if block.type == "featuredPrograms" %}
+                {{ components.programServiceList({items: block.entries, noHeader: true}, requestCache) }}
+            {% endif %}
+
+            {% if block.type == "solutionsAZ" %}
+                {{ modules.azFilter({programs: block.programs, headerText: block.headerText}, requestCache) }}
+            {% endif %}
+
+            {% if block.type == "sectionIntroHeadline" %}
+                {{ _self.sectionHeading(block.headerText, block.subText) }}
+            {% endif %}
+
+            {% if block.type == "proofPoint" %}
+                {% set newAttr = {
+                    loopMeta: {
+                        'slug': 'intro-'~loop.index,
+                        'align': 'align-center'
+                    },
+                } %}
+
+                {{ modules.proofPoint(block|merge(newAttr), requestCache) }}
+            {% endif %}
+
+            {% if block.type == "primaryCta" %}
+                <div class="classroom-solutions-landing__primary-cta-container cell large-4 large-offset-4">
+                    {% set newAttr = {
+                        loopMeta: {
+                            'slug': 'intro-'~loop.index,
+                            'offset': '0',
+                            'columns': '12'
+                        },
+                    } %}
+                    {{ modules.primaryCta(block|merge(newAttr), requestCache) }}
+                </div>
+            {% endif %}
+
+            {% if block.type == "contentImageVertical" %}
+                <div class="classroom-solutions-landing__content-image-vert-container cell">
+                    {{ modules.contentImageVertical({slides: block.slides}, requestCache) }}
+                </div>
+            {% endif %}
+
+            {% if block.type == "eventsFeature" %}
+                <div class="classroom-solutions-landing__events-feature cell">
+                    {{ modules.eventsFeature({events: block.events}, requestCache) }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endmacro %}
+
+{% macro categoryLink(link) %}
+    <div class="classroom-solutions-landing__category-link-container cell large-3 medium-6 small-12 {{ link.extraClass }} text-center">
+        <a class="classroom-solutions-landing__category-link" href="{{ link.url }}">
+            {{ link.text }}
+        </a>
+    </div>
+{% endmacro %}
+
+{% macro sectionHeading(title, subtitle, extraClass) %}
+    <div class="classroom-solutions-landing__section-header-wrapper small-12 grid-x {{extraClass}}">
+        <div class="classroom-solutions-landing__section-header-container medium-8 medium-offset-2 large-6 large-offset-3 text-center">
+            <div class="classroom-solutions-landing__section-header-title">
+                {{ title }}
+            </div>
+            <div class="classroom-solutions-landing__section-header-subtitle">
+                {{ subtitle }}
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+

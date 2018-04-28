@@ -1,0 +1,42 @@
+{#
+Params:{
+    title: String
+    body: String
+    image: String //Fallback for mobile
+    video: String // Brightcove url
+}
+#}
+{% macro main(params,requestCache) %}
+    <div class="post-landing-header grid-x grid-margin-x">
+        {{ _self.slider(params.image, params.video) }}
+        {{ _self.content(params) }}
+    </div>
+{% endmacro %}
+
+{% macro slider(image, video) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    {# @TODO: will need to handle autoplay videos #}
+    <div class="post-landing-header__bg cell small-12">
+        <div class="post-landing-header__slide">
+            {% if image %}
+                {{ helper.image(image) }}
+            {% endif %}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro content(params) %}
+    {% set titleAlignmentClass = (params.alignment == 'left')
+        ? 'large-7 large-offset-1'
+        : 'medium-offset-6 medium-6' %}
+    {% set blurbAlignmentClass = (params.alignment == 'left')
+        ? 'medium-7 medium-offset-3 large-5 large-offset-2'
+        : 'medium-offset-7 medium-5' %}
+
+    <div class="post-landing-header__content cell small-12">
+        <div class="post-landing-header__row grid-x">
+            <h1 class="post-landing-header__title cell small-12 {{ titleAlignmentClass }} u-style-weight-bold u-style-display-xxl">{{ params.title|raw }}</h1>
+            <div class="post-landing-header__blurb cell small-12 {{ blurbAlignmentClass }} u-style-weight-regular u-style-body-4">{{ params.body|raw }}</div>
+        </div>
+    </div>
+{% endmacro %}

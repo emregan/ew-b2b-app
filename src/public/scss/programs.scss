@@ -1,0 +1,57 @@
+/*----------------------------------------------------*/
+/*  Vendors
+/*----------------------------------------------------*/
+/** Foundation */
+@import 'foundation-sites/scss/foundation';
+/** Slick Carousel */
+@import 'slick-carousel/slick/slick.scss';
+
+/*----------------------------------------------------*/
+/*  Core Styles
+/*----------------------------------------------------*/
+@import './pages/program/programs-variables';
+@import './_shared/shared';
+
+/*----------------------------------------------------*/
+/*  Foundation styles
+/*----------------------------------------------------*/
+@include foundation-xy-grid-classes;
+@include foundation-flex-classes;
+@include foundation-visibility-classes;
+@include foundation-typography;
+@include foundation-reveal;
+
+/*----------------------------------------------------*/
+/*  Global Styles
+/*----------------------------------------------------*/
+
+@import './pages/program/programs-global';
+
+/*----------------------------------------------------*/
+/*  Partials
+/*----------------------------------------------------*/
+@import './partials/primary-cta';
+@import './partials/group-label';
+@import './partials/line-break';
+@import './partials/sub-section-intro';
+@import './partials/large-carousel';
+@import './partials/proof-point';
+@import './partials/description';
+@import './partials/image-list';
+@import './partials/document';
+@import './partials/contextual-content-popup';
+@import './partials/program-header';
+@import './partials/feature-image-carousel';
+@import './partials/bio';
+@import './partials/expandable-list';
+@import './partials/pull-quote';
+@import './partials/section-intro-large';
+@import './partials/modal-bio';
+@import './partials/section-intro-small';
+@import './partials/blog-feature';
+@import './partials/blog-body';
+@import './partials/blog-rich-text';
+@import './partials/content-image-horiz';
+@import './partials/content-image-vert';
+@import './partials/sub-section-intro-image';
+@import './partials/events-feature';

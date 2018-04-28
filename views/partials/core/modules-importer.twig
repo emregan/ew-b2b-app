@@ -1,0 +1,189 @@
+{#
+    Blog detail modules
+#}
+{% macro articleRichText(params, requestCache) %}
+    {% import 'partials/modules/blog-rich-text.twig' as richText %}
+    {{ richText.blog(params, requestCache) }}
+{% endmacro %}
+
+{% macro twoImages(params, requestCache) %}
+    {% import 'partials/modules/blog-two-images.twig' as module %}
+    {{ module.main(params, requestCache) }}
+{% endmacro %}
+
+{% macro image(params, requestCache) %}
+    {% import 'partials/modules/blog-image.twig' as module %}
+    {{ module.main(params, requestCache) }}
+{% endmacro %}
+
+{% macro pullQuote(params, requestCache) %}
+    {% import 'partials/modules/pull-quote.twig' as module %}
+    {{ module.main(params, requestCache) }}
+{% endmacro %}
+
+{% macro imageCarousel(params, requestCache) %}
+    {% import 'partials/modules/blog-image-carousel.twig' as module %}
+    {{ module.main(params, requestCache) }}
+{% endmacro %}
+
+{% macro blogTags(params, requestCache) %}
+    {% import 'partials/modules/blog-tags.twig' as module %}
+    {{ module.main(params, requestCache) }}
+{% endmacro %}
+
+{% macro mediaContact(params, requestCache) %}
+    {% import 'partials/modules/media-contact.twig' as module %}
+    {{ module.main(params, requestCache) }}
+{% endmacro %}
+
+{#
+    Related content module
+#}
+{% macro relatedContent(params, requestCache) %}
+    {% import 'partials/modules/related-content.twig' as module %}
+    {{ module.main(params, requestCache) }}
+{% endmacro %}
+
+{#
+    Program Body Modules
+#}
+{% macro line(params, requestCache) %}
+    {% import 'partials/modules/line-break.twig' as module %}
+    {{ module.main(params, requestCache) }}
+{% endmacro %}
+
+{% macro proofPoint(params, requestCache) %}
+    {% import 'partials/modules/proof-point.twig' as module %}
+    {{ module.main(params, requestCache) }}
+{% endmacro %}
+
+{% macro primaryCta(params, requestCache) %}
+    {% import 'partials/modules/primary-cta.twig' as module %}
+    {{ module.main(params, requestCache) }}
+{% endmacro %}
+
+{% macro groupLabel(params, requestCache) %}
+    {% import 'partials/modules/group-label.twig' as module %}
+    {{ module.main(params, requestCache) }}
+{% endmacro %}
+
+{% macro imageAndList(params, requestCache) %}
+    {% import 'partials/modules/image-list.twig' as module %}
+    {{ module.main(params, requestCache) }}
+{% endmacro %}
+
+{% macro largeCarousel(params, requestCache) %}
+    {% import 'partials/modules/large-carousel.twig' as module %}
+    {{ module.main(params, requestCache) }}
+{% endmacro %}
+
+{% macro document(params, requestCache) %}
+    {% import 'partials/modules/document.twig' as module %}
+    {{ module.main(params, requestCache) }}
+{% endmacro %}
+
+{% macro description(params, requestCache) %}
+    {% import 'partials/modules/description.twig' as module %}
+    {{ module.main(params, requestCache) }}
+{% endmacro %}
+
+{% macro contextualContentPopup(params, requestCache) %}
+    {% import 'partials/modules/contextual-content-popup.twig' as module %}
+    {{ module.main(params, requestCache) }}
+{% endmacro %}
+
+{% macro bio(params, requestCache) %}
+    {% import 'partials/modules/bio.twig' as module %}
+    {{ module.main(params, requestCache) }}
+{% endmacro %}
+
+{% macro featureCarousel(params, requestCache) %}
+    {% import 'partials/modules/feature-image-carousel.twig' as module %}
+    {% set params = params|merge({'contentType': 'carousel'}) %}
+    {{ module.main(params, requestCache) }}
+{% endmacro %}
+
+{% macro featureImageBullets(params, requestCache) %}
+    {% import 'partials/modules/feature-image-carousel.twig' as module %}
+    {% set params = params|merge({'contentType': 'image'}) %}
+    {{ module.main(params, requestCache) }}
+{% endmacro %}
+
+{% macro expandableList(params, requestCache) %}
+    {% import 'partials/modules/expandable-list.twig' as expandableList %}
+    {{ expandableList.main(params, requestCache) }}
+{% endmacro %}
+
+{% macro blogFeature(params, requestCache) %}
+    {% import 'partials/modules/blog-feature.twig' as blogFeature %}
+    {{ blogFeature.main(params, requestCache) }}
+{% endmacro %}
+
+{% macro richText(params, requestCache) %}
+    {% import 'partials/modules/blog-rich-text.twig' as richText %}
+    {{ richText.program(params, requestCache) }}
+{% endmacro %}
+
+{% macro contentImageHorizontal(params, requestCache) %}
+    {% import 'partials/modules/content-image-horiz.twig' as module %}
+    {{ module.main(params, requestCache) }}
+{% endmacro %}
+
+{% macro contentImageVertical(params, requestCache) %}
+    {% import 'partials/modules/content-image-vert.twig' as module %}
+    {{ module.main(params, requestCache) }}
+{% endmacro %}
+
+{% macro programTypeFilter(params, requestCache) %}
+    {% import 'partials/modules/program-type-filter.twig' as module %}
+    {{ module.main(params, requestCache) }}
+{% endmacro %}
+
+{% macro eventsFeature(params, requestCache) %}
+    {% import 'partials/modules/events-feature.twig' as module %}
+    {{ module.main(params, requestCache) }}
+{% endmacro %}
+
+{#
+    Program Intro Modules
+#}
+{% macro sectionIntroLarge(params, requestCache) %}
+    {% import 'partials/modules/section-intro-large.twig' as module %}
+    {{ module.main(params, requestCache) }}
+{% endmacro %}
+
+{% macro sectionIntro(params, requestCache) %}
+    {% import 'partials/modules/section-intro-small.twig' as module %}
+    {{ module.main(params, requestCache) }}
+{% endmacro %}
+
+{% macro subSectionIntro(params, requestCache) %}
+    {% import 'partials/modules/sub-section-intro.twig' as module %}
+    {{ module.main(params, requestCache) }}
+{% endmacro %}
+
+{% macro subSectionIntroImage(params, requestCache) %}
+    {% import 'partials/modules/sub-section-intro-image.twig' as module %}
+    {{ module.main(params, requestCache) }}
+{% endmacro %}
+
+{#
+    Classroom Solutions Modules
+#}
+{% macro azFilter(params, requestCache) %}
+    {% import 'partials/modules/a-z-filter.twig' as module %}
+    {{ module.main(params, requestCache) }}
+{% endmacro %}
+
+
+
+
+
+
+
+
+
+{% macro myAccordion(params) %}
+    {% import 'partials/modules/accordion-example.twig' as module %}
+    {{ module.main(params) }}
+{% endmacro %}

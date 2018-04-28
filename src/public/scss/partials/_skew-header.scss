@@ -1,0 +1,92 @@
+.skew-header {
+    $c: &;
+    position: relative;
+
+    &__go-back {
+        text-transform: uppercase;
+        font-size: rem-calc(14px);
+        align-items: center;
+        margin-top: rem-calc(18px);
+        margin-bottom: rem-calc(88px);
+
+        @include breakpoint(medium) {
+            margin-top: rem-calc(40px);
+            margin-bottom: rem-calc(38px);
+        }
+
+        @include breakpoint(large) {
+            margin-top: rem-calc(65px);
+            margin-bottom: rem-calc(60px);
+        }
+
+        svg {
+            height: rem-calc(18px);
+            width: rem-calc(12px);
+            margin-right: rem-calc(15px);
+        }
+    }
+
+    &__spacer {
+        height: rem-calc(124px);
+
+        @include breakpoint(medium) {
+            height: rem-calc(96px);
+        }
+
+        @include breakpoint(large) {
+            height: rem-calc(142px);
+        }
+    }
+
+    &__image {
+        $gutter: map-safe-get($grid-container-padding, 'small');
+        $gutter: $gutter/2;
+
+        background-size: cover;
+        background-position: center center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        min-height: rem-calc(125px);
+        width: calc(100% + #{$gutter*2});
+        margin-left: rem-calc(-$gutter);
+        margin-right: rem-calc(-$gutter);
+        overflow: hidden;
+
+        @include breakpoint(medium) {
+            $gutter: map-safe-get($grid-container-padding, 'medium');
+            $gutter: $gutter/2;
+
+            min-height: rem-calc(350px);
+            width: calc(100% + #{$gutter*2});
+            margin-left: rem-calc(-$gutter);
+            margin-right: rem-calc(-$gutter);
+        }
+
+        @include breakpoint(large) {
+            min-height: rem-calc(445px);
+        }
+    }
+
+    &__angle {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        height: rem-calc(250px);
+        background: get-color('white');
+        transform: skewY(-11deg);
+        transform-origin: left;
+
+        #{$c}--right & {
+            transform: skewY(11deg);
+            transform-origin: right;
+        }
+
+        @include breakpoint(medium) {
+            display: block;
+        }
+    }
+}

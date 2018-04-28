@@ -1,0 +1,48 @@
+{% macro main(entries,requestCache) %}
+    {% if entries|length > 0 %}
+        <div class="pinned-articles pinned-articles--pins-{{entries|length}} grid-x grid-margin-x align-top" {# data-js-hook="ui-scroll-reveal-animation" #}>
+            {{ _self.layout(entries) }}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro layout(entries) %}
+    {% for entry in entries %}
+        <div class="pinned-articles__article pinned-articles__article--item-{{ loop.index }}" data-js-hook="pinned-articles-item ui-scroll-reveal-animation">
+            {{ _self.itemContent(entry, loop.index) }}
+        </div>
+    {% endfor %}
+{% endmacro %}
+
+{% macro itemContent(entry, index) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    {# {% import "partials/components/_svg-icons.twig" as svg %} #}
+    <div class="pinned-articles__row grid-x">
+        {% if entry.blogHeroImage %}
+        <div class="pinned-articles__image" {% if index == 1 %}data-js-hook="pin-articles-tablet-image"{% endif %}>
+            {{ helper.imageCover(entry.blogHeroImage, {
+                'class': 'pinned-articles__image-cover',
+            }) }}
+
+            {{ helper.image(entry.blogHeroImage, {
+                'class': 'pinned-articles__image-asset',
+            }) }}
+        </div>
+        {% endif %}
+
+        <div class="pinned-articles__content">
+            <a href="/blog/{{ entry.slug }}" class="pinned-articles__title u-color-black u-style-weight-bold">{{ entry.title|raw }}</a>
+            <div class="pinned-articles__summary">
+                {{ entry.summaryHtml|raw }}
+                <a href="/blog/{{ entry.slug }}" class="u-color-black u-style-weight-bold">Read more</a>
+            </div>
+            {% if entry.blogAuthor is not empty %}
+                <div class="pinned-articles__author u-style-weight-bold">{{ entry.blogAuthor.title|raw }}</div>
+            {% endif %}
+            {% if entry.blogAuthor is not empty and entry.blogAuthor.personTitle is not empty %}
+                <div class="pinned-articles__author-title">{{ entry.blogAuthor.personTitle|raw }}</div>
+            {% endif %}
+            <div class="pinned-articles__date u-style-weight-bold">{{ entry.postDate|date('F d, Y') }}</div>
+        </div>
+    </div>
+{% endmacro %}

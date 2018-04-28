@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "noImplicitAny": false,
+        "preserveConstEnums": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true
+    },
+    "files": [
+        "../../src/public/ts/types/index.d.ts",
+        "../../node_modules/foundation-sites/dist/js/foundation.d.ts"
+    ],
+    "exclude": [
+      "src/public/"
+    ]
+}

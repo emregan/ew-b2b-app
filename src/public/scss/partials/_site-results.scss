@@ -1,0 +1,48 @@
+.site-results{
+    margin-bottom: rem-calc(75px);
+
+
+    @include breakpoint(medium) {
+        padding-bottom: rem-calc(65px);
+    }
+
+    @include breakpoint(large) {
+        padding-bottom: rem-calc(95px);
+    }
+
+    &__item{
+        margin-bottom: rem-calc(55px);
+    }
+
+    &__content{
+        border-bottom-width: 3px;
+        border-bottom-style: solid;
+        padding-bottom: rem-calc(5px);
+
+        @include breakpoint(medium) {
+            padding-bottom: rem-calc(30px);
+        }
+
+        @include breakpoint(large) {
+            padding-bottom: rem-calc(55px);
+        }
+    }
+
+    &__title{
+        margin-bottom: rem-calc(5px);
+        line-height: rem-calc(28px);
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(10px);
+            line-height: rem-calc(32px);
+        }
+    }
+
+    &__body{
+        line-height: rem-calc(24px);
+
+        @include breakpoint(large) {
+            line-height: rem-calc(14px);
+        }
+    }
+}

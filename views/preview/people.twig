@@ -1,0 +1,9 @@
+{% extends 'layouts/_main.twig' %}
+{% import 'partials/components/bio-modal.twig' as bioModal %}
+
+{% set pageType = 'programs' %}
+
+{% block content %}
+    {{ bioModal.modalContent(data) }}
+    <script>document.body.className=document.body.className.replace(/^loading /, '')</script>
+{% endblock %}

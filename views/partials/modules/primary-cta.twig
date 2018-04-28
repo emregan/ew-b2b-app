@@ -1,0 +1,40 @@
+{#
+    params:{
+        text: String
+        buttonText: String
+        buttonLink: String
+    }
+#}
+{% macro main(params,requestCache) %}
+    {% if params.loopMeta.offset is defined %}
+        {% set offset = params.loopMeta.offset %}
+    {% elseif (params.loopMeta.centerModules) %}
+        {% set offset = 2 %}
+    {% else %}
+        {% set offset = 1 %}
+    {% endif %}
+
+    {% set columns = (params.loopMeta.columns is defined) ? params.loopMeta.columns : "10" %}
+    {% import "partials/core/ui-kit.twig" as kit %}
+    <div class="primary-cta grid-x grid-margin-x flex-dir-column" {% if params.loopMeta.slug %}id="{{ params.loopMeta.slug }}"{% endif %} data-js-hook="primary-cta">
+        <div class="primary-cta__text u-style-body-4 u-style-weight-bold cell small-12 large-{{columns}} large-offset-{{ offset }}">{{ params.text }}</div>
+        <div class="primary-cta__btn cell small-12 large-{{columns}} large-offset-{{ offset }}">
+            {{ kit.btnPrimary({
+                text: params.buttonText,
+                button: false,
+                location: params.buttonLink
+            }) }}
+        </div>
+
+        {% if params.showColorBlockAnimation and params.loopMeta.pageColor is defined %}
+            <div class="primary-cta__bg-shape-container u-background-{{ params.loopMeta.pageColor }}" data-js-hook="primary-cta-shape-container">{% spaceless %}
+                {# <div class="primary-cta__bg-shape-wrapper">
+                    <div class="primary-cta__bg-shape u-background-{{ params.loopMeta.pageColor }}" data-js-hook="primary-cta-shape-bg"></div>
+                </div>
+                <div class="primary-cta__bg-shape-wrapper">
+                    <div class="primary-cta__bg-shape primary-cta__bg-shape--bottom u-background-{{ params.loopMeta.pageColor }}" data-js-hook="primary-cta-shape-bg"></div>
+                </div> #}
+            {% endspaceless %}</div>
+        {% endif %}
+    </div>
+{% endmacro %}

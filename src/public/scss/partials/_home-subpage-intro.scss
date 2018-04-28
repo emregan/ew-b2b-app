@@ -1,0 +1,104 @@
+.home-subpage-intro {
+    margin-bottom: rem-calc(55px);
+
+    @include breakpoint(medium) {
+        margin-bottom: rem-calc(70px);
+    }
+
+    &__wrapper {
+
+        @include breakpoint(medium) {
+            @include flex-align($y: top);
+        }
+
+        @include breakpoint(large) {
+            @include flex-align($y: middle);
+        }
+    }
+
+    &__image {
+        line-height: 0;
+
+        @include breakpoint(medium) {
+            .home-subpage-intro--right & {
+                @include flex-order(1);
+                $negativeMargin: xy-cell-size(4);
+                margin-left: -$negativeMargin !important;
+            }
+        }
+
+        @include breakpoint(large) {
+            .home-subpage-intro--left & {
+                @include xy-cell-offset(1);
+            }
+
+            .home-subpage-intro--right & {
+                $negativeMargin: xy-cell-size(3);
+                margin-left: -$negativeMargin !important;
+            }
+        }
+    }
+
+    &__content {
+        position: relative;
+        padding: rem-calc(16px 22px 33px);
+
+        @include breakpoint(medium) {
+            padding: rem-calc(24px 32px 32px);
+
+            .home-subpage-intro--left & {
+                $negativeMargin: xy-cell-size(4);
+                margin-left: -$negativeMargin !important;
+            }
+        }
+
+        @include breakpoint(medium only) {
+            margin-top: rem-calc(80px);
+        }
+
+        @include breakpoint(large) {
+            padding: rem-calc(36px 34px);
+
+            .home-subpage-intro--left & {
+                $negativeMargin: xy-cell-size(3);
+                margin-left: -$negativeMargin !important;
+            }
+
+            .home-subpage-intro--right & {
+                @include xy-cell-offset(1);
+            }
+        }
+    }
+
+    &__cta {
+        margin-top: rem-calc(22px);
+    }
+
+    &__text {
+        line-height: rem-calc(22px);
+
+        @include breakpoint(medium) {
+            line-height: rem-calc(32px);
+        }
+    }
+
+    &__video {
+        display: block;
+    }
+
+    &__video-icon,
+    &__video-text {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    &__video-icon {
+        width: 40px;
+        height: 40px;
+        margin-right: rem-calc(18px);
+    }
+
+    &__video-text {
+        text-transform: uppercase;
+    }
+}

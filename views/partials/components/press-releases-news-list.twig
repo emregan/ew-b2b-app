@@ -1,0 +1,39 @@
+{% macro main(params,requestCache) %}
+    <div class="press-releases-news-list {{ params.class }}">
+        {# @TODO: Fix ajax for filters #}
+        {# {% if not requestCache.xhr and not getQuery(requestCache, 'tags') %} #}
+            <div class="press-releases-news-list__heading u-style-display-xxs u-style-weight-bold text-center">THE LATEST</div>
+        {# {% else %}
+            <div class="u-style-body-4">{{ data|length }} Results</div>
+        {% endif %} #}
+
+        <div class="press-releases-news-list__list">
+            {% for entry in params.data %}
+                {{ _self.entry(entry, requestCache) }}
+            {% endfor %}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro entry(entry, requestCache) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+
+    <article class="press-releases-news-list__entry grid-x grid-margin-x align-top" data-js-hook="ui-scroll-reveal-animation">
+        {% if entry.pressReleaseHeroImage %}
+            <div class="press-releases-news-list__image-wrapper cell small-12 medium-4 medium-offset-1 medium-order-2">
+                {{ helper.image(entry.pressReleaseHeroImage, {
+                    class: 'press-releases-news-list__image-asset',
+                }) }}
+            </div>
+        {% endif %}
+
+        <div class="press-releases-news-list__content cell small-12 medium-order-1 {% if entry.pressReleaseHeroImage %}medium-7 {% else %}medium-10{% endif %}">
+            <a href="{{ entry.url }}">
+                <h2 class="press-releases-news-list__title u-style-display-s u-color-black u-style-weight-bold">{{ entry.title|raw }}</h2>
+            </a>
+            <div class="press-releases-news-list__body u-style-body-2">{{ entry.summaryHtml|raw }}</div>
+            <time class="events-list__webinar-date u-tyle-body-2 u-style-weight-bold" datetime="{{ entry.eventDate|date('Y-m-dTh:i') }}">{{ entry.postDate|date('F d, Y') }}</time>
+        </div>
+
+    </article>
+{% endmacro %}

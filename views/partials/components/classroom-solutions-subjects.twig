@@ -1,0 +1,36 @@
+{% macro main(subjects,requestCache) %}
+    {% import "partials/components/_svg-icons.twig" as icon %}
+    {% set instanceID = 'classroom-solutions-subjects' %}
+
+    <div class="classroom-solutions-subjects">
+        <div class="classroom-solutions-subjects__container grid-container">
+            <div class="classroom-solutions-subjects__accordion">
+                  <span class="classroom-solutions-subjects__accordion-title u-background-gray5 grid-x align-middle" data-js-hook="classroom-solutions-subjects-trigger">
+                      <div class="classroom-solutions-subjects__accordion-title-text cell small-9 u-style-weight-extrabold">EXPLORE OUR OFFERINGS</div>
+                      <div class="classroom-solutions-subjects__accordion-arrow text-right cell small-3">{{ icon.back_arrow }}</div>
+                  </span>
+                {{ _self.subjectList(subjects, instanceID, requestCache) }}
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro subjectList(subjects, instanceID, requestCache) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    {% import "partials/components/_svg-icons.twig" as icon %}
+
+    <div class="classroom-solutions-subjects__wrapper u-background-gray5" data-js-hook="classroom-solutions-subjects-content">
+        <div class="classroom-solutions-subjects__items grid-x grid-margin-x text-center align-center">
+            {% for subject in subjects %}
+                <div class="classroom-solutions-subjects__item cell small-12 medium-6 large-4">
+                    <a href="{{ url(requestCache, ['classroom-solutions', subject.slug]) }}" class="classroom-solutions-subjects__link u-style-display-xs">{{ subject.title }}</a>
+                </div>
+            {% endfor %}
+            <div class="cell text-center small-12">
+                <div data-js-hook="classroom-solutions-subjects-close" class="classroom-solutions-subjects__close-icon">
+                    {{ icon.plus() }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}

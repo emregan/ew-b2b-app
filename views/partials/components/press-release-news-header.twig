@@ -1,0 +1,15 @@
+{% macro main(params,requestCache) %}
+    {% import "partials/components/_svg-icons.twig" as svg %}
+
+    <header class="press-release-news-header grid-x u-background-gold">
+        {% if params.back %}
+            <div class="cell">
+                <a href="{{ url(requestCache, [params.back.location]) }}" class="press-release-news-header__go-back u-style-weight-extrabold grid-x">{{ svg.back_arrow }} {{ params.back.text }}</a>
+            </div>
+        {% endif %}
+        <div class="press-release-news-header__title-wrap">
+            <h1 class="press-release-news-header__title u-style-display-xl u-style-weight-bold">{{ params.title }}</h1>
+        </div>
+        <div class="press-release-news-header__content u-style-body-2">{{ params.body|raw }}</div>
+    </header>
+{% endmacro %}

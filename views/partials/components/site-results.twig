@@ -1,0 +1,20 @@
+{% macro main(params,requestCache) %}
+    <div class="site-results grid-x grid-margin-x">
+        {% for item in params.data %}
+            {{ _self.item(item) }}
+        {% endfor %}
+    </div>
+{% endmacro %}
+
+{% macro item(item) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+
+    {% set title = item.pressReleaseTitle|raw %}
+
+    <div class="site-results__item cell small-12" data-js-hook="ui-scroll-reveal-animation">
+        <div class="site-results__content grid-x u-border-gray4">
+            <a href="/about-us/press-releases/{{ item.slug }}" class="site-results__title cell small-12 medium-10 u-style-display-s u-style-weight-bold">{{ title }}</a>
+            {# <div class="site-results__body cell small-12 medium-10 u-style-body-2">{{ excerpt|raw }}</div> #}
+        </div>
+    </div>
+{% endmacro %}

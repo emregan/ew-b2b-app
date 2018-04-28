@@ -1,0 +1,58 @@
+{% set pageType = 'blog' %}
+{% set baseUrl = '/blog' %}
+
+{% macro main(data, requestCache) %}
+    {% import 'partials/core/modules-importer.twig' as modules %}
+    {% import 'partials/core/components-importer.twig' as components %}
+
+    {% set headerData = {
+        pageType: 'blog',
+        heroImage: data.heroImage,
+        title: data.title,
+        back: backLink(data.relatedPage),
+        hideDate: true
+    } %}
+
+    <main>
+        {{ components.blogDetailHeader(headerData, requestCache) }}
+
+        <article class="blog-content" data-gtm-page-override="misc">
+
+            <div class="blog-content__bottom grid-x grid-margin-x align-center">
+                {% if data.introBody %}
+                    {% set topBodyModule = {
+                        text: data.introBody,
+                        classes: 'blog-body--bottom large-offset-3'
+                    } %}
+
+                    {{ attribute(modules, 'articleRichText', [topBodyModule, requestCache]) }}
+                {% endif %}
+
+                {% if data.bodyContainer %}
+
+                    {% for bodyModule in data.bodyContainer %}
+                        {% if bodyModule.type == 'articleRichText' %}
+                            {% set bodyModule = bodyModule|merge({
+                                classes: 'blog-body--bottom large-offset-3'
+                            }) %}
+                        {% endif %}
+
+                        {% set newAttr = {
+                            'loopMeta': {
+                                'centerModules': true,
+                            },
+                        } %}
+                        {{ attribute(modules, bodyModule.type, [bodyModule|merge(newAttr), requestCache]) }}
+
+                    {% endfor %}
+
+                {% endif %}
+
+                {% if data.blogTags|length > 0 %}
+                    {{ modules.blogTags({ tags: data.blogTags }, requestCache) }}
+                {% endif %}
+            </div>
+
+        </article>
+    </main>
+{% endmacro %}

@@ -1,0 +1,23 @@
+{% macro main(params,requestCache) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    {% import "partials/core/ui-kit.twig" as kit %}
+
+    {{ helper.modalOpen({
+        class: 'modal',
+        id: 'bulk-purchasing-modal',
+    }) }}
+
+        <div class="modal__heading u-style-weight-bold u-style-display-m">Bulk Purchasing</div>
+
+        <div class="modal__description">
+            <p>For inquiries concerning bulk purchases for corporate use, sales incentives, or nonprofit sales, please email our Special Sales department at <a href="mailto:TradeSales@hmhco.com">TradeSales@hmhco.com</a>.</p>
+        </div>
+
+        <div class="modal__heading u-style-weight-bold u-style-display-m">Cover Images and Reading Guides</div>
+
+        <div class="modal__description">
+            <p>Download <a href="https://hmhco.box.com/s/njsttavv47hu3f3o2uuk1waxyxo8wtoh" target="_blank">cover images here</a> or visit <a href="https://www.edelweiss.plus/#publisher=HM&folderID=8845&page=1" target="_blank">Edelweiss</a> for images, reading guides, and educator guides. For additional support, please contact your sales rep or email us at <a href="mailto:TradeHelp@hmhco.com">TradeHelp@hmhco.com</a>.</p>
+        </div>
+
+    {{ helper.modalClose() }}
+{% endmacro %}

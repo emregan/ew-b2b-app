@@ -1,0 +1,25 @@
+.shop-landing {
+    &--top {
+        margin-top: rem-calc(48px);
+
+        @include breakpoint(medium) {
+            margin-top: rem-calc(80px);
+        }
+
+        @include breakpoint(large) {
+            margin-top: rem-calc(168px);
+        }
+    }
+
+    &--bottom {
+        margin-bottom: rem-calc(120px);
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(88px);
+        }
+
+        @include breakpoint(large) {
+            margin-bottom: rem-calc(140px);
+        }
+    }
+}

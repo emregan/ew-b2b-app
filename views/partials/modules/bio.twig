@@ -1,0 +1,43 @@
+{#
+    params:[{
+        personImage: Asset
+        personTitle: RichText
+        personBio: RichText
+    }]
+#}
+{% macro main(params,requestCache) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    {% import 'partials/components/bio-modal.twig' as bioModal %}
+    {% set alignment = (params.loopMeta.centerModules) ? 'align-right' : 'align-center' %}
+    {% set srID = random() %}
+
+    {{ helper.nestedLayoutOpen({
+        name: 'bio',
+        align: alignment,
+        id: params.loopMeta.slug
+    }) }}
+        {% for bio in params.people %}
+            {{ _self.person(bio, srID) }}
+        {% endfor %}
+    {{ helper.nestedLayoutClose() }}
+
+    {{ bioModal.main(params) }}
+{% endmacro %}
+
+{% macro person(params, srID) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    <div class="bio__person cell small-12 medium-4 large-3" data-bio-slug="{{ params.slug }}" data-js-hook="ui-scroll-reveal-animation open-bio" data-sequence-id="{{ srID }}">
+        {% if params.personImage %}
+        <div class="bio__image">
+            {{ helper.imageCover(params.personImage, {
+                'class': 'bio__image-cover',
+            }) }}
+        </div>
+        {% endif %}
+        <div class="bio__content">
+            <div class="bio__name u-style-display-s u-style-weight-bold">{{ params.title|raw }}</div>
+            <div class="bio__title u-style-body-2">{{ params.personTitle|raw }}</div>
+        </div>
+    </div>
+{% endmacro %}
+

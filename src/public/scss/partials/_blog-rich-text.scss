@@ -1,0 +1,117 @@
+.blog-rich-text {
+
+    // .blog-body--program & {
+    //     text-align: center;
+    // }
+
+    &__drop-cap {
+        display: inline-block;
+        line-height: 0;
+        margin-right: rem-calc(2px);
+    }
+
+    img {
+        width: 100%;
+        height: auto;
+    }
+
+    a {
+        text-decoration: underline;
+    }
+
+    p {
+        font-size: rem-calc(14px);
+        line-height: rem-calc(24px);
+
+        @include breakpoint(medium) {
+            font-size: rem-calc(16px);
+            line-height: rem-calc(28px);
+        }
+
+        .page-events & {
+            text-align: left;
+
+            @include breakpoint(medium) {
+                font-size: rem-calc(16px);
+                line-height: rem-calc(28px);
+            }
+        }
+    }
+
+    // Fixes overlap when there's an image or text before drop-cap
+    p ~ p > .blog-rich-text__drop-cap {
+        line-height: 1;
+        margin-bottom: rem-calc(-12px);
+    }
+
+    h1 {
+        font-weight: bold;
+        font-size: rem-calc(66px);
+        line-height: rem-calc(70px);
+
+        .page-events & {
+            font-size: rem-calc(16px);
+            line-height: rem-calc(20px);
+            text-align: left;
+
+            @include breakpoint(medium) {
+                font-size: rem-calc(18px);
+                line-height: rem-calc(22px);
+            }
+        }
+    }
+
+    h2 {
+        font-weight: bold;
+        font-size: rem-calc(50px);
+        line-height: rem-calc(54px);
+    }
+
+    h3 {
+        font-weight: bold;
+        font-size: rem-calc(38px);
+        line-height: rem-calc(42px);
+    }
+
+    .page-press-releases & {
+        h3 {
+            font-size: rem-calc(21px);
+            line-height: rem-calc(25px);
+        }
+    }
+
+    h4 {
+        font-weight: bold;
+        font-size: rem-calc(28px);
+        line-height: rem-calc(32px);
+    }
+
+    h5 {
+        font-weight: bold;
+        font-size: rem-calc(21px);
+        line-height: rem-calc(25px);
+    }
+
+    h6 {
+        font-weight: bold;
+        font-size: rem-calc(16px);
+        line-height: rem-calc(20px);
+        text-transform: uppercase;
+    }
+
+    li {
+        display: inline-block;
+        position: relative;
+        padding-left: rem-calc(16px);
+
+        &:before {
+            content: '•';
+            position: absolute;
+            transform: translateX(-16px);
+        }
+    }
+
+    iframe {
+        width: 100%;
+    }
+}

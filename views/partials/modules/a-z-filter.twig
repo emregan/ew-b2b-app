@@ -1,0 +1,46 @@
+{% macro main(params,requestCache) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    {% import "partials/components/_svg-icons.twig" as icon %}
+
+    <div class="a-z-filter">
+        <div class="a-z-filter__container u-background-gray5 text-center">
+            <div class="a-z-filter__title">
+                {{ params.headerText }}
+            </div>
+
+            <div class="a-z-filter__program-list-wrapper grid-x" data-js-hook="a-z-filter__program-list-wrapper">
+                {# <div class="a-z-filter__letter-filter grid-x large-8 large-offset-2 grid-margin-x align-center">
+                    {% set filterOptions = [
+                        {title: "A-D", letters: '["a","b","c","d"]'},
+                        {title: "E-H", letters: '["e","f","g","h"]'},
+                        {title: "I-L", letters: '["i","j","k","l"]'},
+                        {title: "M-P", letters: '["m","n","o","p"]'},
+                        {title: "Q-T", letters: '["q","r","s","t"]'},
+                        {title: "U-Z", letters: '["u","v","w","x","y","z"]'}
+                    ] %}
+                    {% for filterOption in filterOptions %}
+                        {{ _self.letterFilterOption(filterOption, '') }}
+                    {% endfor %}
+                </div> #}
+                <div class="grid-x large-12 cell text-left a-z-filter__program-list">
+                    {# Using slug since title is richText #}
+                    {% for program in params.programs %}
+                        <a href="/programs/{{program.slug}}" class="a-z-filter__program-link cell large-3 medium-4 small-12" data-letter="{{program.title|striptags|first|lower}}" data-js-hook="a-z-filter__item-link">
+                            {{ program.title|striptags|raw }}
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div data-js-hook="a-z-filter__expand-icon" class="a-z-filter__expand-icon">
+                {{ icon.plus() }}
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro letterFilterOption(option, extraClass) %}
+    <div class="a-z-filter__letter-filter-option {{extraClass}}" data-js-hook="a-z-filter__filter-option" data-letters="{{option.letters}}">
+        {{ option.title }}
+    </div>
+{% endmacro %}

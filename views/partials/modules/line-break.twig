@@ -1,0 +1,9 @@
+{% macro main(params,requestCache) %}
+    {% set offset = (params.loopMeta.centerModules) ? 'large-offset-2' : '' %}
+    {% set largeColumns = (params.loopMeta.centerModules) ? 'large-10' : '' %}
+    <div class="grid-x">
+        <div class="line-break cell {{ offset }} {{ largeColumns }}"
+            {% if params.loopMeta.slug %}id="{{ params.loopMeta.slug }}"{% endif %}
+        ></div>
+    </div>
+{% endmacro %}

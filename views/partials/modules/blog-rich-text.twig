@@ -1,0 +1,28 @@
+{# Params: {
+    dropCap: Boolean
+    text: Object,
+    size: String,
+    classes: String
+} #}
+{% macro blog(params,requestCache) %}
+    {% set size = params.size|default('medium-8 medium-offset-2 large-6') %}
+    <div class="blog-body blog-body--blog cell {{ size }} {{ params.classes }}">
+        {{ _self.content(params) }}
+    </div>
+{% endmacro %}
+
+
+{% macro program(params,requestCache) %}
+    {% set offset = (params.loopMeta.centerModules) ? 'medium-offset-2 large-offset-4' : 'large-offset-3' %}
+    {% set size = (params.size is defined) ? params.size : 'medium-8 large-6 '~offset %}
+    <div class="blog-body blog-body--program grid-x grid-margin-x {{ params.classes }}" data-js-hook="ui-scroll-reveal-animation">
+        <div class="blog-body__cell cell {{size }}">
+            {{ _self.content(params) }}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro content(params) %}
+    {% set dropCap = (params.dropCap is defined) ?: false %}
+    <div class="blog-rich-text text-{{ params.alignment|default('center') }}" data-js-hook="rich-text" data-gtm-page-wordCount="wordCount()" data-drop-cap={{ dropCap }}>{{ params.text|raw }}</div>
+{% endmacro %}

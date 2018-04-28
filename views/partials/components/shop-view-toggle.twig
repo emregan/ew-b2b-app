@@ -1,0 +1,27 @@
+{% macro main(showFor,requestCache) %}
+    {% import "partials/core/ui-kit.twig" as kit %}
+
+    <div class="shop-view-toggle cell medium-1 offset-medium-2 large-12 {{ showFor }} flex-container align-right" data-js-hook="shop-view-toggle">
+        <div class="shop-view-toggle__view">
+            {{ kit.navIcon({
+                icon: 'gridView',
+                selected: true,
+                color: 'black',
+                attributes: {
+                'data-js-hook': 'shop-view-button',
+                    'data-view': 'grid',
+                }
+            }) }}
+        </div>
+        <div class="shop-view-toggle__view">
+                {{ kit.navIcon({
+                icon: 'listView',
+                color: 'black',
+                attributes: {
+                'data-js-hook': 'shop-view-button',
+                    'data-view': 'list',
+                }
+            }) }}
+        </div>
+    </div>
+{% endmacro %}

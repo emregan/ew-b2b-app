@@ -1,0 +1,58 @@
+{#
+params: {
+    slides: [{
+        image: Asset
+        text: String
+        description: RichText
+        cta: FruitLinkIt
+    }]
+}
+#}
+{% macro main(params,requestCache) %}
+    {% set gridClasses = (params.loopMeta.centerModules) ? 'grid-x grid-margin-x align-right' : '' %}
+    {% set srID = random() %}
+    {% set innerAlign =  (params.loopMeta.centerModules and params.slides.length == 1) ? 'align-center' : '' %}
+
+    {% if params.loopMeta.centerModules %}
+        {% if params.slides.length == 1 %}
+            {% set innerAlign = 'align-center' %}
+        {% endif %}
+    {% else %}
+        {% if params.slides.length < 3 %}
+            {% set innerAlign = 'align-center' %}
+        {% endif %}
+    {% endif %}
+
+    <div class="content-image-vert {{ gridClasses }}" data-magellan-target="{{ params.loopMeta.slug }}" id="{{ params.loopMeta.slug }}">
+        <div class="content-image-vert__wrapper grid-x grid-margin-x {{ innerAlign }}">
+            {% for slide in params.slides %}
+                {{ _self.item(slide, srID) }}
+            {% endfor %}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro item(slide, srID) %}
+    {% import "partials/core/ui-kit.twig" as kit %}
+    {% import 'partials/core/helpers.twig' as helper %}
+
+    <div class="content-image-vert__item cell small-12 medium-6 large-4" data-js-hook="ui-scroll-reveal-animation" data-sequence-id="{{ srID }}">
+        {% if slide.image %}
+            <div class="content-image-vert__image">
+                {{ helper.image(slide.image) }}
+            </div>
+        {% endif %}
+        {% if slide.text %}<div class="content-image-vert__text u-style-weight-bold u-style-display-xs">{{ slide.text }}</div>{% endif %}
+        {% if slide.description %}<div class="content-image-vert__description u-style-body-2">{{ slide.description|raw }}</div>{% endif %}
+        {% if slide.cta %}
+            <div class="content-image-vert__cta">
+                {{ kit.btnPrimary({
+                    text: slide.cta.text,
+                    button: false,
+                    location: slide.cta.url,
+                    target: slide.cta.target,
+                }) }}
+            </div>
+        {% endif %}
+    </div>
+{% endmacro %}

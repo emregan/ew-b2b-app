@@ -1,0 +1,29 @@
+{% macro navigation(params, requestCache) %}
+    {% import 'partials/components/navigation.twig' as component %}
+    {{ component.main(params, requestCache) }}
+{% endmacro %}
+
+{% macro footer(params, requestCache) %}
+    {% import 'partials/components/footer.twig' as component %}
+    {{ component.main(params, requestCache) }}
+{% endmacro %}
+
+{% macro pagination(params, requestCache) %}
+    {% import 'partials/components/pagination.twig' as component  %}
+    {{ component.main(params, requestCache) }}
+{% endmacro %}
+
+{% macro orderPageHeader(params, requestCache) %}
+    {% import 'partials/components/order-page-header.twig' as component  %}
+    {{ component.main(params, requestCache) }}
+{% endmacro %}
+
+{% macro orderHistoryList(params, requestCache) %}
+    {% import 'partials/components/order-page-history-list.twig' as component %}
+    {{ component.main(params, requestCache) }}
+{% endmacro %}
+
+{% macro orderDetail(params, requestCache) %}
+    {% import 'partials/components/order-page-detail.twig' as component %}
+    {{ component.main(params, requestCache) }}
+{% endmacro %}

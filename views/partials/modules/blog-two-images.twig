@@ -1,0 +1,25 @@
+{#
+Params: {
+    slides: Array
+}
+#}
+{% macro main(params,requestCache) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    <div class="blog-two-images cell grid-x grid-margin-x align-middle">
+        {% for image in params.slides %}
+            {% if loop.index == 1 %}
+                {% set imageIndex = 'first medium-7 large-5 large-offset-2' %}
+            {% else %}
+                {% set imageIndex = 'second medium-4 large-3' %}
+            {% endif %}
+
+            <div class="blog-two-images__slide blog-two-images__slide--{{ imageIndex }} cell">
+                {{ helper.image(image.image, {
+                    class: 'blog-two-images__image',
+                    alt: image.filename,
+                }) }}
+                <p class="blog-two-images__caption u-style-body-2">{{ image.caption }}</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endmacro %}

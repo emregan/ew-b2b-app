@@ -1,0 +1,10 @@
+{% macro main(params,requestCache) %}
+    {% import 'partials/core/components-importer.twig' as component %}
+
+    <div class="cell large-9">
+
+        {{ component.shopFilters(params, requestCache)}}
+        {{ component.shopResultsContent(params, requestCache) }}
+
+    </div>
+{% endmacro %}

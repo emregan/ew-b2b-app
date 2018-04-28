@@ -1,0 +1,5 @@
+// Add padding to all sub-sections except the first one
+// .program-section:nth-child(n+3) {
+.program-section {
+    padding-top: rem-calc(175px);
+}

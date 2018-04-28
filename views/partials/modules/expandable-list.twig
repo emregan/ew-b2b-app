@@ -1,0 +1,33 @@
+{% macro main(params,requestCache) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    {% set instanceID = random() %}
+    {% set offset = (params.loopMeta.centerModules) ? 'large-offset-2' : '' %}
+
+    <div class="expandable-list grid-x grid-margin-x align-center" {% if params.loopMeta.slug %}id="{{ params.loopMeta.slug }}"{% endif %}>
+        <div class="expandable-list__wrapper accordion cell small-12 large-8 {{ offset }}" data-accordion="{{ instanceID }}" data-allow-all-closed="true">
+            {% for outcome in params.outcomes %}
+                {{ _self.item(outcome, instanceID, loop.index, params.loopMeta.pageColor) }}
+            {% endfor %}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro item(params, instanceID, index, pageColor) %}
+    {% import "partials/components/_svg-icons.twig" as svg %}
+
+    <div class="expandable-list__item accordion-item grid-x align-middle text-center u-background-{{ pageColor }}" data-js-animate="expandable-list-anime" data-accordion-item>
+        {# <div class="expandable-list__content cell small-12 text-center"> #}
+        <a href="#" rel="nofollow" class="expandable-list__visible accordion-title cell small-12" id="{{ instanceID }}-{{ index }}-label" data-js-hook="expandable-list-open">
+            <div class="expandable-list__visible-content grid-x align-middle">
+                <div class="expandable-list__index cell u-style-weight-bold u-color-{{ pageColor }}">{{ params.number }}</div>
+                <div class="expandable-list__header-text cell u-style-weight-bold">{{ params.headerText|raw }}</div>
+            </div>
+        </a>
+
+        <div class="expandable-list__hidden accordion-content cell small-12" data-tab-content id="{{ instanceID }}-{{ index }}" data-js-hook="expandable-list-content">
+            <div class="expandable-list__sub-text u-style-body-1">{{ params.subText|raw }}</div>
+            <div class="expandable-list__close" data-js-hook="expandable-list-close">{{ svg.cross('white') }}</div>
+        </div>
+        {# </div> #}
+    </div>
+{% endmacro %}

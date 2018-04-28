@@ -1,0 +1,30 @@
+{# params:{
+    alignment: String
+    leadText: String
+    subText: RickText
+    bodyCopy: RickText
+} #}
+{% macro main(params,requestCache) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    {% set srID = random() %}
+    {% set hTag = params.loopMeta.heading|default('h2') %}
+    {% set offset = (params.loopMeta.centerModules) ? 'large-offset-2' : 'large-offset-1' %}
+
+    <div class="section-intro-small grid-x grid-padding-x" {% if params.loopMeta.slug %}id="{{ params.loopMeta.slug }}"{% endif %}>
+        <div class="section-intro-small__image-wrapper section-intro-small__image-wrapper--{{params.alignment }} cell medium-8 large-6 {{ offset }}" data-js-hook="ui-scroll-reveal-animation" data-sequence-id="{{ srID }}">
+            <div class="section-intro-small__image">
+                {% if params.image %}
+                    {{ helper.image(params.image, {
+                        'class': 'section-intro-small__image-asset',
+                    }) }}
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="section-intro-small__content section-intro-small__content--{{params.alignment }} cell medium-7 large-5 {{ offset }}" data-js-hook="ui-scroll-reveal-animation" data-sequence-id="{{ srID }}">
+            <{{ hTag }} class="section-intro-small__title u-style-display-xxl u-style-weight-bold">{{ params.leadText|raw }}</{{ hTag }}>
+            <div class="section-intro-small__headline u-style-display-m">{{ params.subText|raw }}</div>
+            <div class="section-intro-small__body u-style-body-1">{{ params.bodyCopy|raw }}</div>
+        </div>
+    </div>
+{% endmacro %}

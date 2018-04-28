@@ -1,0 +1,40 @@
+/*----------------------------------------------------*/
+/*  Vendors
+/*----------------------------------------------------*/
+/** Foundation */
+@import 'foundation-sites/scss/foundation';
+
+/*----------------------------------------------------*/
+/*  Core Styles
+/*----------------------------------------------------*/
+@import './pages/program/programs-variables';
+@import './_shared/shared';
+
+/*----------------------------------------------------*/
+/*  Foundation styles
+/*----------------------------------------------------*/
+@include foundation-xy-grid-classes;
+@include foundation-flex-classes;
+@include foundation-visibility-classes;
+@include foundation-typography;
+@include foundation-reveal;
+
+/*----------------------------------------------------*/
+/*  Global Styles
+/*----------------------------------------------------*/
+
+
+/*----------------------------------------------------*/
+/*  Partials
+/*----------------------------------------------------*/
+@import './partials/shop-landing';
+@import './partials/shop-header';
+@import './partials/shop-categories';
+@import './partials/shop-results-sidebar';
+@import './partials/shop-results-filter';
+@import './partials/shop-results-content';
+@import './partials/product-detail';
+@import './partials/sign-in-modal';
+@import './partials/content-image-horiz';
+@import './partials/modal';
+@import './partials/shop-view-toggle';

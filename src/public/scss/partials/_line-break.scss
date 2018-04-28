@@ -1,0 +1,21 @@
+.line-break {
+    height: rem-calc(3px);
+    width: 100%;
+    background: get-color('gray4');
+    margin-bottom: rem-calc(96px);
+    margin-top: rem-calc(31px);
+
+    @include breakpoint(medium) {
+        .page-classroom-solutions & {
+            margin-top: rem-calc(96px);
+        }
+    }
+
+    @include breakpoint(large) {
+        .page-programs &,
+        .page-about & {
+            width: xy-cell-size(10 of 12);
+            margin-left: xy-cell-size(2 of 12);
+        }
+    }
+}

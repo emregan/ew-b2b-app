@@ -1,0 +1,50 @@
+/*----------------------------------------------------*/
+/*  List of all shared variables and maps
+/*----------------------------------------------------*/
+
+// Indexed Array of font sizes
+$font_sizes:(
+    'display-xxxl': ( 'small':  90px, 'medium': 105px, 'large': 150px),
+    'display-xxl':  ( 'small':  54px, 'medium': 72px,  'large': 88px),
+    'display-xl':   ( 'small':  36px, 'medium': 56px,  'large': 66px),
+    'display-l':    ( 'small':  28px, 'medium': 38px,  'large': 50px),
+    'display-m':    ( 'small':  24px, 'medium': 28px,  'large': 38px),
+    'display-s':    ( 'small':  18px, 'medium': 24px,  'large': 28px),
+    'display-xs':   ( 'small':  16px, 'medium': 18px,  'large': 21px),
+    'display-xxs':  ( 'small':  14px, 'medium': 16px,  'large': 16px),
+    'body-1':       ( 'small':  14px, 'medium': 16px,  'large': 16px),
+    'body-2':       ( 'small':  13px, 'medium': 14px,  'large': 14px),
+    'body-3':       ( 'small':  24px, 'medium': 28px,  'large': 38px),
+    'body-4':       ( 'small':  16px, 'medium': 18px,  'large': 21px),
+);
+
+/**
+ * max container width
+ */
+$max_width: (
+    'desktop': 1300px,
+    'tablet': 100%,
+);
+
+/**
+ * Default typography
+ */
+$default-font-size: 16px;
+
+
+$fontWeights: (
+    'regular':      400,
+    'bold':         700,
+    'extrabold':    800,
+);
+
+$moduleMargin: rem-calc(65px);
+
+/**
+ * There are ocations that content is fixed below the nav but not part of the nav
+ * There variables could change and should be used to position fixed element below nav
+ */
+$headerShrink: ( 'small':  60px );
+$headerExpanded: ( 'small':  60px, 'medium': 92px );
+
+$programMobSubNav: 50px;

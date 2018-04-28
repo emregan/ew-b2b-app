@@ -1,0 +1,22 @@
+.blog-body {
+    margin-bottom: rem-calc(40px);
+    width: 100%;
+
+    &--program {
+        margin-bottom: $moduleMargin;
+    }
+
+    @include breakpoint(medium) {
+        margin-bottom: rem-calc(50px);
+    }
+
+    &--top {
+        @include flex-order(3);
+
+        @include breakpoint(medium) {
+            @include flex-order(2);
+        }
+    }
+
+    &--bottom {}
+}

@@ -1,0 +1,51 @@
+{#
+Params: {
+    speakers: String
+    eventRegistrationUrl: String
+    eventDate: Date
+}
+#}
+{% macro main(params,requestCache) %}
+    {% set isPastEvent = date(params.eventDate) < date() %}
+    <div class="event-meta cell medium-{{ isPastEvent ? 11 : 10 }} medium-offset-1 large-4 large-offset-1">
+        <div class="event-meta__row grid-x">
+            {{ _self.register(params.eventRegistrationUrl, isPastEvent, requestCache) }}
+
+            {% if speakers|length > 0 %}
+                {{ _self.speakers(params.speakers) }}
+            {% endif %}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro speakers(speakers) %}
+    <div class="event-meta__speakers cell small-12 medium-6 large-12">
+        <div class="event-meta__title u-style-display-xs">Speakers</div>
+        {% for speaker in speakers %}
+            <div class="event-meta__speaker u-style-weight-bold u-style-display-s">{{speaker.title|raw }}</div>
+        {% endfor %}
+    </div>
+{% endmacro %}
+
+{% macro register(eventRegistrationUrl, isPastEvent, requestCache) %}
+    {% import "partials/core/ui-kit.twig" as kit %}
+
+    <div class="event-meta__register cell small-12 medium-6 large-12">
+        {% if isPastEvent %}
+            <div class="event-meta__past">
+                <div class="event-meta__past-text u-style-body-4 u-style-weight-bold">This event has passed.</div>
+                {{ kit.btnPrimary({
+                    text: 'VIEW UPCOMING EVENTS',
+                    button: false,
+                    location: url(requestCache, ['/events-webinars'])
+                }) }}
+            </div>
+        {% else %}
+            {{ kit.btnPrimary({
+                text: 'Register now',
+                button: false,
+                location: eventRegistrationUrl
+            }) }}
+        {% endif %}
+    </div>
+{% endmacro %}

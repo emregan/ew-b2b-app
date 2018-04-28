@@ -1,0 +1,25 @@
+{% macro main(params,requestCache) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    {% import "partials/components/_svg-shapes.twig" as shape %}
+
+    <div class="sub-section-intro-image sub-section-intro-image--{{ params.alignment }}" data-magellan-target="{{ params.loopMeta.slug }}" id="{{ params.loopMeta.slug }}">
+        <div class="sub-section-intro-image__content grid-x grid-margin-x align-bottom">
+            <div class="sub-section-intro-image__image cell small-12 {# large-10 large-offset-2 #}">
+                <div class="sub-section-intro-image__image-wrapper">
+                    {{ helper.image(params.image, {
+                        'class': 'sub-section-intro-image__image-img',
+                    }) }}
+                    <div class="sub-section-intro-image__shape">{{ shape.module_slant('white') }}</div>
+                </div>
+            </div>
+            <div class="sub-section-intro-image__text cell small-12 medium-6 large-offset-2">
+                {% if params.headerText %}
+                    <{{params.loopMeta.heading}} class="sub-section-intro-image__title u-style-display-xxl u-style-weight-bold">{{ params.headerText }}</{{params.loopMeta.heading}}>
+                {% endif %}
+                {% if params.subText %}
+                    <div class="sub-section-intro-image__sub-title u-style-display-m">{{ params.subText }}</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endmacro %}

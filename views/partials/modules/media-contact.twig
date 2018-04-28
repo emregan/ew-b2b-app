@@ -1,0 +1,12 @@
+{% macro main(params,requestCache) %}
+    <div class="media-contact cell small-12 medium-5 medium-offset-2 large-3 large-offset-3">
+        <div class="media-contact__heading u-style-display-xs u-style-weight-bold">Media Contact</div>
+        {% for contact in params.contacts %}
+            <div class="media-contact__contact">
+                <div class="media-contact__name u-style-body-1 u-style-weight-bold">{{ contact.contactName }}</div>
+                <div class="media-contact__title u-style-body-2">{{ contact.contactTitle }}</div>
+                <a href="mailto:{{ contact.contactEmail }}" class="media-contact__email u-style-body-2">{{ contact.contactEmail }}</a>
+            </div>
+        {% endfor %}
+    </div>
+{% endmacro %}

@@ -1,0 +1,33 @@
+{% macro searchHeader(params, requestCache) %}
+    {% import "partials/components/_svg-icons.twig" as svg %}
+    <div class="search-header {{params.class}} grid-x align-center align-middle u-background-gray5">
+        <div class="search-header__cell cell small-12 text-center">
+            <div class="search-header__back text-left">
+                {% if params.slug %}
+                    <a href="/search{{ querystring(requestCache, {'term' : params.slug}) }}" class="flex-container align-middle">
+                        <span>{{ svg.back_arrow }}</span>
+                        <span class="u-style-body-2 u-color-black u-style-weight-bold">BACK TO ALL RESULTS</span>
+                    </a>
+                {% endif %}
+            </div>
+            <div class="search-header__text u-style-body-2 u-color-gray1 u-style-weight-bold">{{ params.text }}</div>
+            <div data-gtm-page-searchTerm="{{ params.query }}" class="search-header__query u-style-display-l">{{ params.query }}</div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro searchResultSum(params) %}
+    <div class="search-result-sum {% if params.seeMore %}search-result-sum--more{% endif %}" data-js-hook="ui-scroll-reveal-animation"
+        data-gtm-page-searchResults-numberOf{{ params.analytic }}="{{ params.total }}"
+    >
+        <div class="search-result-sum__box flex-container align-middle align-center">
+            <div class="search-result-sum__content text-center">
+                <div class="search-result-sum__results u-style-display-xs">{{ params.text }}</div>
+                {% if params.seeMore %}
+                    <a href="{{ params.url }}" class="search-result-sum__all u-style-body-2 u-style-weight-bold">SEE ALL</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+

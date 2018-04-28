@@ -1,0 +1,38 @@
+{% macro main(params,requestCache) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    {% import "partials/core/ui-kit.twig" as kit %}
+
+    <div class="search-bar {% if params.type %}search-bar--{{ params.type }}{% endif %} grid-x grid-margin-x align-center">
+        <div class="search-bar__wrapper {% if not params.legend %}search-bar__wrapper--no-legend{% endif %} grid-x grid-margin-x align-top small-12 align-center small-margin-collapse">
+            <form action="/search" class="search-bar__form cell small-10 medium-10 large-10" data-js-hook="search-bar-{{ params.type }}">
+                <fieldset class="search-bar__set">
+                    {% if params.legend %}
+                        <legend class="search-bar__legend u-style-weight-bold u-style-display-s">{{ params.legend}}</legend>
+                    {% endif %}
+
+                    {% set inputAttributes = { 'autocomplete': false } %}
+
+                    {% if params.value is defined %}
+                        {% set inputAttributes = inputAttributes|merge({
+                            value: params.value,
+                            'data-gtm-page-searchTerm': params.value
+                        }) %}
+                    {% endif %}
+
+                    {% set inputParams = {
+                        animate: false,
+                        label: params.label|default('Search by keyword'),
+                        name: params.name|default('keyword'),
+                        class: 'search-bar__email',
+                        attributes: inputAttributes
+                    } %}
+
+                    {{ kit.input(inputParams) }}
+
+                    <button type="submit" class="search-bar__submit u-style-weight-extrabold">Enter</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+{% endmacro %}

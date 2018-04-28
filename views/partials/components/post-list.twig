@@ -1,0 +1,57 @@
+{#
+params:{
+    data: Array
+    totalItems: number
+}
+#}
+{% macro main(params,requestCache) %}
+    <div class="post-list">
+        {% if params.totalItems %}
+            <div data-js-hook="ui-scroll-reveal-animation">
+                {% if not getQuery(requestCache, 'tags') and not getQuery(requestCache, 'page') %}
+                    <div class="post-list__heading u-style-display-xxs u-style-weight-bold text-center">THE LATEST</div>
+                {% else %}
+                    <div class="u-style-body-4">{{ params.totalItems }} Results</div>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        <div class="post-list__list">
+            {% for entry in params.data %}
+                <div data-js-hook="ui-scroll-reveal-animation">
+                    {{ _self.article(entry) }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro article(entry) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    {% set bodySize = entry.blogHeroImage ? 'small-12 medium-7' : 'small-12' %}
+    {% set imageSize = entry.blogHeroImage ? 'small-12 medium-4 medium-offset-1' : 'small-12' %}
+    <article class="post-list__entry grid-x grid-margin-x">
+
+        {% if entry.blogHeroImage %}
+            <div class="post-list__image cell {{ imageSize }}">
+                <a href="/blog/{{ entry.slug }}">
+                    {{ helper.image(entry.blogHeroImage) }}
+                </a>
+            </div>
+        {% endif %}
+
+        <div class="post-list__body cell {{ bodySize }}">
+            <a href="/blog/{{ entry.slug }}" class="post-list__title u-color-black u-style-display-s u-style-weight-bold">{{ entry.title|raw }}</a>
+            <div class="post-list__summary u-style-body-2">{{ entry.summaryHtml|raw }}</div>
+
+            {# @TODO replace with real author #}
+            {% if entry.blogAuthor %}
+            <div class="post-list__author u-style-body-1 u-style-weight-bold">{{ entry.blogAuthor.title|raw }}</div>
+            <div class="post-list__author-title u-style-body-2">{{ entry.blogAuthor.personTitle|raw }}</div>
+            {% endif %}
+
+            <div class="post-list__date u-style-body-2 u-style-weight-bold">{{ entry.postDate|date('F d, Y') }}</div>
+        </div>
+
+    </article>
+{% endmacro %}

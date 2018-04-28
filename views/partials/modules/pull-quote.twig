@@ -1,0 +1,53 @@
+{#
+Params: {
+    quote: String
+    authorName: String
+    authorTitle: String
+}
+#}
+{% macro main(params,requestCache) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    {% set srID = random() %}
+
+    <div class="pull-quote cell grid-x">
+        {% if params.image %}
+            <div class="pull-quote__image-wrapper cell medium-10 medium-offset-1 large-8 large-offset-2" data-js-hook="ui-scroll-reveal-animation" data-sequence-id="{{ srID }}">
+            {% if params.image %}
+                {{ helper.image(params.image, {
+                    class: 'pull-quote__image'
+                }) }}
+            {% endif %}
+            </div>
+        {% endif %}
+        <div class="pull-quote__content cell medium-8 medium-offset-2 large-8 large-offset-2" data-js-hook="ui-scroll-reveal-animation" data-sequence-id="{{ srID }}">
+            <blockquote class="pull-quote__quote">
+                <p class="u-style-display-s u-style-weight-bold">{{ params.text }}</p>
+                <footer>
+                    <cite>
+                        <span class="pull-quote__author u-style-display-s u-style-weight-bold">{{ params.authorName }}</span>
+                        <span class="pull-quote__title u-style-body-1">{{ params.authorTitle|raw }}</span>
+                    </cite>
+                </footer>
+            </blockquote>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro alternate(params) %}
+    {% import "partials/components/_svg-shapes.twig" as shape %}
+
+    <div class="pull-quote pull-quote--alt cell grid-x">
+        <div class="pull-quote__shape cell large-offset-1">{{ shape.hexagon }}</div>
+        <div class="pull-quote__content cell medium-8 medium-offset-2 large-8 large-offset-2">
+            <blockquote class="pull-quote__quote pull-quote__quote--alt">
+                <p class="u-style-display-s u-style-weight-bold">{{ params.text }}</p>
+                <footer>
+                    <cite>
+                        <span class="pull-quote__author u-style-display-s u-style-weight-bold">{{ params.authorName }}</span>
+                        <span class="pull-quote__title u-style-body-1">{{ params.authorTitle|raw }}</span>
+                    </cite>
+                </footer>
+            </blockquote>
+        </div>
+    </div>
+{% endmacro %}

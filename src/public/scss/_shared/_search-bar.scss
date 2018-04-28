@@ -1,0 +1,114 @@
+.search-bar {
+    position: relative;
+    z-index: 10;
+
+    &__wrapper {
+        background: get-color('white');
+        padding: rem-calc(25px 0 30px);
+        box-shadow: rem-calc(4px 12px 21px 0) rgba(0, 0, 0, 0.14);
+
+        .shop-search--open &,
+        .nav-search--open & {
+            box-shadow: none;
+        }
+
+        @include breakpoint(small only) {
+            .search-bar--navigation & {
+                padding: rem-calc(21px 0 36px);
+            }
+        }
+
+        @include breakpoint(medium) {
+            .nav-search--open & {
+                padding: rem-calc(50px 0 58px);
+            }
+        }
+
+        @include breakpoint(large) {
+            .nav-search--open & {
+                padding: rem-calc(55px 0 62px);
+            }
+        }
+
+        &--no-legend {
+            padding: rem-calc(3px 0 30px);
+
+            @include breakpoint(medium) {
+                padding: rem-calc(20px 0 47px);
+            }
+
+            @include breakpoint(large) {
+                padding: rem-calc(30px 0 50px);
+            }
+        }
+    }
+
+    &__legend {
+        line-height: rem-calc(28px);
+    }
+
+    &__set {
+        position: relative;
+    }
+
+    &__email {
+        width: 100%;
+        @include breakpoint(small only) {
+            .search-bar--navigation & {
+                height: rem-calc(25px) !important;
+            }
+        }
+    }
+
+    &__email-input {
+        font-size: rem-calc(17px);
+        line-height: rem-calc(24px);
+        padding-bottom: rem-calc(6px);
+        position: absolute;
+        left: 0;
+        right: 0;
+
+        [data-browser-name="IE"] &{
+            top: 0;
+        }
+
+        @include breakpoint(medium) {
+            padding-right: rem-calc(60px);
+            font-size: rem-calc(24px);
+            line-height: rem-calc(28px);
+        }
+
+        @include breakpoint(large) {
+            top: 0;
+            font-size: rem-calc(28px);
+            line-height: rem-calc(34px);
+        }
+    }
+
+    &__submit {
+        font-size: rem-calc(14px);
+        line-height: rem-calc(18px);
+        position: absolute;
+        bottom: rem-calc(14px);
+        right: 0;
+        appearance: none;
+        border: 0;
+        background: none;
+        text-transform: uppercase;
+
+        // @include breakpoint(small only) {
+        //     .search-bar--navigation & {
+        //         display: none;
+        //     }
+        // }
+
+        @include breakpoint(medium) {
+            bottom: rem-calc(16px);
+            letter-spacing: rem-calc(1px);
+        }
+
+        @include breakpoint(large) {
+            bottom: rem-calc(24px);
+        }
+    }
+}

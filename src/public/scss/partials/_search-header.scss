@@ -1,0 +1,59 @@
+.search-header{
+    $negativeMargin: map-safe-get($grid-container-padding, 'small');
+    $negativeMargin: ($negativeMargin / 2);
+
+    margin-left: rem-calc(-$negativeMargin);
+    margin-right: rem-calc(-$negativeMargin);
+    padding-left: rem-calc($negativeMargin);
+    padding-right: rem-calc($negativeMargin);
+
+    margin-bottom: rem-calc(52px);
+    height: rem-calc(195px);
+
+    &.search-header--no-spacing {
+        margin-bottom: rem-calc(0) !important;
+    }
+
+    @include breakpoint(medium) {
+        $negativeMargin: map-safe-get($grid-container-padding, 'medium');
+        $negativeMargin: ($negativeMargin / 2);
+        margin-left: rem-calc(-$negativeMargin);
+        margin-right: rem-calc(-$negativeMargin);
+        padding-left: rem-calc($negativeMargin);
+        padding-right: rem-calc($negativeMargin);
+        margin-bottom: rem-calc(56px);
+    }
+
+    @include breakpoint(large) {
+        // margin-left: 0;
+        // margin-right: 0;
+        margin-bottom: rem-calc(60px);
+    }
+
+    &__text{
+        line-height: rem-calc(16px);
+        margin-bottom: rem-calc(10px);
+        text-transform: uppercase;
+
+        @include breakpoint(medium) {
+            line-height: rem-calc(18px);
+        }
+    }
+
+    &__query{
+        line-height: rem-calc(34px);
+        text-transform: capitalize;
+
+        @include breakpoint(medium) {
+            line-height: rem-calc(46px);
+        }
+    }
+
+    &__back {
+        margin-bottom: rem-calc(10px);
+
+        span {
+            margin-right: rem-calc(10px);
+        }
+    }
+}

@@ -1,0 +1,137 @@
+.bio{
+    $hoverBezier: cubic-bezier(0.569, 0.093, 0.276, 0.935);
+    margin-bottom: $moduleMargin;
+
+    &__wrapper {
+        margin: 0;
+
+        @include breakpoint(large) {
+            $width: xy-cell-size(10 of 12);
+            width: $width;
+        }
+    }
+
+    &__person{
+        margin-bottom: rem-calc(30px);
+        cursor: pointer;
+        position: relative;
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(38px);
+        }
+
+        @include breakpoint(large) {
+            margin-bottom: rem-calc(48px);
+        }
+
+        &:before {
+            content: '';
+            position: absolute;
+            display: block;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            box-shadow: rem-calc(0 8px 16px 0) rgba(0, 0, 0, 0.09);
+            opacity:0;
+            transition: opacity 0.4s $hoverBezier;
+        }
+
+        &:hover:before {
+            opacity: 1
+        }
+    }
+
+    &__image,
+    &__content {
+        transition-property: opacity, transform;
+        transition-duration: 0.4s;
+        transition-timing-function: $hoverBezier;
+
+        .bio__person:hover & {
+            transform: translateY(rem-calc(-8px));
+        }
+    }
+
+    &__image{
+        width: 100%;
+        height: rem-calc(250px);
+        margin-bottom: rem-calc(10px);
+        position: relative;
+        opacity: 0.3;
+
+        .bio__person:hover & {
+            opacity: 1;
+        }
+
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(0);
+            height: rem-calc(195px);
+        }
+
+        .page-classroom-solutions &{
+            opacity: 0.3;
+            -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+            filter: grayscale(100%);
+        }
+    }
+
+    &__content {
+        position: relative;
+    }
+
+    &__content:before {
+        content: '';
+        position: absolute;
+        display: block;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-color: get-color('white');
+        z-index: 1;
+        transform-origin: bottom;
+        transform: scaleY(0);
+        transition: transform 0.4s $hoverBezier;
+
+        .bio__person:hover & {
+            transform: scaleY(1.08);
+        }
+    }
+
+    &__name{
+        margin-bottom: rem-calc(4px);
+        line-height: rem-calc(22px);
+        position: relative;
+        z-index: 2;
+
+        @include breakpoint(medium) {
+            line-height: rem-calc(28px);
+            margin-top: rem-calc(-20px);
+            margin-bottom: rem-calc(10px);
+            margin-left: rem-calc(15px);
+        }
+
+        @include breakpoint(large) {
+            margin-top: rem-calc(-25px);
+            line-height: rem-calc(32px);
+        }
+    }
+
+    &__title{
+        line-height: rem-calc(16px);
+        position: relative;
+        z-index: 2;
+
+        @include breakpoint(medium) {
+            line-height: rem-calc(18px);
+            margin-left: rem-calc(15px);
+        }
+
+        @include breakpoint(large) {
+            margin-left: rem-calc(18px);
+        }
+    }
+}

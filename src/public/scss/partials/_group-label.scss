@@ -1,0 +1,40 @@
+.group-label{
+    $gutter: map-get($grid-margin-gutters, large);
+    $gutter: calc(#{xy-cell-size(2 of 12)} + #{rem-calc($gutter)});
+    margin-bottom: $moduleMargin;
+    letter-spacing: rem-calc(2px);
+
+    @include breakpoint(medium) {
+        margin-top: rem-calc(120px);
+        margin-bottom: rem-calc(120px);
+    }
+
+    &__line{
+        width: rem-calc(26px);
+        height: rem-calc(2px);
+        background-color: get-color('gray4');
+        display: inline-block;
+        vertical-align: middle;
+
+        @include breakpoint(medium) {
+            width: rem-calc(62px);
+        }
+    }
+
+    &__text{
+        max-width: rem-calc(140px);
+        margin: 0 rem-calc(24px);
+        display: inline-block;
+        vertical-align: middle;
+        text-transform: uppercase;
+
+        @include breakpoint(medium) {
+            max-width: rem-calc(300px);
+        }
+
+        @include breakpoint(large) {
+            margin: 0 rem-calc(26px);
+            letter-spacing: rem-calc(3px);
+        }
+    }
+}

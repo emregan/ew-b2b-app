@@ -1,0 +1,572 @@
+{# Loading spinner  for buttons
+   Parent element needs position relative
+#}
+{% macro spinner(color) %}
+    {% set bgColor = color ? 'u-background-'~color : '' %}
+    <span class="ui-spinner {{ bgColor }} flex-container align-middle align-center">
+        <span class="ui-spinner__item ui-spinner__item--1"></span>
+        <span class="ui-spinner__item ui-spinner__item--2"></span>
+        <span class="ui-spinner__item ui-spinner__item--3"></span>
+    </span>
+{% endmacro %}
+
+
+{#
+    btnPrimary: {
+        text: String,
+        animate: boolean,
+        arrow: boolean,
+        button: boolean (use button tag or a tag if false),
+        target: boolean,
+        disable: [mouseEnter|mouseLeave|mouseDown|mouseUp]
+    }
+#}
+{% macro btnPrimary(params) %}
+{% spaceless %}
+    {% import "partials/components/_svg-icons.twig" as icon %}
+    {% set tagType = params.button|default(true) ? 'button' : 'a' %}
+    {% set class = (params.class|default(false)) ? params.class : '' %}
+
+    <div class="ui-btn-primary {{ class }}" {% if params.animate|default(true) %}data-js-animate="ui-btn-primary"{% endif %} {% if params.disable %}data-animate-disabled="{{ params.disable|join(' ') }}"{% endif %}>
+        <{{ tagType }} class="ui-btn-primary__btn" data-js-hook="ui-btn-primary__btn" {% if not params.button and params.location %}href="{{params.location}}"{% if params.target|default(false) %} target="_blank"{% endif %}{% endif %}>
+            {{ params.text }}
+
+            {% if params.arrow|default(true) %}
+                <span class="ui-btn-primary__svg ui-btn-primary__svg--direction{{ arrowDirection }}" data-js-hook="ui-btn-primary__svg">{{ icon.small_arrow }}</span>
+            {% endif %}
+        </{{ tagType }}>
+        <div class="ui-btn-primary__shadow" data-js-hook="ui-btn-primary__btn"></div>
+    </div>
+{% endspaceless %}
+{% endmacro %}
+
+{#
+    btnSecondary: {
+        text: String
+        button: boolean (use button tag or a tag if false),
+        animate: Boolean
+        disable: [mouseEnter|mouseLeave|mouseDown|mouseUp]
+        hook: String
+    }
+#}
+{% macro btnSecondary(params) %}
+    {% set tagType = (params.button|default(true)) ? 'button' : 'a' %}
+    {% set class = (params.class|default(false)) ? params.class : '' %}
+    {% set hook = (params.hook|default(false)) ? params.hook : '' %}
+    {% set submit = params.submit|default(false) %}
+    {% set attributes = params.attributes|default({}) %}
+
+    <{{ tagType }} class="ui-btn-secondary {{ class }}"{% if not params.button and params.location %}href="{{params.location}}"{% if params.target|default(false) %} target="_blank"{% endif %}{% endif %} {% if params.animate|default(true) %}data-js-animate="ui-btn-secondary"{% endif %} {% if params.disable %}data-animate-disabled="{{ params.disable|join(' ') }}"{% endif %} {% if hook %}data-js-hook="{{ hook }}"{% endif %}
+    data-text="{{ params.text }}"{% if submit %} type="submit"{% endif %}{% for attribute, value in attributes %} {{ attribute }}="{{ value }}"{% endfor %}>{{ params.text }}</{{ tagType }}>
+{% endmacro %}
+
+{#
+    tertiaryButton: {
+        text: String,
+        animate: boolean,
+        button: boolean (use button tag or a tag if false),
+        target: boolean,
+        disable: [mouseEnter|mouseLeave|mouseDown|mouseUp]
+    }
+#}
+{% macro tertiaryButton(params) %}
+{% spaceless %}
+    {% import "partials/components/_svg-icons.twig" as icon %}
+    {% set tagType = params.button|default(true) ? 'button' : 'a' %}
+    {% set class = (params.class is defined) ? params.class : '' %}
+    {% set animate = params.animate|default(true) ? 'ui-btn-tertiary' : null %}
+    {% set arrow = params.arrow|default(true) %}
+
+        <{{ tagType }}
+            class="ui-btn-tertiary {{ class }}"
+            {% if animate %} data-js-animate="{{ animate }}" {% endif %}
+            {% if params.target %} target="{{ params.target }}" {% endif %}
+            {% if params.disable %} {{ params.disable|join(' ') }} {% endif %}
+            {% if tagType == 'a' and params.location %} href="{{ params.location }}" {% if params.target|default(false) %} target="_blank"{% endif %}{% endif %}
+            {% if params.rel %} rel="{{ params.rel }}" {% endif %}
+            data-js-hook="{{ class }}"
+        >
+            {% if arrow %}
+            <span class="ui-btn-tertiary__arrow">{{ icon.small_arrow }}</span>
+            {% endif %}
+            {{ params.text }}
+        </{{ tagType }}>
+{% endspaceless %}
+{% endmacro %}
+
+{% macro navIcon(params) %}
+    {% import "partials/components/_svg-icons.twig" as icon %}
+    <button
+        class="ui-nav-icon{% if params.selected %} ui-nav-icon--selected{% endif %}"
+        type="button"
+        {% for attribute, value in params.attributes %}{{ attribute }}="{{ value }}"{% endfor %}
+    >
+        {{ attribute(icon, params.icon, [params.color]) }}
+    </button>
+{% endmacro %}
+
+{% macro navItemDropdown(params) %}
+    {% set selected = params.selected ? ' ui-nav-item--selected' : '' %}
+
+    <ul class="dropdown menu drop-left" data-position="bottom" data-alignment="right" data-dropdown-menu>
+	  <li>
+	    <a href="#" class="ui-nav-item u-style-weight-bold">{{ params.text }}</a>
+	    <ul class="menu">
+	      <li><a href="#">Profile & Settings</a></li>
+	      <li><a href="#">Manage Users</a></li>
+	      <li><a href="#">My Subscriptions</a></li>
+	      <li class="active"><a href="#">Order History</a></li>
+	      <li class="divider"></li>
+	      <li><a href="#" class="u-style-weight-bold u-color-gray1 u-style-text-transform-uppercase">Logout</a></li>
+	    </ul>
+	  </li>
+	</ul>
+{% endmacro %}
+
+{% macro navItem(params) %}
+    {% set selected = params.selected ? ' ui-nav-item--selected' : '' %}
+    <a
+        href="{{ params.url }}"
+        class="ui-nav-item{{ selected }}"
+        data-js-animate="ui-nav-item"
+        {% if params.target|default(false) %}
+        target="_blank"
+        {% endif %}
+        {% for attribute, value in params.attributes %}{{ attribute }}="{{ value }}"{% endfor %}
+    >
+        {% if params.html is defined %}
+            {{ params.html|raw }}
+        {% else %}
+            {{ params.text }}
+        {% endif %}
+    </a>
+{% endmacro %}
+
+{#
+    input {
+        animate: Boolean
+        label: String
+        type: String [email|text|password]
+        name: String
+        class: String
+        required: Boolean
+    }
+ #}
+{% macro input(params) %}
+    {% set class = (params.class is defined) ? params.class : '' %}
+    {% set label = (params.label is defined) ? params.label : '' %}
+    {% set name = (params.name is defined) ? params.name : '' %}
+    {% set animate = (params.animate is defined) ? params.animate : true %}
+    {% set type = (params.type is defined) ? params.type : 'text' %}
+    {% set required = (params.required is defined) ? params.required : false %}
+    {% set fullwidth = (params.fullwidth is defined) ? params.fullwidth : false %}
+    {% set instructions = (params.instructions is defined) ? params.instructions : '' %}
+    {% set optional = (required == false) ? '<span class="form__optional">(optional)</span>' : '' %}
+    {% set jsHook = (params.jsHook is defined) ? params.jsHook : '' %}
+
+    <div class="mdc-text-field{% if fullwidth %} mdc-text-field--fullwidth{% endif %} form__text-field {{ class }}">
+        <input
+            type="{{ type }}"
+            name="{{ name }}"
+            id="{{name}}"
+            {% if not jsHook %}
+                data-js-hook="{{ jsHook }}"
+            {% endif %}
+            {% if not animate %}
+                placeholder="{{ label }}"
+            {% endif %}
+            {% if required %}
+                required
+            {% endif %}
+            {% for attribute, value in params.attributes %}{{ attribute }}="{{ value }}"{% endfor %}
+            class="mdc-text-field__input u-style-weight-regular {% if class %}{{ class }}-input{% endif %}"
+        >
+        {% if label and animate %}
+            <label class="mdc-text-field__label u-style-weight-bold u-color-black {% if class %}{{ class }}-label{% endif %}" for="{{ name }}">{{ label }} {{ optional|raw }}</label>
+        {% endif %}
+        <div class="mdc-text-field__bottom-line {% if class %}{{ class }}-bottom-line{% endif %}"></div>
+        <div class="mdc-text-field-helptext mdc-text-field-helptext--validation-msg"></div>
+        {% if instructions %}
+        <span class="u-messages-error-help text-below">{{ instructions|raw }}</span>
+        {% endif %}
+    </div>
+{% endmacro %}
+
+{#
+    hidden {
+        name: String
+        value: String
+    }
+ #}
+{% macro hidden(params) %}
+    <input type="hidden" name="{{ params.name }}" value="{{ params.value }}">
+{% endmacro %}
+
+{#
+    textarea {
+        animate: Boolean
+        label: String
+        type: String [email|text|password]
+        name: String
+        class: String
+        optional: Boolean
+    }
+ #}
+{% macro textarea(params) %}
+    {% set class = (params.class is defined) ? params.class : '' %}
+    {% set label = (params.label is defined) ? params.label : '' %}
+    {% set name = (params.name is defined) ? params.name : '' %}
+    {% set required = (params.required is defined) ? params.required : false %}
+
+    <div class="mdc-text-field mdc-text-field--textarea mdc-text-field--fullwidth {{ class }}{% if required %} mdc-text-field--textarea--required{% endif %}">
+        {% if label %}
+            <label class="mdc-text-field__label u-style-weight-bold u-color-black {% if class %}{{ class }}-label{% endif %}" for="{{ name }}">{{ label }}</label>
+        {% endif %}
+        <textarea
+            id="{{ name }}"
+            name="{{ name }}"
+            {% if required %}
+                required
+            {% endif %}
+            {% for attribute, value in params.attributes %}{{ attribute }}="{{ value }}"{% endfor %}
+            class="mdc-text-field__input u-style-weight-regular {% if class %}{{ class }}-textarea{% endif %}"
+        ></textarea>
+        <div class="mdc-text-field__bottom-line {% if class %}{{ class }}-bottom-line{% endif %}"></div>
+        <div class="mdc-text-field-helptext mdc-text-field-helptext--validation-msg"></div>
+    </div>
+{% endmacro %}
+
+{#
+    select {
+        label: String
+        name: String
+        value: String
+        options: Option[] ({label: "State", value: "New York"})
+        class: String
+        defaultText: String
+        required: Boolean
+    }
+ #}
+{% macro select(params) %}
+    {% set class = (params.class is defined) ? params.class : '' %}
+    {% set label = (params.label is defined) ? params.label : '' %}
+    {% set defaultText = (params.defaultText is defined) ? params.defaultText : '' %}
+    {% set name = (params.name is defined) ? params.name : '' %}
+    {% set value = (params.value is defined) ? params.value : '' %}
+    {% set required = (params.required is defined) ? params.required : false %}
+
+    <select id="form__{{ name }}" name="{{ name }}" {% if required %}required {% endif %}class="form__select select2-select u-style-weight-regular {{ class }}"{% if defaultText %} data-placeholder="{{ defaultText }}"{% endif %}>
+        {% if defaultText %}
+        <option></option>
+        {% endif %}
+        {% for option in params.options %}
+            <option value="{{ option.value }}"{% if option.value == value %} selected="selected"{% endif %}>{{ option.label }}</option>
+        {% endfor %}
+   </select>
+
+   <label data-attributename="" data-attributeid="" for="form__{{ name }}" class="mdc-text-field__label u-style-weight-bold u-color-black select2__label--float-above mdc-text-field__label--float-above form__select-label{% if required %} form__select-label--required{% endif %}">{{ label }}</label>
+
+   <div class="mdc-text-field__bottom-line"></div>
+
+    <div class="form__error-message form__select-error-message"></div>
+{% endmacro %}
+
+{#
+    checkboxGroup {
+        name: String
+        options: Option[] ({label: "State", value: "New York"})
+        class: String
+    }
+ #}
+{% macro checkboxGroup(params) %}
+    <div class="form__checkbox-group-wrapper {{ class }}"{% if params.required %} data-required{% endif %}>
+        {% for option in params.options %}
+            {{ _self.checkbox({
+                id: params.name ~ '-' ~ loop.index,
+                name: params.name ~ '[]',
+                label: option.label,
+                value: option.value,
+                required: false,
+            }) }}
+        {% endfor %}
+        <div class="form__checkbox-group-error-message form__error-message"></div>
+    </div>
+{% endmacro %}
+
+{#
+    checkbox {
+        id: String
+        label: String
+        value: String
+        name: String
+        class: String
+        error: Boolean
+        checked: Boolean
+        required: Boolean
+    }
+ #}
+{% macro checkbox(params) %}
+    {% set class = (params.class is defined) ? params.class : '' %}
+    {% set label = (params.label is defined) ? params.label : '' %}
+    {% set name = (params.name is defined) ? params.name : '' %}
+    {% set value = (params.value is defined) ? params.value : '' %}
+    {% set id = (params.id is defined) ? params.id : '' %}
+    {% set required = (params.required is defined) ? params.required : false %}
+    {% set errorClass = (params.error is defined) ? 'form__error-checkbox' : '' %}
+    {% set checked = (params.checked is defined) ? 'checked' : '' %}
+
+    <div class="form__checkbox-wrapper">
+        <div class="mdc-checkbox {{ errorClass }}">
+            <input type="checkbox"
+                   id="{{ id }}"
+                   class="mdc-checkbox__native-control"
+                   name="{{ name }}"
+                   value="{{ value }}"
+                   {% if required %}
+                   required
+                   {% endif %}
+                   {{ checked }} />
+            <div class="mdc-checkbox__background">
+                <svg class="mdc-checkbox__checkmark"
+                     viewBox="0 0 24 24">
+                  <path class="mdc-checkbox__checkmark__path"
+                        fill="none"
+                        stroke="white"
+                        d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+                </svg>
+                <div class="mdc-checkbox__mixedmark"></div>
+            </div>
+
+        </div>
+
+        <label for="{{ id }}" class="form__checkbox-label">
+            {{ label|raw }}
+            {% if required %}
+                <div class="form__checkbox-error-message form__error-message"></div>
+            {% endif %}
+        </label>
+    </div>
+{% endmacro %}
+
+{#
+    radioGroup {
+        options: Option[] ({label: "State", value: "New York"})
+        required: Boolean
+        name: String
+        class: String
+    }
+ #}
+{% macro radioGroup(params) %}
+    <div class="form__radio-group-wrapper {{ class }}">
+        {% for option in params.options %}
+            {{ _self.radio({
+                required: params.required,
+                name: params.name,
+                label: option.label,
+                value: option.value,
+                checked: (params.required and loop.index == 1) ? 'checked' : '',
+                id: params.name ~ '-' ~ loop.index,
+            }) }}
+        {% endfor %}
+    </div>
+{% endmacro %}
+
+{#
+    radio {
+        label: String
+        name: String
+        class: String
+        value: String
+        checked: String
+        id: String
+    }
+ #}
+{% macro radio(params) %}
+    {% set class = (params.class is defined) ? params.class : '' %}
+    {% set label = (params.label is defined) ? params.label : '' %}
+    {% set name = (params.name is defined) ? params.name : '' %}
+    {% set value = (params.value is defined) ? params.value : '' %}
+    {% set checked = (params.checked is defined) ? params.checked : '' %}
+    {% set id = (params.id is defined) ? params.id : '' %}
+
+    <div class="form__radio-wrapper {{ class }}">
+        <div class="mdc-radio">
+            <input class="mdc-radio__native-control" type="radio" value="{{ value }}" id="form__{{ id }}" name="{{ name }}" {{ checked }}>
+            <div class="mdc-radio__background">
+                <div class="mdc-radio__outer-circle"></div>
+                <div class="mdc-radio__inner-circle"></div>
+            </div>
+        </div>
+        <label class="form__radio-label" id="form__{{ id }}-label" for="form__{{ id }}">{{ label }}</label>
+    </div>
+{% endmacro %}
+
+{#
+    fieldGroupHeader {
+        title: String
+        subtitle: String
+    }
+ #}
+{% macro fieldGroupHeader(params) %}
+    {% set title = (params.title is defined) ? params.title : '' %}
+    {% set subtitle = (params.subtitle is defined) ? params.subtitle : '' %}
+    {% set class = (params.class is defined) ? params.class : '' %}
+
+    <div class="form__field-group-header {{ class }}">
+        <div class="form__field-group-header-title">{{ title }}</div>
+        {% if subtitle %}
+            <div class="form__field-group-header-subtitle">{{ subtitle }}</div>
+        {% endif %}
+    </div>
+{% endmacro %}
+
+{#
+    form {
+        action: String
+        title: String
+        subtitle: String
+        hidden: {String: String}
+        fields: Field[]
+        redirect: String
+        ajax: Boolean
+    }
+ #}
+{% macro form(params) %}
+    <div class="form">
+        <form class="grid-x" action="{{ params.action|default('') }}" method="{{ params.method|default('POST') }}" data-js-hook="form" novalidate{% if params.redirect is defined %} data-redirect="{{ params.redirect }}"{% endif %}{% if params.ajax is defined and params.ajax %} data-ajax="true"{% endif %}>
+            {% for name, value in params.hidden %}
+            <input type="hidden" name="{{ name }}" value="{{ value }}">
+            {% endfor %}
+            <div class="form__wrapper cell small-12 medium-10 medium-offset-1 large-8 large-offset-2">
+                {% if (params.title is defined and params.title is not empty) or (params.subtitle is defined and params.subtitle is not empty) %}
+                <div class="form__header">
+                    {% if params.title is defined and params.title is not empty %}
+                    <div class="form__header-title">
+                        {{ params.title }}
+                    </div>
+                    {% endif %}
+                    {% if params.subtitle is defined and params.subtitle is not empty %}
+                    <div class="form__header-subtitle">
+                        {{ params.subtitle }}
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+                <div class="form__fields">
+                    {% for field in params.fields %}
+                        <div class="form__input-wrapper">
+                            {% if field.type == "text" or field.type == "email" or field.type == "password" %}
+                                {{ _self.input({
+                                    label: field.label,
+                                    type: field.type,
+                                    name: field.name,
+                                    required: field.required,
+                                    fullwidth: true,
+                                })}}
+                            {% endif %}
+
+                            {% if field.type == "hidden" %}
+                                {{ _self.hidden({
+                                    name: field.name,
+                                    value: field.options,
+                                })}}
+                            {% endif %}
+
+                            {% if field.type == "textarea" %}
+                                {{ _self.textarea({
+                                    label: field.label,
+                                    name: field.name,
+                                    required: field.required,
+                                    animate: false,
+                                })}}
+                            {% endif %}
+
+                            {% if field.type == "select" %}
+                                {{ _self.select({
+                                    label: field.label,
+                                    name: field.name,
+                                    options: field.options,
+                                    required: field.required,
+                                    defaultText: field.defaultText|default('Select an option')
+                                })}}
+                            {% endif %}
+
+                            {% if field.type == "country" %}
+                                {{ _self.select({
+                                    label: field.label,
+                                    name: field.name,
+                                    options: countries(),
+                                    required: field.required,
+                                    value: "US",
+                                    defaultText: field.defaultText|default('Select country')
+                                })}}
+                            {% endif %}
+
+                            {% if field.type == "state" %}
+                                {{ _self.select({
+                                    label: field.label,
+                                    name: field.name,
+                                    options: states(),
+                                    required: field.required,
+                                    defaultText: field.defaultText|default('Select state')
+                                })}}
+                            {% endif %}
+
+                            {% if field.type == "checkboxGroup" %}
+                                {{ _self.fieldGroupHeader({
+                                    title: field.label,
+                                    subtitle: 'Select all that apply',
+                                    class: field.class
+                                })}}
+                                {{ _self.checkboxGroup({
+                                    name: field.name,
+                                    options: field.options,
+                                    required: field.required,
+                                })}}
+                            {% endif %}
+
+                            {% if field.type == "checkbox" %}
+                                {{ _self.checkbox({
+                                    name: field.name,
+                                    id: field.name,
+                                    value: "1",
+                                    label: field.label,
+                                    required: field.required,
+                                })}}
+                            {% endif %}
+
+                            {% if field.type == "radioGroup" %}
+                                {{ _self.fieldGroupHeader({
+                                    title: field.label,
+                                    class: field.class ~ '-header'
+                                })}}
+                                {{ _self.radioGroup({
+                                    options: field.options,
+                                    name: field.name,
+                                    required: field.required,
+                                    class: field.class
+                                })}}
+                            {% endif %}
+
+                            {% if field.type == "fieldGroupHeader" or field.name == "__header__" %}
+                                {{ _self.fieldGroupHeader({
+                                    title: field.label,
+                                    subtitle: field.options,
+                                    class: field.class
+                                })}}
+                            {% endif %}
+
+                            {% if field.type == "btnPrimary" %}
+                                {{ _self.btnPrimary({
+                                    text: field.text,
+                                    arrow: field.arrow
+                                }) }}
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </form>
+    </div>
+{% endmacro %}
+

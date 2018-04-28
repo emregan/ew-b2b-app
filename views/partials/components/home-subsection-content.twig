@@ -1,0 +1,33 @@
+{% macro main(params,requestCache) %}
+    <div class="home-subsection-content" data-js-hook="ui-scroll-reveal-animation">
+        <div class="home-subsection-content__wrapper grid-x grid-margin-x align-center">
+            {% for item in params.slides %}
+                {{ _self.item(item) }}
+            {% endfor %}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro item(slide) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    {% import "partials/core/ui-kit.twig" as kit %}
+    <div class="home-subsection-content__item cell small-12 medium-4 large-3">
+        <div class="home-subsection-content__image">
+            {{ helper.image(slide.image, {
+                class: 'home-subsection-content__image-img'
+            }) }}
+        </div>
+        <div class="home-subsection-content__title u-style-display-s u-style-weight-bold">{{ slide.text }}</div>
+        <div class="home-subsection-content__text u-style-body-1">{{ slide.description|raw }}</div>
+        {% if slide.cta %}
+            <div class="home-subsection-content__cta">
+                {{ kit.tertiaryButton({
+                    text: slide.cta.text,
+                    location: slide.cta.url,
+                    target: slide.cta.target,
+                    button: false
+                }) }}
+            </div>
+        {% endif %}
+    </div>
+{% endmacro %}

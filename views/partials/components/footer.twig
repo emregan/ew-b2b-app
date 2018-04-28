@@ -1,0 +1,24 @@
+{% macro main(params,requestCache) %}
+    {% import "partials/core/ui-kit.twig" as kit %}
+
+    <footer class="footer" data-js-hook="footer">        
+        <div class="footer__additional-info">
+            <div class="grid-container footer__copyright">&copy; {{ "now"|date('Y') }} {{ params.footerCopyright }}</div>
+	        {% if params.footerLinks %}
+	            <div class="footer__legal">
+	                {% for link in params.footerLinks %}
+	                    {% set firstClass = (loop.index == 1) ? "footer__first-legal-link" : "" %}
+	                    {% set lastClass = (loop.index == params.footerLinks.length) ? 'footer__last-legal-link' : '' %}
+	                    <a href="{{ link.url }}" class="{{ firstClass }} {{ lastClass }}" title="{{ link.text }}">{{ link.text }}</a>
+	                {% endfor %}
+	            </div>
+	        {% endif %}
+        </div>
+    </footer>
+{% endmacro %}
+
+{#
+"footerEmailForm": {
+    "slug": "read-180"
+}
+#}

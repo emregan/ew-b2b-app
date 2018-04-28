@@ -1,0 +1,36 @@
+{% macro main(params,requestCache) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    {% set alignment = (params.loopMeta.centerModules) ? 'align-right' : 'align-center' %}
+    {% set srID = random() %}
+
+    {{ helper.nestedLayoutOpen({
+        name: 'proof-point',
+        align: alignment,
+        nestedAlign: 'align-top align-center',
+        id: params.loopMeta.slug
+    }) }}
+
+            {% for item in params.slides %}
+                {{ _self.item(item, loop.index, srID) }}
+            {% endfor %}
+
+    {{ helper.nestedLayoutClose() }}
+{% endmacro %}
+
+{% macro item(item, index, srID) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+
+    <div class="proof-point__item proof-point__item--{{ index }} cell small-12 medium-4" data-js-hook="ui-scroll-reveal-animation" data-sequence-id="{{ srID }}">
+        <figure class="proof-point__figure">
+        {% if item.image %}
+            {{ helper.imageCover(item.image, {
+                'class': 'proof-point__image',
+            }) }}
+        {% endif %}
+        </figure>
+        {% if item.headline %}
+            <div class="proof-point__headline">{{ item.headline }}</div>
+        {% endif %}
+        <div class="proof-point__body u-style-body-2">{{ item.copy|raw }}</div>
+    </div>
+{% endmacro %}

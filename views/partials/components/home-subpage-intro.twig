@@ -1,0 +1,51 @@
+{% macro main(params,requestCache) %}
+    <div class="home-subpage-intro home-subpage-intro--{{ params.item.alignment }}" data-js-hook="ui-scroll-reveal-animation">
+        <div class="home-subpage-intro__wrapper grid-x grid-margin-x">
+            {{ _self.image(params.item.image) }}
+            {{ _self.content(params) }}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro image(image) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    <div class="home-subpage-intro__image cell small-12 medium-10 large-8">
+        {{ helper.image(image, {
+            class: 'home-subpage-intro__image-img'
+        }) }}
+    </div>
+{% endmacro %}
+
+{% macro content(params) %}
+    <div class="home-subpage-intro__content cell small-12 medium-6 large-5 u-background-{{ params.color }}">
+        <div class="home-subpage-intro__text u-style-weight-bold u-style-display-s">{{ params.item.text|raw }}</div>
+        <div class="home-subpage-intro__cta">
+            {% if params.item.video %}
+                {{ _self.videoCta(params.item) }}
+            {% elseif params.item.cta %}
+                {{ _self.normalCta(params.item) }}
+            {% endif %}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro videoCta(item) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    {% import "partials/components/_svg-icons.twig" as icon %}
+    {% set href = '//players.brightcove.net/' ~ item.video.accountId ~ '/default_default/index.html?videoId=' ~ item.video.id ~ '&autoplay=true' %}
+        <a href="{{ href }}" class="home-subpage-intro__video" data-js-hook="home-modal-open">
+            <span class="home-subpage-intro__video-icon">{{ icon.play }}</span>
+            <span class="home-subpage-intro__video-text u-style-weight-extrabold u-style-body-2">{{ item.videoButtonText }}</span>
+        </a>
+{% endmacro %}
+
+{% macro normalCta(item) %}
+    {% import "partials/core/ui-kit.twig" as kit %}
+    {{ kit.tertiaryButton({
+        text: item.cta.text,
+        location: item.cta.url,
+        button: false,
+        target: item.cta.target,
+    }) }}
+    <div class="home-subpage-intro__cta"></div>
+{% endmacro %}

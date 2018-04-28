@@ -1,0 +1,61 @@
+{#
+params: {
+    image: Asset;
+    text: PlainText;
+    subhead: PlainText;
+    description: PlainText;
+    cta: FruitLinkIt;
+    vertical: top|bottom;
+    alignment: left|right;
+    stack: boolean
+}
+#}
+{% macro main(params,requestCache) %}
+    {% import "partials/core/ui-kit.twig" as kit %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    {% set stack = params.stack|default(false) %}
+    {% set alignment = params.vertical ? ' content-image-horiz--'~params.vertical : '' %}
+    {% set alignment = params.alignment ? alignment~' content-image-horiz--'~params.alignment~' align-'~params.alignment : alignment %}
+
+    <div class="content-image-horiz{{ alignment }} {% if not stack %} grid-x grid-margin-x{% endif %}" data-magellan-target="{{ params.loopMeta.slug }}" id="{{ params.loopMeta.slug }}">
+
+        {% if params.image %}
+        <div class="content-image-horiz__image-wrapper{% if not stack %} cell medium-6{% endif %}">
+            {{ helper.image(params.image, {
+                class: 'content-image-horiz__image'
+            }) }}
+        </div>
+        {% endif %}
+
+        <div class="content-image-horiz__info{% if not stack %} cell medium-5{% else %} grid-x align-justify{% endif %}">
+            <div class="content-image-horiz__info-text{% if stack %} cell large-8{% endif %}">
+                {% if params.text %}
+                    <h3 class="content-image-horiz__title u-style-display-m u-style-weight-bold">{{ params.text }}</h3>
+                {% endif %}
+
+                {% if params.subhead %}
+                    <div class="content-image-horiz__sub-title">{{ params.subhead }}</div>
+                {% endif %}
+
+                {% if params.description %}
+                    <div class="content-image-horiz__description u-style-display-xxs">
+                        {{ params.description|raw }}
+                    </div>
+                {% endif %}
+            </div>
+
+            {% if params.cta %}
+                <div class="content-image-horiz__button">
+                    {{ kit.btnPrimary({
+                        button: false,
+                        class: 'content-image-horiz__submit',
+                        text: params.cta.text,
+                        location: params.cta.url,
+                        target: params.cta.target,
+                        arrow: false
+                    }) }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endmacro %}

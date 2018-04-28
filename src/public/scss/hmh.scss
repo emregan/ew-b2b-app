@@ -1,0 +1,41 @@
+/*----------------------------------------------------*/
+/*  Vendors
+/*----------------------------------------------------*/
+/** Foundation */
+@import 'foundation-sites/scss/foundation';
+/** Slick Carousel */
+@import 'slick-carousel/slick/slick.scss';
+
+/*----------------------------------------------------*/
+/*  Core Styles
+/*----------------------------------------------------*/
+// Import foundation settings
+@import './_shared/settings';
+// Shared components (Header, footer, etc)
+@import './_shared/shared';
+
+
+/*----------------------------------------------------*/
+/*  Foundation styles
+/*----------------------------------------------------*/
+@include foundation-xy-grid-classes;
+@include foundation-flex-classes;
+@include foundation-visibility-classes;
+@include foundation-typography;
+@include foundation-reveal;
+@include foundation-accordion;
+@include foundation-callout;
+@include foundation-tooltip;
+
+/*----------------------------------------------------*/
+/*  Global Styles
+/*----------------------------------------------------*/
+// import global styles here
+
+/*----------------------------------------------------*/
+/*  Partials
+/*----------------------------------------------------*/
+@import './partials/form';
+@import './partials/program-component-list';
+@import './partials/search-result-sum';
+@import './partials/group-label';

@@ -1,0 +1,20 @@
+{#
+Params: {
+    image: Object
+    caption: String
+}
+#}
+{% macro main(params,requestCache) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+
+    {% if params.image %}
+        <div class="blog-image cell small-12 large-8 large-offset-2">
+            <figure class="blog-image__wrapper">
+                {{ helper.image(params.image, {
+                    class: 'blog-image__image'
+                }) }}
+                <figcaption class="blog-image__caption u-style-body-2">{{ params.caption }}</figcaption>
+            </figure>
+        </div>
+    {% endif %}
+{% endmacro %}

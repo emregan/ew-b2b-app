@@ -1,0 +1,66 @@
+.event-meta{
+    margin-bottom: rem-calc(80px);
+
+    @include breakpoint(medium) {
+        margin-bottom: rem-calc(86px);
+    }
+
+    &__register{
+        margin-bottom: rem-calc(84px);
+
+        @include breakpoint(medium) {
+            @include flex-order(1);
+
+            .page-events & {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    &__speakers{
+        @include breakpoint(large) {
+            margin-bottom: rem-calc(80px);
+        }
+    }
+
+    &__register-form{
+        @include breakpoint(medium) {
+            max-width: rem-calc(172px);
+            margin-left: auto;
+        }
+
+        @include breakpoint(large) {
+            margin-left: 0;
+        }
+    }
+
+    &__title {
+        margin-bottom: rem-calc(28px);
+    }
+
+    &__speaker{
+        margin-bottom: rem-calc(8px);
+    }
+
+    &__past{
+            background-color: get-color('gray5');
+            max-width: rem-calc(296px);
+            padding: rem-calc(25px);
+            padding-right: rem-calc(30px);
+
+            @include breakpoint(medium) {
+                margin-left: auto;
+            }
+
+            @include breakpoint(large) {
+                max-width: rem-calc(316px);
+                margin-left: 0;
+                padding: rem-calc(30px) 35px;
+                padding-left: rem-calc(40px);
+            }
+    }
+
+    &__past-text{
+        margin-bottom: rem-calc(12px);
+    }
+}

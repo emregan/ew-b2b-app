@@ -1,0 +1,16 @@
+{% macro main(params,requestCache) %}
+    {% set shapes = ['circle', 'hex', 'diamond', 'triangle', 'circle'] %}
+    {% import "partials/components/_svg-shapes.twig" as shape %}
+    <div class="story-nav flex-container align-middle show-for-large" data-js-hook="story-nav-sections">
+        <ul class="story-nav__sections-list" data-js-hook="story-nav-list">
+            {% for shapeStr in shapes %}
+                <li class="story-nav__sections-item">
+                    <a href="#home-sections-{{ loop.index }}" rel="nofollow" class="story-nav__section-name flex-container align-middle align-center grid-x" data-index="{{ loop.index }}">
+                        <div class="story-nav__shape-main cell small-12 text-center">{{ attribute(shape, 'home_'~shapeStr, [ 'black' ]) }}</div>
+                        <div class="story-nav__shape-inactive cell small-12 text-center">{{ shape.home_circle('black') }}</div>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endmacro %}

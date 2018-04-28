@@ -1,0 +1,55 @@
+.image-list {
+    margin-bottom: $moduleMargin;
+
+    &__figure {
+        margin-bottom: rem-calc(50px);
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(64px);
+        }
+
+        @include breakpoint(large) {
+            margin-bottom: 0;
+            padding-right: rem-calc(55px);
+        }
+    }
+
+    &__image {
+        width: 100%;
+    }
+
+    &__bullet {
+        margin-top: rem-calc(28px);
+
+        &:first-child {
+            margin-top: 0;
+        }
+
+        @include breakpoint(medium) {
+            margin-top: rem-calc(32px);
+        }
+    }
+
+    &__bullet-header {
+        line-height: rem-calc(22px);
+        margin-bottom: rem-calc(5px);
+
+        @include breakpoint(medium) {
+            line-height: rem-calc(28px);
+            margin-bottom: rem-calc(10px);
+        }
+
+        @include breakpoint(large) {
+            line-height: rem-calc(32px);
+            margin-bottom: rem-calc(16px);
+        }
+    }
+
+    &__bullet-sub-text {
+        line-height: rem-calc(24px);
+
+        @included breakpoint(medium) {
+            line-height: rem-calc(28px);
+        }
+    }
+}

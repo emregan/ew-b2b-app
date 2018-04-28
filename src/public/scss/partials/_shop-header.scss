@@ -1,0 +1,96 @@
+.shop-header {
+    $negativeMarging: -(map-safe-get($grid-container-padding, 'small')/2);
+    background: get-color('gold');
+    height: auto;
+    min-height: rem-calc(165px);
+    margin-left: rem-calc($negativeMarging);
+    margin-right: rem-calc($negativeMarging);
+    margin-bottom: rem-calc(-132px);
+    position: relative;
+    z-index: auto;
+
+    @include breakpoint(medium) {
+        $negativeMarging: -(map-safe-get($grid-container-padding, 'medium')/2);
+        min-height: rem-calc(200px);
+        margin-left: rem-calc($negativeMarging);
+        margin-right: rem-calc($negativeMarging);
+        margin-bottom: rem-calc(-160px);
+    }
+
+    @include breakpoint(large) {
+        min-height: rem-calc(215px);
+        margin-bottom: rem-calc(-170px);
+    }
+
+    &--large {
+        margin-bottom: rem-calc(-66px);
+        padding-bottom: rem-calc(66px);
+
+        @include breakpoint(large) {
+            margin-bottom: rem-calc(-192px);
+            padding-bottom: rem-calc(192px);
+        }
+    }
+
+    &__title,
+    &__sub-title {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+    }
+
+    &__title {
+        line-height: rem-calc(65px);
+        margin: rem-calc(62px 0 30px);
+
+        @include breakpoint(medium) {
+            margin: rem-calc(78px 0 56px);
+        }
+
+        @include breakpoint(large) {
+            margin: rem-calc(145px 0 80px);
+        }
+    }
+
+    &__sub-title {
+        max-width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: rem-calc(40px);
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(44px);
+            line-height: 25px;
+        }
+    }
+
+    &__bg {
+    }
+
+    &__image-cover {
+        z-index: 0;
+    }
+}
+
+.shop-search {
+    $c: &;
+    margin-bottom: rem-calc(25px);
+
+    @include breakpoint(medium) {
+        margin-bottom: rem-calc(66px);
+    }
+
+    @include breakpoint(large) {
+        margin-bottom: rem-calc(88px);
+    }
+
+    &__results {
+        position: relative;
+        z-index: 10;
+        display: none;
+
+        #{$c}--open & {
+            display: flex;
+        }
+    }
+}

@@ -1,0 +1,90 @@
+{% macro main(params,requestCache) %}
+    {% set offset = (params.loopMeta.centerModules) ? 'large-offset-2' : 'large-offset-1' %}
+    {% set contentOffset = params.alignment == 'right' ? offset : 'large-offset-0' %}
+    {% set slidesOffset = params.alignment == 'right' ? 'large-offset-0' : offset %}
+    {% set slidesOrder = params.alignment == 'right' ? 'large-order-2' : 'large-order-1' %}
+    {% set contentOrder = params.alignment == 'right' ? 'large-order-1' : 'large-order-2' %}
+    {% set srID = random() %}
+
+    <div class="feature-image-carousel feature-image-carousel--{{ params.alignment }} grid-x grid-margin-x" data-js-hook="feature-image-carousel" {% if params.loopMeta.slug %}id="{{ params.loopMeta.slug }}"{% endif %}>
+        <div class="feature-image-carousel__header-text u-style-display-s u-style-weight-bold hide-for-large cell small-12 medium-8 medium-offset-2">{{ params.headerText }}</div>
+
+        {{ _self.sliderOrImage(params, {
+            type: params.contentType,
+            offset: slidesOffset,
+            order: slidesOrder,
+            srID: srID,
+        }) }}
+
+        {{ _self.content(params, {
+            type: params.contentType,
+            offset: contentOffset,
+            order: contentOrder,
+            srID: srID
+        }) }}
+
+    </div>
+{% endmacro %}
+
+{% macro sliderOrImage(params, opts) %}
+    {#
+        Note: opts.type check is done in a regular if/else statement because
+        a ternary operation was returning the length of the true stament
+    #}
+    {% if opts.type == 'carousel' %}
+        {% set slideContent = params.slides %}
+    {% else %}
+        {% set slideContent = params.image %}
+    {% endif %}
+
+    <div class="feature-image-carousel__image-carousel cell small-12 medium-8 medium-offset-2 large-6 {{ opts.offset }} {{ opts.order }}">
+        {{ attribute(_self, opts.type, [slideContent]) }}
+    </div>
+{% endmacro %}
+
+{% macro carousel(slides) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+
+    <div class="feature-image-carousel__slider" data-js-hook="ui-scroll-reveal-animation feature-image-carousel__slider" data-sequence-id="{{ srID }}">
+        {% for slide in slides %}
+            <div
+                class="feature-image-carousel__slider-item"
+                data-text-index="{{ loop.index0 }}"
+                data-timeout="{% if slide.timeout is defined %}{{ slide.timeout }}{% else %}5{% endif %}"
+            >
+            {% if slide.image %}
+                {{ helper.image(slide.image, {
+                    class: 'feature-image-carousel__slider-image'
+                }) }}
+            {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{% endmacro %}
+
+{% macro image(image) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+
+    {% if image %}
+    {{ helper.image(image, {
+        class: 'feature-image-carousel__image'
+    }) }}
+    {% endif %}
+{% endmacro %}
+
+{% macro content(params, opts) %}
+    {% if opts.type == 'carousel' %}
+        {% set textSlides = params.slides %}
+    {% else %}
+        {% set textSlides = params.textBullets %}
+    {% endif %}
+
+    <div class="feature-image-carousel__content cell small-12 medium-8 medium-offset-2 large-4 {{ opts.offset }} {{ opts.order }}" data-js-hook="ui-scroll-reveal-animation" data-sequence-id="{{ opts.srID }}">
+        <div class="feature-image-carousel__header-text u-style-display-s u-style-weight-bold show-for-large">{{ params.headerText }}</div>
+        <ul class="feature-image-carousel__text-list" data-js-hook="feature-image-carousel__text-list">
+            {% for slide in textSlides %}
+                <li class="feature-image-carousel__text feature-image-carousel__text--{{ opts.type }} {% if loop.first %}feature-image-carousel__text--active{% endif %} u-style-body-1" data-text-index="{{ loop.index0 }}"><span class="feature-image-carousel__text-dot"></span> {{ slide.text|raw }}</li></li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endmacro %}

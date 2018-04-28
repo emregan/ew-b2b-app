@@ -1,0 +1,242 @@
+{% macro main(params,requestCache) %}
+    <div class="order-detail {{ params.class }}">
+   
+    
+    	<!-- TABS -->
+    	<ul class="tabs buttons" data-tabs id="order-tabs">
+		  <li class="tabs-label u-style-weight-bold u-color-gray1 u-style-text-transform-uppercase">
+		  	View By:</li><li class="tabs-title is-active"><a data-tabs-target="panel1" href="#panel1" aria-selected="true">Product</a></li><li class="tabs-title">
+		  		<a data-tabs-target="panel2" href="#panel2">Order Tracking</a></li>
+		</ul>
+    
+    
+		<!-- CONTENT -->
+		<div class="tabs-content" data-tabs-content="order-tabs">
+		  
+			<div class="order-detail-header">
+		  		<h2>Purchase Order #20173589</h2>
+		  		<div class="item-wrapper">
+			  		<div class="item">
+			  			<h4>Order Date</h4>
+			  			02/16/2018
+			  		
+			  		</div>
+			  		<div class="item">
+			  			<h4>Ship To</h4>
+			  			c/o Jane Smith<br>
+			  			Acme Warehouse</br>
+			  			3201 Braod St, Philadelphia, PA 19127-1603
+			  		
+			  		</div>
+			  		<div class="item">
+			  			<h4>Shipping Instructions</h4>
+			  			Please deliver during business hours only.<br>
+			  			Request for delivery date 3/28
+			  		
+			  		</div>
+		  		
+			  	</div>
+			</div>
+		  
+		  
+		  <div class="tabs-panel is-active" id="panel1">
+		  
+		  <div class="order-detail-table">
+		    <table id="orders-open" class="display unstriped">
+		        <thead>
+		            <tr>
+		                <th>Program</a></th>
+		                <th width="30%"><a href="#">Product</a></th>
+		                <th>ISBN #</th>
+		                <th>Material #</th>
+		                <th>Qty</th>
+		                <th>Fulfillment Status</th>
+		            </tr>
+		        </thead>
+		        
+		        <tbody>
+		            <tr>
+		                <td>
+		                <span class="eyebrow u-style-weight-bold u-style-text-transform-uppercase">Online</span>
+		                <strong>Title of Program Goes Here</strong></td>
+		                <td>Subtitle 2 or Product Description Here</td>
+						<td>9780547881522</td>
+		                <td>1560654</td>
+		                <td align="right">80</td>
+		                <td><a href="#">MULTIPLE TRACKING<br> NUMBERS</a></td>
+		            </tr>
+		            <tr>
+		                <td><strong>HMH Math Expressions</strong></td>
+		                <td>StA Teacher Edition Collection Grade 8</td>
+						<td>97805478879611</td>
+		                <td>1601305s</td>
+		                <td align="right">80</td>
+		                <td><a href="#">MULTIPLE TRACKING<br> NUMBERS</a></td>
+		            </tr>
+		            <tr>
+		                <td><strong>HMH Collections 6-12 Nation 2017</strong></td>
+		                <td>HMH Collections Performance Assessment Grade 7</td>
+						<td>97805478879343</td>
+		                <td>371828</td>
+		                <td align="right">60</td>
+		                <td><a href="#" class="btn">TRACK</a></td>
+		            </tr>
+		            
+		            <tr>
+		                <td><strong>Title of Program Goes Here</strong></td>
+		                <td>Subtitle 2 or Product Description Here</td>
+						<td>9780547881522</td>
+		                <td>1560654</td>
+		                <td align="right">80</td>
+		                <td><a href="#">MULTIPLE TRACKING<br> NUMBERS</a></td>
+		            </tr>
+		            <tr>
+		                <td>
+		                <span class="eyebrow u-style-weight-bold u-style-text-transform-uppercase">Kit on order</span>
+		                <strong>HMH Math Expressions</strong></td>
+		                <td>StA Teacher Edition Collection Grade 8</td>
+						<td>97805478879611</td>
+		                <td>1601305s</td>
+		                <td align="right">80</td>
+		                <td><a href="#">MULTIPLE TRACKING<br> NUMBERS</a></td>
+		            </tr>
+		            <tr>
+		                <td><strong>HMH Collections 6-12 Nation 2017</strong></td>
+		                <td>HMH Collections Performance Assessment Grade 7</td>
+						<td>97805478879343</td>
+		                <td>371828</td>
+		                <td align="right">60</td>
+		                <td><a href="#" class="btn">TRACK</a></td>
+		            </tr>
+		            
+		            <tr>
+		                <td><strong>Title of Program Goes Here</strong></td>
+		                <td>Subtitle 2 or Product Description Here</td>
+						<td>9780547881522</td>
+		                <td>1560654</td>
+		                <td align="right">80</td>
+		                <td><a href="#">MULTIPLE TRACKING<br> NUMBERS</a></td>
+		            </tr>
+		            <tr>
+		                <td><strong>HMH Math Expressions</strong></td>
+		                <td>StA Teacher Edition Collection Grade 8</td>
+						<td>97805478879611</td>
+		                <td>1601305s</td>
+		                <td align="right">80</td>
+		                <td><a href="#">MULTIPLE TRACKING<br> NUMBERS</a></td>
+		            </tr>
+		            <tr>
+		                <td><strong>HMH Collections 6-12 Nation 2017</strong></td>
+		                <td>HMH Collections Performance Assessment Grade 7</td>
+						<td>97805478879343</td>
+		                <td>371828</td>
+		                <td align="right">60</td>
+		                <td><a href="#" class="btn">TRACK</a></td>
+		            </tr>
+		            		            
+		        </tbody>
+		    </table>
+		    
+		  </div>  
+		    
+		    
+		    
+		    
+		    
+		  </div>
+		  <div class="tabs-panel" id="panel2">
+		  		
+		  		<div class="order-detail-table">
+				    <table id="orders-open" class="display unstriped">
+				        <thead>
+				            <tr>
+				                <th colspan="5">Program</a></th>
+				                <th>Qty</th>
+				                <th class="u-style-text-center" width="15%">Fulfillment Status</th>
+				            </tr>
+				        </thead>
+				        
+				        <tbody>
+				        	<!-- PART 1 -->
+				            <tr class="th">
+				            	<td colspan="5"><strong>Order #20173589 (Part 1 of 3)</strong></td>
+				                <td align="right">30</td>
+				                <td class="u-style-text-center" width="15%"><a href="#" class="btn">Track</a></td>
+				            </tr>
+				            <tr class="detail">
+				            	<td width="2%"></td>
+				                <td><strong>HMH Collections 6-12 National 2017</strong></td>
+				                <td width="25%">HMH Collections Performance Assessment Grade 7</td>
+								<td>9780544569348</td>
+				                <td>1560654</td>
+				                <td align="right">20</td>
+				                <td></td>
+				            </tr>
+				            <tr>
+				            	<td width="2%"></td>
+				                <td><strong>HMH Math Expressions</strong></td>
+				                <td>StA Teacher Edition Collection Grade 8</td>
+								<td>97805478879611</td>
+				                <td>1601305s</td>
+				                <td align="right">10</td>
+				                <td></td>
+				            </tr>
+				            <!-- PART 2 -->
+				            <tr class="th">
+				            	<td colspan="5"><strong>Order #20173589 (Part 2 of 3)</strong></td>
+				                <td align="right">30</td>
+				                <td class="u-style-text-center" width="15%"><a href="#" class="btn">Track</a></td>
+				            </tr>
+				            <tr class="detail">
+				            	<td width="2%"></td>
+				                <td><strong>HMH Collections 6-12 National 2017</strong></td>
+				                <td>HMH Collections Performance Assessment Grade 7</td>
+								<td>9780544569348</td>
+				                <td>1560654</td>
+				                <td align="right">20</td>
+				                <td></td>
+				            </tr>
+				            <tr>
+				            	<td width="2%"></td>
+				                <td><strong>HMH Math Expressions</strong></td>
+				                <td>StA Teacher Edition Collection Grade 8</td>
+								<td>97805478879611</td>
+				                <td>1601305s</td>
+				                <td align="right">10</td>
+				                <td></td>
+				            </tr>
+				            <!-- PART 3 -->
+				            <tr class="th">
+				            	<td colspan="5"><strong>Order #20173589 (Part 3 of 3)</strong></td>
+				                <td align="right">30</td>
+				                <td class="u-style-text-center" width="15%"><a href="#" class="btn">Track</a></td>
+				            </tr>
+				            <tr class="detail">
+				            	<td width="2%"></td>
+				                <td><strong>HMH Collections 6-12 National 2017</strong></td>
+				                <td>HMH Collections Performance Assessment Grade 7</td>
+								<td>9780544569348</td>
+				                <td>1560654</td>
+				                <td align="right">20</td>
+				                <td></td>
+				            </tr>
+				            <tr>
+				            	<td width="2%"></td>
+				                <td><strong>HMH Math Expressions</strong></td>
+				                <td>StA Teacher Edition Collection Grade 8</td>
+								<td>97805478879611</td>
+				                <td>1601305s</td>
+				                <td align="right">10</td>
+				                <td></td>
+				            </tr>
+				            		            
+				        </tbody>
+				    </table>
+				    
+				  </div> 
+			    
+		  </div>
+		</div>
+    	    
+    </div>
+{% endmacro %}

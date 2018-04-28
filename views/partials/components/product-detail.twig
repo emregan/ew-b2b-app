@@ -1,0 +1,175 @@
+{% macro main(product,requestCache) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    {% import "partials/core/ui-kit.twig" as kit %}
+
+    <div data-gtm-page-override="product detail page" class="product-detail product-detail__{{ product.type }} grid-x grid-margin-x">
+        <div class="product-detail__thumb cell small-6 medium-4 large-3 large-offset-1">
+            <img src="{{ product.jacketUrl }}" class="product-detail__image" {{ product.jacketUrlAttribute }}="{{ product.externalJacketUrl }}" alt="{{ product.altText }}">
+        </div>
+        <div class="product-detail__info cell small-12 medium-8 large-6">
+            <div class="product-detail__header">
+                <h1
+                    data-gtm-product-title="{{ product.title|raw }}"
+                    data-gtm-product-name="{{ product.title|raw }}"
+                    data-gtm-page-subject-primary="parseSubjectPrimary({{product.categories|json_encode}})"
+                    data-gtm-page-subject-secondary="parseSubjectSecondary({{product.categories|json_encode}})"
+                    data-gtm-product-subject-primary="parseSubjectPrimary({{product.categories|json_encode}})"
+                    data-gtm-product-subject-secondary="parseSubjectSecondary({{product.categories|json_encode}})"
+                    data-gtm-program="{% if product.programs|length > 0 %}{{ product.programs[0].title|striptags|stripsymbols }}{% endif %}"
+                    class="product-detail__title u-style-display-l u-style-weight-bold"
+                >
+                    {{ product.title|raw }}
+                </h1>
+
+                {% if product.authors|length > 0 %}
+                <div class="product-detail__authors">
+                    {%- for author in product.authors -%}
+                    {%- if loop.first %}by {% endif %}{#<a class="u-style-underline u-style-weight-bold" href="{{ url(requestCache, ['bookstore/authors', author.slug, author.id]) }}">{{ author.name }}</a>#}{{ author.name }}{% if not loop.last %}{% if loop.revindex == 2 %} and {% else %}, {% endif %}{% endif %}
+                    {%- endfor -%}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="product-detail__shop">
+                <div class="product-detail__price-box">
+                    {% if product.discountedPrice and product.price != product.discountedPrice %}
+                    <div data-gtm-product-currentPrice="{{ product.discountedPrice }}" class="product-detail__price u-style-display-m u-style-weight-bold">{{ product.discountedPrice }}</div>
+                    <div data-gtm-product-regularPrice="{{ product.price }}" class="product-detail__price product-detail__price--regular u-style-display-xs">{{ product.price }}</div>
+                    {% else %}
+                    <div data-gtm-product-currentPrice="{{ product.price }}" class="product-detail__price u-style-display-m u-style-weight-bold">{{ product.price }}</div>
+                    {% endif %}
+                </div>
+
+            {% if env('CART_DISABLED') %}
+                <div
+                    class="product-detail__call flex-child-auto"
+                    data-productid="{{ product.productCode }}"
+                    data-title="{{ product.title }}"
+                    data-isbn13="{{ product.isbn13 }}"
+                    data-url="{{ product.url }}"
+                    data-inventorystatus="{{ product.inventoryStatus }}"
+                    data-format="{{ product.format }}"
+                >Call 855.969.4642 to place an order</div>
+            {% else %}
+                {% if product.showAddToCart %}
+                    {{ kit.addToCart({
+                        class: 'product-detail__add-to-cart flex-child-auto',
+                        name: 'quantity',
+                        text: product.addToCartText,
+                        product: product,
+                    }) }}
+                {% endif %}
+            {% endif %}
+
+            </div>
+
+            <div class="product-detail__description">
+                {{ product.shortDescription|raw }}
+            </div>
+
+            <hr class="product-detail__line"></hr>
+
+            <div class="product-detail__specs-notes grid-x grid-margin-x">
+                {% set mediumColWidth = (product.type == "k12" or product.type == "riverside" or product.type == "trade") ? 'medium-6' : 'medium-12' %}
+                <div class="product-detail__specs cell small-12 {{ mediumColWidth }}">
+                    <ul>
+                        {% for spec in product.specs %}
+                        <li data-gtm-page-{{ spec.label | replace({' ': '-'})| replace({'/': '-'}) }}="{{ spec.value }}" data-gtm-product-{{ spec.label | replace({' ': '-'})| replace({'/': '-'}) }}="{{ spec.value }}"><strong>{{ spec.label }}:</strong> {{ spec.value }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% if product.otherFormats|length > 0 %}
+                    <ul>
+                        <li><strong>Also available in:</strong></li>
+                        {% for otherFormat in product.otherFormats %}
+                        <li><strong><a class="u-style-underline" href="{{ url(requestCache, ['shop/books', otherFormat.slug, otherFormat.isbn13]) }}">{{ otherFormat.format }}</a></strong> &ndash; {{ otherFormat.price }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                <div class="product-detail__notes cell small-12 medium-6">
+                {% if product.type == "k12" or product.type == "riverside" %}
+                    <p>Please note that all discounts and final pricing will be displayed on the Review Order page before you submit your order.</p>
+                    {% if product.showRestriction %}
+                    <h3 class="product-detail__note-heading">Restrictions</h3>
+                    <p>This component may require an institutional account to purchase.<span class="logged-in-only logged-in-only__inline"> <a data-open="sign-in-modal"><strong>Sign in</strong></a> with your institutional account or create one.</span></p>
+                    {% endif %}
+                {% endif %}
+                {% if product.type == "trade" %}
+                    <p><a data-open="bulk-purchasing-modal" class="u-style-underline u-style-weight-bold">Bulk purchasing and cover images</a></p>
+                {% endif %}
+                </div>
+            </div>
+
+            <hr class="product-detail__line"></hr>
+
+            {% if product.type == "k12" or product.type == "riverside" %}
+            <div class="product-detail__related">
+
+                {% if product.relatedProducts|length > 0 %}
+                    {{ kit.btnPrimary({
+                        text: 'Shop related components',
+                        class: 'product-detail__related-components',
+                        button: false,
+                        location: '/search/shop?term=' ~ product.relatedProducts|column('isbn13')|join('+'),
+                    }) }}
+                {% endif %}
+
+                {% if product.programs|length > 0 %}
+                    {{ kit.tertiaryButton({
+                        button: false,
+                        class: 'product-detail__about',
+                        text: 'Learn more about Houghton Mifflin Reading',
+                        location: '/programs/' ~ product.programs[0].slug,
+                    }) }}
+                {% endif %}
+
+            </div>
+            {% endif %}
+        </div>
+
+        {% if product.type == "trade" %}
+        <div class="product-detail__accordion accordion" data-accordion data-allow-all-closed="true">
+            {% if product.description %}
+            <div class="product-detail__accordion-item accordion-item" data-accordion-item>
+                <a href="#" rel="nofollow" class="product-detail__accordion-title accordion-title">About the book</a>
+                <div class="product-detail__accordion-content accordion-content" data-tab-content>
+                    {{ product.description|raw }}
+                </div>
+            </div>
+            {% endif %}
+            {% if product.authors|length > 0 %}
+            <div class="product-detail__accordion-item accordion-item" data-accordion-item>
+                <a href="#" rel="nofollow" class="product-detail__accordion-title accordion-title">About the author</a>
+                <div class="product-detail__accordion-content accordion-content" data-tab-content>
+                    {% for author in product.authors %}
+                    {% if author.bio %}
+                    <div class="product-detail__accordion-author">
+                        <div data-gtm-product-author="{{ author.name }}" class="product-detail__accordion-author-name">{{ author.name }}</div>
+                        <p class="product-detail__accordion-author-bio">{{ author.bio }}</p>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            {% if product.excerpts %}
+            <div class="product-detail__accordion-item accordion-item" data-accordion-item>
+                <a href="#" rel="nofollow" class="product-detail__accordion-title accordion-title">Excerpts</a>
+                <div class="product-detail__accordion-content accordion-content" data-tab-content>
+                    {{ product.excerpts|raw }}
+                </div>
+            </div>
+            {% endif %}
+            {% if product.reviews %}
+            <div class="product-detail__accordion-item accordion-item" data-accordion-item>
+                <a href="#" rel="nofollow" class="product-detail__accordion-title accordion-title">Reviews</a>
+                <div class="product-detail__accordion-content accordion-content" data-tab-content>
+                    {{ product.reviews|raw }}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+    {# {{ log(product) }} #}
+{% endmacro %}

@@ -1,0 +1,115 @@
+{% macro main(params,requestCache) %}
+    {% set layout = {
+        'small': 'small-12 medium-5',
+        'large': 'small-12 medium-7'
+    } %}
+    {% set cols = {
+        '1': params.item.alignment == 'left' ? layout.small : layout.large,
+        '2': params.item.alignment == 'left' ? layout.large : layout.small
+    } %}
+    <div class="home-subsection-body home-subsection-body--{{ params.item.alignment }}" data-js-hook="ui-scroll-reveal-animation">
+        <div class="home-subsection-body__wrapper grid-x grid-margin-x align-center">
+            {% for col in cols %}
+                <div class="home-subsection-body__cell home-subsection-body__cell--{{ loop.index }} cell {{ col }}">
+                    {{ _self.renderEntries(params, loop.index, requestCache) }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endmacro %}
+
+{# Detrmine what to render for each columns #}
+{% macro renderEntries(params, index, requestCache) %}
+    {# alignment left #}
+    {% if params.item.alignment == 'left' and index == 1 %}
+        {{ _self.entry(params.item.homeSmall, 'small', requestCache) }}
+    {% endif %}
+
+    {% if params.item.alignment == 'left' and index == 2 %}
+        {{ _self.entry(params.item.homeLarge, 'large') }}
+
+        {{_self.eventOrStat(params.item.statEvent, params.color, requestCache) }}
+    {% endif %}
+
+
+    {# alignment right #}
+    {% if params.item.alignment == 'right' and index == 1 %}
+        {{ _self.entry(params.item.homeLarge, 'large', requestCache) }}
+        {{ _self.entry(params.item.homeSmall, 'small', requestCache) }}
+    {% endif %}
+
+    {% if params.item.alignment == 'right' and index == 2 %}
+        {{_self.eventOrStat(params.item.statEvent, params.color, requestCache) }}
+    {% endif %}
+{% endmacro %}
+
+{% macro eventOrStat(statEvent, color, requestCache) %}
+    {% if statEvent.kind == 'event' %}
+        {{ _self.event(statEvent, color, requestCache) }}
+    {% endif %}
+
+    {% if statEvent.kind == 'stat' %}
+        {{ _self.statistic(statEvent, color, requestCache) }}
+    {% endif %}
+{% endmacro %}
+
+{% macro entry(content, size, requestCache) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    {% import "partials/core/ui-kit.twig" as kit %}
+    <div class="home-subsection-body__entry home-subsection-body__entry--{{ size }} grid-x small-margin-collapse">
+        <div class="home-subsection-body__entry-image text-center">
+            {{ helper.image(content.image, {
+                class: 'home-subsection-body__entry-image-img'
+            }) }}
+        </div>
+
+        <div class="home-subsection-body__entry-body">
+            <div class="home-subsection-body__entry-text u-style-weight-bold u-style-display-xxs">{{ content.text }}</div>
+            {% if content.cta %}
+                <div class="home-subsection-body__entry-cta">
+                    {{ kit.tertiaryButton({
+                        text: content.cta.text,
+                        location: content.cta.url,
+                        target: content.cta.target,
+                        button: false,
+                    }) }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro event(event, color, requestCache) %}
+    {% import "partials/core/ui-kit.twig" as kit %}
+    <div class="home-subsection-body__event grid-x grid-margin-x">
+        <div class="home-subsection-body__event-content cell small-12 u-background-{{ color }}">
+            <time class="home-subsection-body__event-date grid-x align-bottom" datetime="{{ event.event.eventDate|date('Y-m-dTh:i') }}">
+                <div class="home-subsection-body__event-month cell small-6 u-style-weight-bold u-style-display-xs">{{ event.event.eventDate|date("F") }}</div>
+                <div class="home-subsection-body__event-day cell small-6  text-right u-style-weight-bold">{{ event.event.eventDate|date("d") }}</div>
+            </time>
+            <div class="home-subsection-body__event-location u-style-body-1">{{ event.event.eventLocation.title }}</div>
+            <div class="home-subsection-body__event-title u-style-display-m u-style-weight-bold">{{ event.event.title }}</div>
+            <div class="home-subsection-body__event-cta">
+                {{ kit.tertiaryButton({
+                    text: 'REGISTER NOW',
+                    location: url(requestCache, ['/events-webinars/'~event.event.slug]),
+                    button: false,
+                }) }}
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro statistic(stat, color, requestCache) %}
+    <div class="home-subsection-body__statistic grid-x grid-margin-x">
+        <div class="home-subsection-body__statistic-content cell small-12 u-background-{{ color }}">
+            <div class="home-subsection-body__statistic-stat">{% spaceless %}
+                <span class="home-subsection-body__statistic-number u-style-display-xxxl u-style-weight-bold">{{ stat.stat }}</span>
+                {% if stat.statSymbol is not empty %}
+                    <span class="home-subsection-body__statistic-symbol u-style-display-xl u-style-weight-bold">{{ stat.statSymbol }}</span>
+                {% endif %}
+            {% endspaceless %}</div>
+            <div class="home-subsection-body__statistic-text u-style-display-xxs">{{ stat.statText }}</div>
+        </div>
+    </div>
+{% endmacro %}

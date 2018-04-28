@@ -1,0 +1,16 @@
+{% macro main(params,requestCache) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    <div class="cell blog-image-carousel" data-js-hook="blog-image-carousel">
+        <div class="blog-image-carousel__slider" data-js-hook="blog-image-carousel__slider">
+          {% for slide in params.slides %}
+              <figure class="blog-image-carousel__slide grid-x">
+                    {{ helper.image(slide.image, {
+                        class: 'blog-image-carousel__image cell medium-11 large-8 large-offset-2',
+                    }) }}
+                    <figcaption class="blog-image-carousel__caption cell medium-6 large-4 u-style-body-1">{{ slide.caption }}</figcaption>
+              </figure>
+          {% endfor %}
+      </div>
+    </div>
+{% endmacro %}
+

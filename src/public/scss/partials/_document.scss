@@ -1,0 +1,100 @@
+.documents {
+    margin-top: 100px;
+    margin-bottom: $moduleMargin;
+
+    &__wrapper {
+        width: xy-cell-size(12);
+        margin: 0;
+
+        @include breakpoint(large) {
+            width: xy-cell-size(10);
+        }
+    }
+
+    &__item {
+        background: get-color('gray5');
+        padding: rem-calc(24px);
+        margin-bottom: rem-calc(35px);
+
+        @include breakpoint(medium) {
+            padding: rem-calc(28px 34px);
+            margin-bottom: rem-calc(45px);
+        }
+
+        @include breakpoint(large) {
+            padding: rem-calc(40px 34px);
+        }
+    }
+
+    &__download {
+        text-align: right;
+        margin-top: rem-calc(-44px);
+
+        @include breakpoint(medium) {
+            margin-top: rem-calc(-48px);
+        }
+
+        @include breakpoint(large) {
+            margin-top: rem-calc(-58px);
+        }
+    }
+
+    &__icon {
+        background: get-color('black');
+        width: rem-calc(40px);
+        height: rem-calc(40px);
+        border-radius: 50%;
+
+        svg {
+            display: block;
+            width: rem-calc(15px);
+            height: rem-calc(21px);
+            position: relative;
+            top: rem-calc(-1px);
+            right: rem-calc(-1px);
+        }
+    }
+
+    &__kind {
+        color: get-color('gray1');
+        line-height: rem-calc(16px);
+        margin-bottom: rem-calc(12px);
+        text-transform: uppercase;
+        letter-spacing: rem-calc(1px);
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(16px);
+        }
+
+        @include breakpoint(large) {
+            margin-bottom: rem-calc(8px);
+        }
+    }
+
+    &__title {
+        line-height: rem-calc(28px);
+        margin-bottom: rem-calc(30px);
+
+        @include breakpoint(medium) {
+            line-height: rem-calc(32px);
+            margin-bottom: rem-calc(20px);
+        }
+
+        @include breakpoint(large) {
+            line-height: rem-calc(42px);
+            margin-bottom: rem-calc(22px);
+        }
+    }
+
+    &__sub-text {
+        line-height: rem-calc(23px);
+
+        @include breakpoint(medium) {
+            line-height: rem-calc(24px);
+        }
+    }
+}
+
+// File Type: Gillroy 14PX Bold, Uppercase, #58595b
+// Name: Body 3; up to 2 lines
+// Description: Body 2; up to 3 lines

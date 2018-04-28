@@ -1,0 +1,231 @@
+.result-summary {
+    $c: &;
+    box-shadow: rem-calc(4px 12px 21px 0) rgba(get-color("black"), 0.14);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+
+    .shop-search & {
+        left: rem-calc(16px);
+    }
+
+    [data-browser-name="IE"] &{
+        left: 16px;
+    }
+
+    &__name {
+        font-size: rem-calc(14px);
+        line-height: rem-calc(14px);
+        text-transform: uppercase;
+        margin-bottom: rem-calc(28px);
+        letter-spacing: 1px;
+    }
+
+    &__content {
+        margin-bottom: rem-calc(25px);
+        width: xy-cell-size(10 of 12);
+
+        @include breakpoint(medium) {
+            @include flex;
+            @include xy-grid;
+            margin-bottom: rem-calc(56px);
+        }
+
+        @include breakpoint(large) {
+            margin-bottom: rem-calc(4px);
+            padding-bottom: rem-calc(56px);
+        }
+    }
+
+    &__item {
+        // Display only the first 4 items on mobile and table
+        #{$c}__section--products & {
+            &:nth-of-type(n+5) {
+                display: none;
+            }
+        }
+
+        // Desktop should display everything
+        @include breakpoint(large) {
+            $gutter: map-get($grid-margin-gutters, large);
+
+            #{$c}__section--products & {
+                @include flex-align-self(top);
+                width: xy-cell-size(50%);
+                padding-right: #{rem-calc($gutter/2)};
+
+                &:nth-of-type(n+5) {
+                    display: block;
+                    padding-left: #{rem-calc($gutter/2)};
+                }
+            }
+
+            #{$c}--global & {
+                width: 100%;
+                padding: 0;
+            }
+        }
+
+        &:not(:last-child) {
+            margin-bottom: rem-calc(24px);
+        }
+    }
+
+    &__list {
+        // Display as 2 columns in desktop
+        @include breakpoint(large) {
+            #{$c}__section--products & {
+                @include flex;
+                @include xy-grid;
+                flex-direction: column;
+            }
+        }
+    }
+
+    &__section {
+        margin-bottom: rem-calc(56px);
+
+        @include breakpoint(large) {
+            margin-bottom: 0;
+        }
+
+        &:last-child {
+            margin-bottom: rem-calc(20px);
+
+            @include breakpoint(large) {
+                margin-bottom: rem-calc(0);
+            }
+        }
+
+        &--programs {
+            $width: xy-cell-size(100%);
+            width: $width;
+
+            @include breakpoint(medium) {
+                $gutter: map-get($grid-margin-gutters, medium);
+                $width: xy-cell-size(50%);
+                width: calc(#{$width} - #{rem-calc($gutter/2)});
+                margin-right: #{rem-calc($gutter/2)};
+            }
+
+            @include breakpoint(large) {
+                $gutter: map-get($grid-margin-gutters, large);
+                $width: xy-cell-size(4 of 10);
+                width: calc(#{$width} - #{rem-calc($gutter/2)});
+                margin-right: #{rem-calc($gutter/2)};
+            }
+        }
+
+        &--categories {
+            $width: xy-cell-size(100%);
+            width: $width;
+
+            @include breakpoint(medium) {
+                $gutter: map-get($grid-margin-gutters, medium);
+                $width: xy-cell-size(50%);
+                width: calc(#{$width} - #{rem-calc($gutter/2)});
+                margin-left: #{rem-calc($gutter/2)};
+            }
+
+            @include breakpoint(large) {
+                $gutter: map-get($grid-margin-gutters, large);
+                $width: xy-cell-size(3 of 10);
+                width: calc(#{$width} - #{rem-calc($gutter)});
+                margin-left: #{rem-calc($gutter/2)};
+                margin-right: #{rem-calc($gutter/2)};
+            }
+        }
+
+        &--products {
+            $width: xy-cell-size(100%);
+            margin: 0;
+            width: $width;
+
+            @include breakpoint(medium) {
+                $gutter: map-get($grid-margin-gutters, medium);
+                $width: xy-cell-size(50%);
+                width: calc(#{$width} - #{rem-calc($gutter/2)});
+                margin-left: #{rem-calc($gutter/2)}
+
+                #{$c}--global & {
+                    margin: 0;
+                }
+            }
+
+            @include breakpoint(large) {
+                $gutter: map-get($grid-margin-gutters, large);
+                $width: xy-cell-size(6 of 10);
+                width: calc(#{$width} - #{rem-calc($gutter/2)});
+                margin-left: #{rem-calc($gutter/2)};
+
+                #{$c}--global & {
+                    $width: xy-cell-size(3 of 10);
+                    width: calc(#{$width} - #{rem-calc($gutter/2)});
+                }
+            }
+        }
+    }
+
+    &__group-item {
+        width: 100%;
+    }
+
+    &__link {
+        display: block;
+
+        #{$c}__section--programs &,
+        #{$c}__section--categories & {
+            @include get-font-size("body-4");
+            line-height: rem-calc(16px);
+
+            @include breakpoint(medium) {
+                line-height: rem-calc(18px);
+            }
+
+            @include breakpoint(large) {
+                line-height: rem-calc(21px);
+            }
+        }
+
+        #{$c}__section--products & {
+            @include get-font-size("body-1");
+            @include get-font-weight("bold");
+
+            @include breakpoint(medium) {
+                line-height: rem-calc(20px);
+            }
+        }
+    }
+
+    &__meta {
+        display: block;
+        margin-top: rem-calc(6px);
+        font-size: rem-calc(14px);
+        line-height: rem-calc(14px);
+    }
+
+    &__cta {
+        @include flex;
+        @include flex-align(center);
+        margin-bottom: rem-calc(56px);
+
+        #{$c}--global & {
+            @include flex-align(left);
+            margin: rem-calc(40px 0 0);
+            padding: 0 !important;
+        }
+
+        .ui-btn-primary {
+            max-width: rem-calc(226px);
+
+            #{$c}--global & {
+                max-width: rem-calc(138px);
+            }
+
+            @include breakpoint(medium) {
+                max-width: rem-calc(370px);
+            }
+        }
+    }
+}

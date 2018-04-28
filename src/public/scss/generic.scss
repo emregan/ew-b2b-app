@@ -1,0 +1,30 @@
+/*----------------------------------------------------*/
+/*  Vendors
+/*----------------------------------------------------*/
+/** Foundation */
+@import 'foundation-sites/scss/foundation';
+
+/*----------------------------------------------------*/
+/*  Core Styles
+/*----------------------------------------------------*/
+@import './_shared/settings';
+@import './_shared/shared';
+
+/*----------------------------------------------------*/
+/*  Foundation styles
+/*----------------------------------------------------*/
+@include foundation-xy-grid-classes;
+@include foundation-flex-classes;
+@include foundation-visibility-classes;
+@include foundation-typography;
+
+/*----------------------------------------------------*/
+/*  Global Styles
+/*----------------------------------------------------*/
+
+/*----------------------------------------------------*/
+/*  Partials
+/*----------------------------------------------------*/
+@import './partials/four-oh-four';
+@import './partials/generic';
+@import './partials/sitemap';

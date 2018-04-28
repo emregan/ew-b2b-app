@@ -1,0 +1,446 @@
+.navigation{
+    // used to determin custom colum size for content and logo
+    $logoSizeMd: 24%;
+    $logoSizeLg: 22%;
+
+    position: fixed;
+    top:0;
+    left: 0;
+    width: 100%;
+    z-index: 50;
+
+    &.navigation--shrink{
+        .logo-wordmark{
+            opacity: 0;
+            transform: translateY(-15px);
+        }
+    }
+
+    .logo-wordmark{
+        transition-property: opacity, transform;
+        transition-duration: 0.5s;
+    }
+
+
+    &__container {
+        position: relative;
+
+        @include breakpoint(small down) {
+            padding-right: rem-calc(0) !important;
+            padding-left: rem-calc(0) !important;
+        }
+    }
+
+    &__grid{
+        $height: map-get($headerExpanded, 'small');
+        height: rem-calc($height);
+        transition: height 0.5s;
+
+        .navigation--shrink &{
+            $height: map-get($headerShrink, 'small');
+            height: rem-calc($height);
+        }
+
+        @include breakpoint(medium) {
+            $height: map-get($headerExpanded, 'medium');
+            height: rem-calc($height);
+        }
+    }
+
+    .navigation__top-nav,
+    .navigation__right-menu {
+        @include xy-cell(3);
+
+        @include breakpoint(medium) {
+            $size: (100 - $logoSizeMd);
+            @include xy-cell( $size / 2 );
+        }
+
+        @include breakpoint(large) {
+            $size: (100 - $logoSizeLg);
+            @include xy-cell( $size / 2 );
+        }
+    }
+
+    .navigation__logo {
+        @include xy-cell(6);
+
+        @include breakpoint(medium) {
+            @include xy-cell($logoSizeMd);
+        }
+
+        @include breakpoint(large) {
+            @include xy-cell($logoSizeLg);
+        }
+    }
+
+    &__search,
+    &__menu,
+    &__top-nav-item,
+    &__account,
+    &__cart {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    &__logo{
+        padding: rem-calc(5px) 0;
+    }
+
+    &__logo-img {
+        max-width: rem-calc(136px);
+        display: inline-block;
+        transition: transform 0.5s;
+
+        .navigation--shrink &{
+            transform: translateY(15px);
+            height: rem-calc(38px);
+        }
+
+        @include breakpoint(medium) {
+            max-width: rem-calc(176px);
+        }
+
+        svg{
+            width: 100%;
+
+            [data-browser-name="IE"] & {
+                height: rem-calc(42px);
+
+                @include breakpoint(medium) {
+                    height: rem-calc(46px);
+                }
+
+                @include breakpoint(large) {
+                    height: rem-calc(53px);
+                }
+            }
+        }
+    }
+
+    &__cart {
+        @include breakpoint(large) {
+            margin-right: rem-calc(16px);
+        }
+    }
+
+    &__top-nav-item:not(:first-child) {
+        @include breakpoint(large) {
+            margin-left: rem-calc(32px);
+        }
+    }
+
+    &__account {
+        @include breakpoint(medium) {
+            margin-right: rem-calc(5);
+        }
+    }
+
+    &__notice-container {
+        padding: rem-calc(14px 24px 12px);
+
+        @include breakpoint(medium) {
+            $negativeMargin: map-safe-get($grid-container-padding, 'medium');
+            $negativeMargin: ($negativeMargin / 2);
+            margin: 0 rem-calc(-$negativeMargin);
+            padding: rem-calc(12px 0);
+        }
+    }
+
+    &__notice-text {
+        line-height: rem-calc(18px);
+
+        @include breakpoint(medium) {
+            line-height: rem-calc(16px);
+        }
+
+        p {
+            font-weight: inherit;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        a {
+            text-decoration: underline;
+        }
+    }
+}
+
+.nav-off-canvas {
+
+    &.is-open {
+        -webkit-overflow-scrolling: touch;
+    }
+
+    &__container {
+        @include breakpoint(medium) {
+            padding-right: rem-calc(23px);
+            padding-left: rem-calc(23px);
+        }
+
+        @include breakpoint(large) {
+            padding-right: rem-calc(32px);
+            padding-left: rem-calc(32px);
+        }
+    }
+
+    &__cross {
+        margin-top: rem-calc(15px);
+        margin-bottom: rem-calc(10px);
+    }
+	&__top-menu-item {
+		font-size: rem-calc(16);
+		line-height: rem-calc(60px);
+	}
+
+    &__upper-menu-item,
+    &__lower-menu-item {
+        margin-bottom: rem-calc(35px);
+        font-size: rem-calc(21px);
+        line-height: 25px;
+        display: block;
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(45px);
+        }
+    }
+
+    &__lower-menu-item .ui-nav-item {
+        font-weight: normal;
+    }
+}
+
+.modal-account {
+    $modal-height: 153px;
+    padding: 0 0 rem-calc(34px);
+    background: transparent;
+    height: auto;
+    min-height: 0;
+    width: 100%;
+    max-width: none;
+    border: none;
+    outline: none;
+    z-index: 49;
+    opacity: 0;
+    transform: translateY(rem-calc(-$modal-height));
+    position: fixed;
+    transition: top 0.5s, transform 0.5s, opacity 0.5s;
+
+    &__open {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    $notice-height: 40px;
+
+    $top: map-get($headerExpanded, 'small');
+    top: rem-calc($top) !important;
+
+    .navigation__with-notice ~ {
+        top: rem-calc($top + $notice-height) !important;
+    }
+
+    .navigation--shrink ~ & {
+        $top: map-get($headerShrink, 'small');
+        top: rem-calc($top) !important;
+    }
+
+    .navigation__with-notice.navigation--shrink ~ & {
+        top: rem-calc($top + $notice-height) !important;
+    }
+
+    @include breakpoint(medium) {
+        $top: map-get($headerExpanded, 'medium');
+        top: rem-calc($top) !important;
+        .navigation__with-notice ~ & {
+            top: rem-calc($top + $notice-height) !important;
+        }
+    }
+
+    &__container {
+        background: get-color('blue');
+        box-shadow: rem-calc(4px 12px 21px 0) rgba(get-color("black"), 0.14);
+        padding: rem-calc(34px) rem-calc(46px);
+        min-width: rem-calc(370px);
+    }
+
+    .ui-btn-primary {
+        display: inline-block;
+        max-width: rem-calc(288px);
+        margin-right: rem-calc(20px);
+        width: 65%;
+
+        @include breakpoint(1120px) {
+            width: 70%;
+        }
+
+        @include breakpoint(1265px) {
+            width: 75%;
+        }
+    }
+
+    .ui-btn-tertiary {
+        border-bottom: #{rem-calc(3px)} transparent solid;
+        line-height: 1;
+        padding-bottom: rem-calc(5px);
+
+        &:hover {
+            border-bottom-color: get-color('black');
+        }
+    }
+
+    @include breakpoint(small down) {
+        display: none !important;
+    }
+}
+
+.cart-count{
+    $size: 34px;
+    width: rem-calc($size);
+    height: rem-calc($size);
+    line-height: rem-calc($size);
+    border-radius: 100%;
+    display: inline-block;
+    margin-left: rem-calc(8px);
+
+    &:not(.u-background-gold) {
+        background-color: get-color('gray4');
+        vertical-align:middle;
+    }
+
+    @include breakpoint(medium) {
+        $size: 25px;
+        width: rem-calc($size);
+        height: rem-calc($size);
+        line-height: rem-calc($size);
+    }
+}
+
+.nav-search {
+    $c: &;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 40;
+    // calc is accuraetly moving it offscreen
+    // why exatcly not sure, could be calc is adjusting percentages after render
+    transform: translateY(calc(-100%));
+    opacity: 0;
+    transition-property: transform, opacity, top;
+    transition-duration: 0.5s;
+
+    &--open {
+        $height: map-get($headerExpanded, 'small');
+        transform: translateY($height);
+        opacity: 1;
+
+        @include breakpoint(medium) {
+            $height: map-get($headerExpanded, 'medium');
+            transform: translateY($height);
+
+            &#{$c}--shrink {
+                $height: map-get($headerShrink, 'small');
+                transform: translateY($height);
+            }
+        }
+    }
+
+    &__container {
+        -webkit-overflow-scrolling: touch;
+        background: get-color('white');
+
+        @include breakpoint(small only) {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+    }
+
+    &__results {
+        position: relative;
+        z-index: 20;
+        display: none;
+
+        &--open  {
+            display: flex;
+        }
+    }
+}
+
+
+
+
+
+li.divider {
+    margin: 10px 0;
+    height: 2px;
+    background: get-color('gray4');
+}
+.dropdown.menu .is-active > a {
+	color: get-color('black');
+}
+.menu > .active > a {
+	margin: rem-calc(0 5px);
+	background: get-color('gray4');
+	color: get-color('black');
+	font-weight: bold;
+}
+.dropdown.menu > li.is-dropdown-submenu-parent > a::after {
+	border: 0;
+}
+.dropdown.menu > li.is-dropdown-submenu-parent > a {
+    padding: 0 5px;
+    
+    &:last-child {
+	    text-transform: uppercase;
+	    font-weight: bold;
+	    color: get-color('gray6');
+    }
+}
+.dropdown .is-dropdown-submenu a {
+	&:hover {
+		font-weight: bold;
+		color: get-color('black');
+	}
+}
+.is-dropdown-submenu {
+    /*-webkit-box-shadow: 0 0 15px rgba(0,0,0, .2);
+    -moz-box-shadow: 0 0 15px rgba(0,0,0, .2);
+    box-shadow: 0 0 15px rgba(0,0,0, .2);*/
+    border: 0;
+    margin-top: 20px;
+    padding: rem-calc(15px 5px 5px);
+    text-align: left;
+    min-width: rem-calc(280px);
+    -webkit-filter: drop-shadow(0px 0 5px rgba(0,0,0,.2));
+    filter: drop-shadow(0px 0 6px rgba(0,0,0,.2));
+    -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=0, OffY=2, Color='#444')";
+    filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=0, OffY=2, Color='#444')";
+    
+    &:before {
+	    content: '';
+	    position: absolute;
+	    right: 20px;
+	    top: -12px;
+	    width: 0px;
+	    height: 0px;
+	    border-left: 15px solid transparent;
+	    border-right: 15px solid transparent;
+	    border-bottom: 15px solid #fff;
+    }
+    &:after {
+	    content: '';
+	    position: absolute;
+	    right: 20px;
+	    top: -13px;
+	    width: 0px;
+	    height: 0px;
+	    border-left: 15px solid transparent;
+	    border-right: 15px solid transparent;
+	    /*border-bottom: 15px solid #000;*/
+	    z-index: -1;
+	    opacity: .1;
+    }
+}

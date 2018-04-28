@@ -1,0 +1,218 @@
+.press-releases-news-list {
+    margin-bottom: rem-calc(40px);
+
+    @include breakpoint(medium) {
+        margin-top: rem-calc(90px);
+    }
+
+    &--news {
+        margin-bottom: rem-calc(155px);
+    }
+
+    &__heading{
+
+        @include breakpoint(large) {
+            margin-bottom: rem-calc(20px);
+        }
+
+        &:before,
+        &:after{
+            content: '';
+            width: rem-calc(26px);
+            height: rem-calc(2px);
+            background-color: get-color('gray4');
+            display: inline-block;
+            vertical-align: middle;
+
+            @include breakpoint(medium) {
+                width: rem-calc(40px);
+            }
+
+            @include breakpoint(large) {
+                width: rem-calc(62px);
+            }
+        }
+
+        &:before{
+            margin-right: rem-calc(20px);
+
+            @include breakpoint(medium) {
+                margin-right: rem-calc(28px);
+            }
+
+            @include breakpoint(large) {
+                margin-right: rem-calc(32px);
+            }
+        }
+
+        &:after{
+            margin-left: rem-calc(20px);
+
+            @include breakpoint(medium) {
+                margin-left: rem-calc(28px);
+            }
+
+            @include breakpoint(large) {
+                margin-left: rem-calc(32px);
+            }
+        }
+    }
+
+    &__image-wrapper {
+        margin-bottom: rem-calc(20px);
+
+        @include breakpoint(medium) {
+            margin-bottom: 0;
+        }
+    }
+
+    &__entry {
+        position: relative;
+        padding-top: rem-calc(50px);
+        padding-bottom: rem-calc(50px);
+
+        &:after {
+            $gutter: map-get($grid-margin-gutters, small);
+
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: #{$gutter/2};
+            width: calc(#{xy-cell-size(12)} - #{($gutter)});
+            height: 3px;
+            background: get-color('gray4');
+
+            @include breakpoint(medium) {
+                $gutter: map-get($grid-margin-gutters, medium);
+
+                left: #{$gutter/2};
+                width: calc(#{xy-cell-size(12)} - #{$gutter});
+            }
+
+            @include breakpoint(large) {
+                $gutter: map-get($grid-margin-gutters, large);
+
+                left: #{$gutter/2};
+                width: calc(#{xy-cell-size(12)} - #{$gutter});
+            }
+        }
+    }
+
+    &__title {
+        line-height: rem-calc(22px);
+        margin-bottom: rem-calc(12px);
+
+        @include breakpoint(medium) {
+            line-height: rem-calc(24px);
+            margin-bottom: rem-calc(16px);
+        }
+
+        @include breakpoint(large) {
+            line-height: rem-calc(32px);
+        }
+    }
+
+    &__body {
+        line-height: rem-calc(24px);
+        margin-bottom: rem-calc(28px);
+    }
+
+    .events-list__webinar-date {
+        font-size: rem-calc(14px);
+    }
+
+    // &__info {
+    //     padding: rem-calc(0 12px 12px);
+
+    //     @include breakpoint(medium) {
+    //         margin-top: rem-calc(54px);
+    //         padding: rem-calc(0 20px 20px);
+    //     }
+
+    //     @include breakpoint(large) {
+    //         padding: rem-calc(0 24px 32px);
+    //     }
+    // }
+
+    // &__date {
+    //     display: block;
+
+    //     &--number {
+    //         font-size: rem-calc(120px);
+    //         line-height: rem-calc(18px);
+    //         display: inline-block;
+    //         vertical-align: baseline;
+
+    //         @include breakpoint(medium) {
+    //             font-size: rem-calc(144px);
+    //         }
+    //     }
+
+    //     &--month {
+    //         margin-top: rem-calc(10px);
+    //         margin-bottom: rem-calc(8px);
+    //         line-height: rem-calc(22px);
+    //     }
+    // }
+
+    // &__venue {
+    //     line-height: rem-calc(16px);
+
+    //     @include breakpoint(medium) {
+    //         line-height: rem-calc(18px);
+    //     }
+    // }
+
+    // &__register {
+    //     position: relative;
+    // }
+
+    // &__speaker {
+    //     display: block;
+
+    //     @include breakpoint(large) {
+    //         max-width: rem-calc(245px);
+    //     }
+    // }
+
+    // &__speaker-image {
+    //     width: 100%;
+    //     height: auto;
+    //     border-radius: 50%;
+    // }
+
+    // &__speaker-name,
+    // &__speaker-title {
+    //     line-height: rem-calc(16px);
+
+    //     @include breakpoint(medium) {
+    //         line-height: rem-calc(20px);
+    //     }
+    // }
+
+    // &__speaker-title {
+    //     margin-bottom: rem-calc(20px);
+    // }
+
+    // &__register-btn {
+    //     position: absolute;
+    //     bottom: rem-calc(10px);
+    //     right: 0;
+
+    //     @include breakpoint(medium) {
+    //         bottom: rem-calc(20px);
+    //     }
+    //     @include breakpoint(large) {
+    //         bottom: rem-calc(16px);
+    //     }
+    // }
+
+    // &__webinar-date {
+    //     display: inline-block;
+    //     margin-right: rem-calc(15px);
+    // }
+
+    // &__duration {
+    //     display: inline-block;
+    // }
+}

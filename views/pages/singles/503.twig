@@ -1,0 +1,29 @@
+{% extends 'layouts/_main.twig' %}
+
+{% import 'partials/core/program-layout.twig' as layouts %}
+{% import 'partials/core/helpers.twig' as helper %}
+
+{% set pageType = 'generic' %}
+
+{% set pageContent = [
+    {
+        title: "Curious",
+        subtitle: "This page seems to be taking a rest",
+        imagePath: "curiousgeorge-bed.jpg"
+    },
+    {
+        title: "Curious",
+        subtitle: "This page seems to be on break",
+        imagePath: "curiousgeorge-brunch.jpg"
+    }
+][(random(1))] %}
+
+{% block content %}
+    <div class="four-oh-four" data-gtm-page-override="503">
+        <div class="four-oh-four__title">{{ pageContent.title }}</div>
+        <div class="four-oh-four__subtitle">{{ pageContent.subtitle }}</div>
+        <img src="/images/{{ pageContent.imagePath }}" class="home-subpage-intro__image-img" />
+        <div class="four-oh-four__error-code">Error code: 503</div>
+        <div class="four-oh-four__menu-title">{{ message }}</div>
+    </div>
+{% endblock %}

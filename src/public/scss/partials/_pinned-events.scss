@@ -1,0 +1,163 @@
+.pinned-events {
+
+    &__item {
+        margin-bottom: rem-calc(102px);
+        position: relative;
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(90px);
+        }
+
+        @include breakpoint(large) {
+            margin-bottom: rem-calc(100px);
+        }
+
+        &--events {
+            margin-bottom: rem-calc(85px);
+
+            @include breakpoint(medium) {
+                margin-bottom: rem-calc(90px);
+            }
+
+            @include breakpoint(large) {
+                margin-bottom: rem-calc(100px);
+            }
+        }
+
+        &--webinars {
+            background: get-color('gray5');
+        }
+    }
+
+    &__content {
+        padding: rem-calc(16px 20px 30px);
+
+        @include breakpoint(medium) {
+            padding: rem-calc(16px 26px 36px);
+        }
+    }
+
+    &__section {
+        font-size: rem-calc(14px);
+        line-height: rem-calc(18px);
+        text-transform: uppercase;
+        color: get-color('gray1');
+        margin-top: rem-calc(5px);
+        margin-bottom: rem-calc(12px);
+        letter-spacing: rem-calc(1px);
+    }
+
+    &__title {
+        line-height: rem-calc(28px);
+        margin-bottom: rem-calc(12px);
+
+        @include breakpoint(medium) {
+            line-height: rem-calc(32px);
+            margin-bottom: rem-calc(16px);
+        }
+
+        @include breakpoint(large) {
+            line-height: rem-calc(42px);
+        }
+    }
+
+    &__speaker {
+        display: block;
+        text-align: right;
+        margin-top: rem-calc(-96px);
+        margin-bottom: rem-calc(6px);
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(46px);
+        }
+
+        @include breakpoint(large) {
+            margin-bottom: rem-calc(38px);
+        }
+    }
+
+    &__speaker-image {
+        width: rem-calc(125px);
+        height: auto;
+        border-radius: 50%;
+
+        @include breakpoint(medium) {
+            width: rem-calc(150px);
+        }
+    }
+
+    &__speaker-name,
+    &__speaker-title {
+        line-height: rem-calc(16px);
+
+        @include breakpoint(medium) {
+            line-height: rem-calc(20px);
+        }
+    }
+
+    &__speaker-title {
+        margin-bottom: rem-calc(20px);
+    }
+
+    &__body {
+        line-height: rem-calc(24px);
+        margin-bottom: rem-calc(26px);
+
+        .pinned-events__item--events & {
+            @include breakpoint(small only) {
+                line-height: rem-calc(23px);
+                margin-bottom: rem-calc(30px);
+            }
+
+            margin-bottom: rem-calc(10px);
+        }
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(30px);
+        }
+    }
+
+    &__webinar-date {
+        display: block;
+        margin-bottom: rem-calc(18px);
+    }
+
+    &__info {
+        margin-top: rem-calc(-104px);
+    }
+
+    &__date {
+        display: block;
+
+        &--number {
+            font-size: rem-calc(120px);
+            text-align: right;
+
+            @include breakpoint(medium) {
+                font-size: rem-calc(144px);
+            }
+        }
+
+        &--month {
+            margin: rem-calc(-10px 0 5px);
+        }
+    }
+
+    &__venue {
+        line-height: rem-calc(16px);
+        margin-bottom: rem-calc(22px);
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(30px);
+            line-height: rem-calc(18px);
+        }
+
+        @include breakpoint(large) {
+            margin-bottom: rem-calc(20px);
+        }
+    }
+
+    &__duration {
+        text-align: right;
+    }
+}

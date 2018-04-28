@@ -1,0 +1,34 @@
+{% extends 'layouts/_main.twig' %}
+{% import 'partials/core/modules-importer.twig' as modules %}
+{% import 'partials/core/components-importer.twig' as components %}
+
+{% set pageType = 'orders' %}
+{% set seoTemplate = pageType ~ '-detail' %}
+{% set baseUrl = '/orders' %}
+
+{% set headerData = {
+    pageType: pageType
+} %}
+
+{% block content %}
+    {{ components.orderPageHeader({
+        title: "Order #",
+        orderNumber: "0095052068",
+        back: {
+	        text: "Order History",
+	        location: baseUrl
+        },
+        button: {
+	        text: "Need help?",
+	        location: ""
+        }
+    }, requestCache) }}
+
+    {{ components.orderDetail({
+        data: data,
+        class: 'order-detail-list'
+    }, requestCache) }}
+
+    {{ components.pagination(pagination, requestCache) }}
+    
+{% endblock %}

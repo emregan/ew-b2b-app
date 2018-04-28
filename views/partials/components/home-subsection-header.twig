@@ -1,0 +1,11 @@
+{% macro main(text,requestCache) %}
+    {% if text is not empty %}
+        <div class="home-subsection-header grid-x grid-margin-x align-center text-center" data-js-hook="ui-scroll-reveal-animation">
+            <div class="home-subsection-header__wrapper cell small-12 text-center">
+                <div class="home-subsection-header__line"></div>
+                <div class="home-subsection-header__text u-style-display-m">{{ text }}</div>
+                <div class="home-subsection-header__line"></div>
+            </div>
+        </div>
+    {% endif %}
+{% endmacro %}

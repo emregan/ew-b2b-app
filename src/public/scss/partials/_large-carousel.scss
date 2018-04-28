@@ -1,0 +1,62 @@
+.large-carousel{
+    margin-bottom: $moduleMargin;
+
+    &__slider{
+        margin-bottom: rem-calc(10px);
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(16px);
+        }
+
+        @include breakpoint(large) {
+            margin-bottom: rem-calc(32px);
+        }
+    }
+
+    &__caption-main{
+        margin-bottom: rem-calc(5px);
+        line-height: rem-calc(22px);
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(8px);
+            line-height: rem-calc(28px);
+        }
+
+        @include breakpoint(large) {
+            line-height: rem-calc(32px);
+        }
+    }
+
+    &__caption-sub{
+        line-height: rem-calc(24px);
+
+        @include breakpoint(medium) {
+            line-height: rem-calc(28px)
+        }
+    }
+
+    &__dots {
+        @include carousel-dots;
+    }
+
+    &__video .video-js{
+        width: 100%;
+        height: rem-calc(152px);
+
+        @include breakpoint(medium) {
+            height: rem-calc(386px);
+        }
+
+        @include breakpoint(large) {
+            height: rem-calc(560px);
+        }
+    }
+
+    &__video .vjs-poster{
+        background-size: cover;
+    }
+
+    .slick-slider .slick-track, .slick-slider .slick-list {
+        transform: none;
+    }
+}

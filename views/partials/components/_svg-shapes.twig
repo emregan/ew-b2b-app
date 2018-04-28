@@ -1,0 +1,100 @@
+{% macro triangle(fill, requestCache) %}
+    <svg xmlns="http://www.w3.org/2000/svg" {% if requestCache.useragent.browser != 'IE' %}viewBox="0 0 875 436"{% endif %}>
+      <polygon points="0 0 875 0 0 436 0 0" class="u-fill-{{ fill|default('gold') }}"/>
+    </svg>
+{% endmacro %}
+
+{% macro hexagon() %}
+    {# <svg width="286px" height="345px" viewBox="0 0 286 345" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g id="2.{post)-Desktop" transform="translate(-142.000000, -4443.000000)" fill="#F2A900">
+                <g id="Testimonial" transform="translate(142.000000, 4443.000000)">
+                    <polygon id="Polygon" points="143 0 285.028166 86.25 285.028166 258.75 143 345 0.971833779 258.75 0.971833779 86.25"></polygon>
+                </g>
+            </g>
+        </g>
+    </svg> #}
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 284.06 345">
+      <g>
+        <polygon points="142.03 0 284.06 86.25 284.06 258.75 142.03 345 0 258.75 0 86.25 142.03 0" style="fill: #f2a900"/>
+      </g>
+    </svg>
+{% endmacro %}
+
+{% macro home_video_shape(requestCache) %}
+    <svg xmlns="http://www.w3.org/2000/svg" {% if requestCache.useragent.browser != 'IE' %}viewBox="0 0 1280 195"{% else %}width="1280" height="195"{% endif %}>
+        <g id="Layer_2" data-name="Layer 2">
+            <g id="Layer_1-2" data-name="Layer 1">
+                <path id="flat" d="M1280,195H0v-1s265,1,640,1c383,0,640-1,640-1Z" fill="#ffffff"/>
+                {# <path id="final" d="M1280,195H0V0S265,195,640,195c383,0,640-195,640-195Z" fill="#ffffff"/> #}
+            </g>
+        </g>
+    </svg>
+{% endmacro %}
+
+{% macro home_hex(color) %}
+    <svg class="home-hex" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 490 490" width="490">
+        <path class="home-hex__path u-fill-{{ color|default('gold') }}" d="M245 41.5 421.5 143.25 421.5 346.75 245 448.5 68.5 346.75 68.5 143.25 245 41.5z"/>
+    </svg>
+{% endmacro %}
+
+{% macro home_diamond(color) %}
+    <svg class="home-diamond" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 490 490" width="490">
+        <path class="home-diamond__path u-fill-{{ color|default('gold') }}" d="M245 26.5 463.49 245 245 463.5 26.5 245 245 26.5z"/>
+    </svg>
+{% endmacro %}
+
+{% macro home_triangle(color) %}
+    <svg class="home-triangle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 490 490" width="490">
+        <path class="home-triangle__path u-fill-{{ color|default('gold') }}" d="M245 41.5 489.5 448.5 0.5 448.5 245 41.5z"/>
+    </svg>
+
+{% endmacro %}
+
+{% macro home_circle(color) %}
+    <svg class="home-circle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 490 490" width="490">
+        <path class="home-circle__path u-fill-{{ color|default('gold') }}" d="M245,434a189,189,0,1,0-138.31-60.19A188.48,188.48,0,0,0,245,434Z"/>
+    </svg>
+{% endmacro %}
+
+{% macro home_circle_small(color) %}
+    <svg class="home-circle-small" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 490 490" width="490">
+        <path class="home-circle-small__path u-fill-{{ color|default('white') }}" d="M245,265a20,20,0,1,0-14.64-6.37A19.94,19.94,0,0,0,245,265Z"/>
+    </svg>
+{% endmacro %}
+
+{% macro module_slant(color) %}
+    <div class="show-for-large">
+        {{ _self.module_slant_l(color) }}
+    </div>
+    <div class="show-for-medium-only">
+        {{ _self.module_slant_m(color) }}
+    </div>
+    <div class="show-for-small-only">
+        {{ _self.module_slant_s(color) }}
+    </div>
+{% endmacro %}
+
+{% macro module_slant_l(color) %}
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1199 169">
+      <g>
+        <polygon points="1199 169 0 169 0 0 1199 169" class="u-fill-{{ color|default('white') }}"/>
+      </g>
+    </svg>
+{% endmacro %}
+
+{% macro module_slant_m(color) %}
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 768 108">
+      <g>
+        <polygon points="768 108 0 108 0 0 768 108" class="u-fill-{{ color|default('white') }}"/>
+      </g>
+    </svg>
+{% endmacro %}
+
+{% macro module_slant_s(color) %}
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 56">
+      <g>
+        <polygon points="320 56 0 56 0 0 320 56" class="u-fill-{{ color|default('white') }}"/>
+      </g>
+    </svg>
+{% endmacro %}

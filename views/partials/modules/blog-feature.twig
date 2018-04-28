@@ -1,0 +1,41 @@
+{% macro main(params,requestCache) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    {% set alignment = (params.loopMeta.centerModules) ? 'align-right' : 'align-center' %}
+    {% set srID = random() %}
+
+    {{ helper.nestedLayoutOpen({
+        name: 'blog-feature',
+        align: alignment,
+        id: params.loopMeta.slug
+    }) }}
+        {% for entry in params.entries %}
+            {{ _self.item(entry, srID, requestCache) }}
+        {% endfor %}
+    {{ helper.nestedLayoutClose() }}
+{% endmacro %}
+
+{% macro item(entry, srID, requestCache) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    <article class="blog-feature__item cell small-12 medium-6 large-4 u-background-gray5" data-js-hook="ui-scroll-reveal-animation" data-sequence-id="{{ srID }}">
+        <a href="{{ url(requestCache, ['/blog/', entry.slug]) }}">
+            <div class="blog-feature__image">
+                {{ helper.image(entry.blogHeroImage, {
+                    'class': 'blog-feature__image-img',
+                }) }}
+            </div>
+            <div class="blog-feature__body">
+                <div class="blog-feature__title u-style-weight-bold u-style-display-xs">{{ entry.title|raw }}</div>
+                <div class="blog-feature__summary u-style-body-2">
+                    {{ entry.summaryHtml|raw }}
+                    <span class="blog-feature__read-more-link">Read More</span>
+                </div>
+                <div class="blog-feature__author-name u-style-weight-bold u-style-display-xxs">{{ entry.blogAuthor.title }}</div>
+                {% if entry.blogAuthor.personTitle is not empty %}
+                    <div class="blog-feature__author-title u-style-body-2">{{ entry.blogAuthor.personTitle|raw }}</div>
+                {% endif %}
+
+                <div class="blog-feature__post-date u-style-weight-bold u-style-body-2">{{ entry.postDate|date('F j, Y') }}</div>
+            </div>
+        </a>
+    </article>
+{% endmacro %}

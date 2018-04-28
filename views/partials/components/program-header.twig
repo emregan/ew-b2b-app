@@ -1,0 +1,154 @@
+{% macro main(params,requestCache) %}
+    {% set removeBottomMargin = params.section != 'programs' and params.headline is empty %}
+    <div class="program-header{% if removeBottomMargin %} program-header--no-bottom-margin{% endif %}" data-gtm-page-override="{{ (params.section == 'subpageLayout') ? params.title|striptags|stripsymbols|lower ~ ' landing' : params.section }} page"{% if params.section == 'programs' %} data-gtm-program="{{ params.title|striptags|stripsymbols }}"{% endif %}>
+        <div class="program-header__intro grid-x grid-margin-x">
+            {% if params.headerImage and params.section != 'about' %}
+                {{ _self.introImage({
+                    image: params.headerImage,
+                    video: params.headerVideo,
+                    logo: params.logo
+                }, requestCache) }}
+            {% endif %}
+            {% if params.primaryCta %}
+                {{ _self.banner(params.primaryCta, params.secondaryCtas) }}
+            {% endif %}
+        </div>
+        <div class="program-header__body grid-x grid-margin-x">
+            {{ _self.subPagesNav(params.subpages, params.slug, requestCache) }}
+            {{ _self.introCopy({
+                title: params.title,
+                headline: params.headline,
+                gradeLevelsRange: params.gradeLevels,
+                primarySubject: params.primarySubject,
+                primaryType: params.primaryType,
+                section: params.section
+            }) }}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro introImage(params,requestCache) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    <div class="program-header__image cell small-12">
+        <div class="program-header__image-cover-wrapper">
+            {{ helper.imageCover(params.image, {
+                'class': 'program-header__image-cover',
+            }) }}
+
+            {% if params.video %}
+                <div class="program-header__video" data-js-hook="program-header__video">
+                    {{ brightcoveStore(params.video) }}
+                    {{ helper.video(params.video|merge({
+                        loop: false
+                    })) }}
+                </div>
+            {% endif %}
+
+            {% if logo %}
+                {{ helper.image(params.logo, {
+                    'class': 'program-header__image-logo',
+                    'data-js-hook': 'program-header__image-logo'
+                }) }}
+            {% endif %}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro banner(primaryCta, secondaryCtas) %}
+    {% import "partials/core/ui-kit.twig" as kit %}
+    <div class="program-header__banner cell small-12 large-8 large-offset-2">
+        <div class="program-header__wrapper grid-x grid-margin-x medium-margin-collapse align-middle">
+            {% if primaryCta %}
+            <div class="program-header__primary cell small-12 medium-4">
+                {{ kit.btnPrimary({
+                    text: primaryCta.text,
+                    button: false,
+                    location: primaryCta.url,
+                    target: primaryCta.target,
+                }) }}
+            </div>
+            {% endif %}
+
+            <div class="program-header__secondary cell small-12 medium-8 medium-text-right">
+                {% for cta in secondaryCtas %}
+                    <div class="program-header__secondary-btn">
+                    {{ kit.tertiaryButton({
+                        text: cta.linkUrl.text,
+                        button: false,
+                        location: cta.linkUrl.url,
+                        target: cta.linkUrl.target,
+                    }) }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro subPagesNav(subPages, slug, requestCache) %}
+    <div class="program-header__sections" data-js-hook="program-header__sections">
+        <div class="program-header__sections-wrap">
+            <a href="#" rel="nofollow" class="program-header__section-name program-header__section-name--opener u-style-weight-bold" data-js-hook="program-header__section-opener"></a>
+            <ul class="program-header__sections-list" data-js-hook="program-header__sections-list" data-active-class="program-header__section-name--active">
+
+                {{ _self.subNavItem({
+                    sectionSlug: 'introduction',
+                    title: 'Introduction',
+                    index: 1
+                }) }}
+                {% for section in subPages %}
+                    {% set title = section.title|default(section.subpageTitle) %}
+
+                    {{ _self.subNavItem({
+                        sectionSlug: section.slug,
+                        title: title|raw,
+                        index: loop.index + 1,
+                        url: url(requestCache)~'/'~section.slug
+                    }) }}
+               {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endmacro %}
+
+{#
+    sectionSlug, title, index, url
+    sectionSlug: String,
+    title: String,
+    index: Number
+    url: String
+ #}
+{% macro subNavItem(params) %}
+    {% import "partials/components/_svg-icons.twig" as icon %}
+    <li class="program-header__sections-item" data-js-hook="program-header__sec-item">
+        {% if params.url %}
+            <a href="{{ params.url }}" class="hide">{{ params.title }}</a>
+        {% endif %}
+        <a href="#{{ params.sectionSlug }}" rel="nofollow" class="program-header__section-name" data-index="{{ params.index }}">
+            <span class="program-header__sections-dot" data-js-hook="program-header__sections-dot"></span>
+            <span class="program-header__sections-icon">{{ icon.back_arrow }}</span>
+            <span class="program-header__sections-text u-style-weight-bold" data-js-hook="program-header__sections-text">{{ params.title|striptags|raw }}</span>
+        </a>
+    </li>
+{% endmacro %}
+
+{% macro introCopy(params) %}
+    {% import 'partials/core/modules-importer.twig' as modules %}
+    {% set largeCols = params.section in ['about', 'subpageLayout'] ? 'large-8 large-offset-1' : 'large-8' %}
+
+    <div class="program-header__copy cell small-12 {{ largeCols }} text-center">
+        {% if params.section == 'programs' %}
+            <h1 class="program-header__title u-style-display-s">{{ params.title|raw }}</h1>
+        {% endif %}
+
+        {% if params.headline %}
+            <div class="program-header__headline u-style-display-l u-style-weight-bold">{{ params.headline }}</div>
+        {% endif %}
+
+        <div class="program-header__tags">
+            {% if params.gradeLevelsRange is not empty %}<span data-gtm-page-gradeLevel-primary="{{ params.gradeLevelsRange|grade_range }}" class="program-header__tag u-style-body-1 u-style-weight-bold">{{ params.gradeLevelsRange|grade_range }}</span>{% endif %}
+            {% if params.primarySubject.title %}<span data-gtm-page-subject-primary="{{ params.primarySubject.title|striptags }}" data-gtm-page-subject="{{ params.primarySubject.title|striptags }}" class="program-header__tag u-style-body-1 u-style-weight-bold">{{ params.primarySubject.title|raw }}</span>{% endif %}
+            {% if params.primaryType.title %}<span data-gtm-page-programType-primary="{{ params.primaryType.title|striptags }}" data-gtm-page-assessmentType="{{ params.primaryType.title|striptags }}" class="program-header__tag u-style-body-1 u-style-weight-bold">{{ params.primaryType.title|raw }}</span>{% endif %}
+        </div>
+    </div>
+{% endmacro %}

@@ -1,0 +1,260 @@
+.events-list {
+    margin-bottom: rem-calc(100px);
+
+    @include breakpoint(medium) {
+        margin-bottom: rem-calc(90px);
+    }
+
+    &__heading{
+
+        letter-spacing: rem-calc(3px);
+
+        &:before,
+        &:after{
+            content: '';
+            width: rem-calc(26px);
+            height: rem-calc(2px);
+            background-color: get-color('gray4');
+            display: inline-block;
+            vertical-align: middle;
+
+            @include breakpoint(small only) {
+                width: rem-calc(40px);
+                position: relative;
+                bottom: rem-calc(2px);
+            }
+
+            @include breakpoint(medium) {
+                width: rem-calc(40px);
+            }
+
+            @include breakpoint(large) {
+                width: rem-calc(62px);
+            }
+        }
+
+        &:before{
+            margin-right: rem-calc(20px);
+
+            @include breakpoint(medium) {
+                margin-right: rem-calc(28px);
+            }
+
+            @include breakpoint(large) {
+                margin-right: rem-calc(32px);
+            }
+        }
+
+        &:after{
+            margin-left: rem-calc(20px);
+
+            @include breakpoint(medium) {
+                margin-left: rem-calc(28px);
+            }
+
+            @include breakpoint(large) {
+                margin-left: rem-calc(32px);
+            }
+        }
+    }
+
+    &__entry {
+        position: relative;
+        padding-top: rem-calc(90px);
+        padding-bottom: rem-calc(40px);
+
+        @include breakpoint(medium) {
+            padding-top: rem-calc(48px);
+            padding-bottom: rem-calc(44px);
+        }
+
+        @include breakpoint(large) {
+            padding-bottom: rem-calc(50px);
+        }
+
+        &:after {
+            $gutter: map-get($grid-margin-gutters, small);
+
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: #{$gutter/2};
+            width: calc(#{xy-cell-size(12)} - #{($gutter)});
+            height: 3px;
+            background: get-color('gray4');
+
+            @include breakpoint(medium) {
+                $gutter: map-get($grid-margin-gutters, medium);
+
+                left: #{$gutter/2};
+                width: calc(#{xy-cell-size(12)} - #{$gutter});
+            }
+
+            @include breakpoint(large) {
+                $gutter: map-get($grid-margin-gutters, large);
+
+                left: #{$gutter/2};
+                width: calc(#{xy-cell-size(12)} - #{$gutter});
+            }
+        }
+    }
+
+    &__entry--webinars {
+        padding-top: rem-calc(40px);
+    }
+
+    &__section {
+        font-size: rem-calc(14px);
+        line-height: rem-calc(18px);
+        text-transform: uppercase;
+        color: get-color('gray1');
+        margin-top: rem-calc(5px);
+        margin-bottom: rem-calc(12px);
+        letter-spacing: rem-calc(1px);
+    }
+
+    &__title {
+        font-size: rem-calc(24px);
+        line-height: rem-calc(28px);
+        margin-bottom: rem-calc(12px);
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(16px);
+        }
+
+        @include breakpoint(large) {
+            font-size: rem-calc(28px);
+            line-height: rem-calc(32px);
+            margin-bottom: rem-calc(20px);
+        }
+    }
+
+    &__body {
+        line-height: rem-calc(23px);
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(16px);
+            line-height: rem-calc(24px);
+        }
+
+        .events-list__entry--webinars & {
+            margin-bottom: rem-calc(26px);
+        }
+    }
+
+    &__info {
+        padding: rem-calc(0 12px 12px);
+
+        @include breakpoint(medium) {
+            margin-top: rem-calc(54px);
+            padding: rem-calc(0 20px 20px);
+        }
+
+        @include breakpoint(large) {
+            padding: rem-calc(0 24px 32px);
+        }
+    }
+
+    &__date {
+        display: block;
+
+        &--number {
+            font-size: rem-calc(120px);
+            line-height: rem-calc(18px);
+            display: inline-block;
+            vertical-align: baseline;
+
+            @include breakpoint(medium) {
+                font-size: rem-calc(144px);
+            }
+        }
+
+        &--month {
+            margin-top: rem-calc(10px);
+            margin-bottom: rem-calc(8px);
+            line-height: rem-calc(22px);
+        }
+    }
+
+    &__venue {
+        line-height: rem-calc(16px);
+
+        @include breakpoint(medium) {
+            line-height: rem-calc(18px);
+        }
+    }
+
+    &__register {
+        position: relative;
+    }
+
+    &__speaker {
+        display: block;
+        position: relative;
+        width: rem-calc(158px);
+        height: rem-calc(158px);
+        overflow: hidden;
+        border-radius: 50%;
+
+        @include breakpoint(medium) {
+            width: rem-calc(218px);
+            height: rem-calc(218px);
+        }
+
+        @include breakpoint(large) {
+            width: rem-calc(245px);
+            height: rem-calc(245px);
+        }
+    }
+
+    &__speaker-image {
+        width: 100%;
+        height: auto;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        -webkit-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+        transform: translate(-50%,-50%);
+    }
+
+    &__speaker-name,
+    &__speaker-title {
+        line-height: rem-calc(16px);
+
+        @include breakpoint(medium) {
+            line-height: rem-calc(20px);
+        }
+    }
+
+    &__speaker-title {
+        margin-bottom: rem-calc(20px);
+    }
+
+    &__register-btn {
+        position: absolute;
+        bottom: rem-calc(10px);
+        right: 0;
+
+        @include breakpoint(medium) {
+            bottom: rem-calc(20px);
+        }
+        @include breakpoint(large) {
+            bottom: rem-calc(16px);
+        }
+    }
+
+    &__webinar-date {
+        display: inline-block;
+        margin-right: rem-calc(15px);
+        font-size: rem-calc(13px);
+
+        @include breakpoint(medium) {
+            font-size: rem-calc(14px);
+        }
+    }
+
+    &__duration {
+        display: inline-block;
+    }
+}

@@ -1,0 +1,22 @@
+{#
+Params: {
+    heading: String
+    body: String
+    color: String
+}
+#}
+{% macro main(params,requestCache) %}
+    {% set srID = random() %}
+    {% set hTag = params.loopMeta.is_bot ? 'h1' : 'h2' %}
+    {% set offset = (params.loopMeta.centerModules) ? 'medium-offset-2 large-offset-4' : 'large-offset-3' %}
+
+    <div class="sub-section-intro grid-x grid-margin-x" {% if params.loopMeta.slug %}id="{{ params.loopMeta.slug }}"{% endif %}>
+        <div class="sub-section-intro__wrapper cell small-12 medium-8 large-6 {{ offset }}">
+            <{{ hTag }} class="sub-section-intro__heading u-style-weight-bold" data-js-hook="ui-scroll-reveal-animation"  data-js-hook="ui-scroll-reveal-animation" data-sequence-id="{{ srID }}">{{ params.headerText }}</{{ hTag }}>
+            <div class="sub-section-intro__shape u-background-{{ params.loopMeta.pageColor }}"></div>
+            {% if params.subText is not empty %}
+                <div class="sub-section-intro__body u-style-body-1">{{ params.subText|raw }}</div>
+            {% endif %}
+        </div>
+    </div>
+{% endmacro %}

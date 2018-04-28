@@ -1,0 +1,47 @@
+.story-nav{
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    height: 100%;
+
+    &__sections-item{
+        list-style: none;
+    }
+
+    &__sections-list {
+        margin: 0;
+    }
+
+    &__section-name {
+        width: rem-calc(20px);
+        height: rem-calc(20px);
+        overflow: hidden;
+    }
+
+    &__shape-main,
+    &__shape-inactive {
+        line-height: 0;
+    }
+
+    &__shape-main {
+        transition: transform 0.5s;
+        transform: scale(0);
+
+        .story-nav__section-name--active & {
+            transform: scale(1);
+        }
+
+        svg {
+            width: 100%;
+            max-width: rem-calc(16px);
+        }
+    }
+
+    &__shape-inactive {
+        margin-left: -100%;
+        svg {
+            width: 100%;
+            max-width: rem-calc(8px);
+        }
+    }
+}

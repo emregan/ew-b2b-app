@@ -1,0 +1,7 @@
+{% macro main(params,requestCache) %}
+    <div class="blog-tags cell {{ params.size|default('medium-9 medium-offset-2 large-6 large-offset-3') }} flex-container">
+        {% for tag in params.tags %}
+            <a href="/blog?tags={{ tag.slug }}" data-gtm-page-tags="{{ tag.title|raw }}" class="blog-tags__tag-link u-style-weight-bold">{{ tag.title|raw }}</a>
+        {% endfor %}
+    </div>
+{% endmacro %}

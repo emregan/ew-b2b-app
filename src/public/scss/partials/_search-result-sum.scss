@@ -1,0 +1,45 @@
+.search-result-sum {
+    margin-top: rem-calc(30px);
+    margin-bottom: rem-calc(45px);
+
+    @include breakpoint(medium) {
+        margin-bottom: rem-calc(50px);
+
+        &--more {
+            margin-bottom: rem-calc(45px);
+        }
+    }
+
+    &__box{
+        margin: auto;
+        background-color: get-color('white');
+
+        .search-result-sum--more &{
+            width: rem-calc(225px);
+            height: rem-calc(70px);
+            box-shadow: rem-calc(0 8px 8px 0) rgba(get-color('black'),0.2);
+        }
+
+        @include breakpoint(medium) {
+            width: rem-calc(240px);
+        }
+    }
+
+    &__results,
+    &__all{
+        line-height: rem-calc(20px);
+    }
+
+    &__results{
+        @include breakpoint(large) {
+            line-height: rem-calc(25px);
+            margin-bottom: rem-calc(6px);
+        }
+    }
+
+    &__all{
+        @include breakpoint(large) {
+            line-height: rem-calc(18px);
+        }
+    }
+}

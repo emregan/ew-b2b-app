@@ -1,0 +1,62 @@
+.content-image-vert {
+    // margin-bottom: $moduleMargin;
+
+    &__wrapper {
+
+        @include breakpoint(large) {
+            .page-programs &,
+            .page-about &,
+            .page-page & {
+                width: xy-cell-size(10);
+                margin: 0;
+            }
+
+            .page-about-us & {
+                $width: xy-cell-size(10 of 12);
+                width: $width;
+            }
+        }
+    }
+
+    &__item {
+        margin-bottom: rem-calc(64px);
+
+        @include breakpoint(large) {
+            .page-programs &,
+            .page-about & {
+                $gutter: map-get($grid-margin-gutters, large);
+                $width: xy-cell-size(4 of 10);
+                $marginRight: xy-cell-size(1);
+                width: calc(#{$width} - #{$gutter});
+                margin-right: calc(#{$marginRight} + #{$gutter});
+            }
+        }
+    }
+
+    &__image {
+        margin-bottom: rem-calc(10px);
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(15px);
+        }
+    }
+
+    &__text {
+        margin-bottom: rem-calc(12px);
+        line-height: rem-calc(22px);
+
+        @include breakpoint(large) {
+            margin-bottom: rem-calc(8px);
+        }
+    }
+
+    &__description {
+        margin-bottom: rem-calc(30px);
+        line-height: rem-calc(25px);
+    }
+
+    &__cta {
+        max-width: rem-calc(154px);
+    }
+}
+

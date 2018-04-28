@@ -1,0 +1,190 @@
+{% macro main(params,requestCache) %}
+
+    <div class="navigation {% if params.headerNotice %}navigation__with-notice {% endif %}u-background-white" data-js-hook="nav">
+        <div class="navigation__container grid-container">
+            <div class="navigation__grid grid-x grid-margin-x align-middle" data-js-hook="nav-grid">
+                <div class="navigation__top-nav">
+                    {{ _self.topNav(params.header.topNav, params.user, requestCache) }}
+                </div>
+
+                <div class="navigation__logo text-center">
+                    {{ _self.logo() }}
+                </div>
+
+                <div class="navigation__right-menu text-right">
+                    {{ _self.rightMenu(params.user) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{ _self.accountModal() }}
+{% endmacro %}
+
+{% macro topNav(params, user, requestCache) %}
+    {% import "partials/core/ui-kit.twig" as kit %}
+
+{% endmacro %}
+
+{% macro logo(logo) %}
+    {% import "partials/components/_svg-icons.twig" as icon %}
+    <a href="/" class="navigation__logo-img">
+        {{ icon.logo() }}
+    </a>
+{% endmacro %}
+
+{% macro rightMenu(user) %}
+    {% import "partials/core/ui-kit.twig" as kit %}
+
+    {{ _self.accountLogin('show-for-large', user, true) }}
+
+{% endmacro %}
+
+{% macro offCanvas(upperMenuNav, lowerMenuNav, user) %}
+    {% import "partials/core/ui-kit.twig" as kit %}
+    <div class="nav-off-canvas off-canvas position-right" id="navigation-menu" data-off-canvas>
+        <div class="nav-off-canvas__container grid-container">
+            <div class="nav-off-canvas__cross text-right">
+              {{ kit.navIcon({
+                  icon: 'cross',
+                  color: 'black',
+                  attributes: {
+                      'data-close': '',
+                      'aria-label': 'Close Navigation'
+                  }
+              }) }}
+            </div>
+            <div class="nav-off-canvas__upper-menu">
+            {% for item in upperMenuNav %}
+                <div class="nav-off-canvas__upper-menu-item">
+                    <a href="{{ item.linkUrl.url }}" class="nav-off-canvas__upper-menu-link u-style-weight-bold u-style-display-xs" title="{{ item.linkUrl.text }}"{% if item.linkUrl.target %} target="_blank"{% endif %}>{{ item.linkUrl.text }}</a>
+                </div>
+            {% endfor %}
+            </div>
+
+            <div class="nav-off-canvas__lower-menu">
+                {% for item in lowerMenuNav %}
+                    <div class="nav-off-canvas__lower-menu-item">
+                        <a href="{{ item.linkUrl.url }}" class="nav-off-canvas__lower-menu-link u-style-body-4" title="{{ item.linkUrl.text }}"{% if item.linkUrl.target %} target="_blank"{% endif %}>{{ item.linkUrl.text }}</a>
+                    </div>
+                {% endfor %}
+
+                {{ _self.accountCart('nav-off-canvas__lower-menu-item hide-for-large', user, false) }}
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+
+{% macro accountLogin(classes, user, showAccountModal) %}
+    {% import "partials/core/ui-kit.twig" as kit %}
+    <div class="navigation__account {{ classes }}">
+    {% if user and showAccountModal %}
+        {{ kit.navItem({
+            text: 'Hi, ' ~ user.userName,
+            url: '/account/edit-account',
+            attributes: {
+                'data-js-hook': 'nav-account',
+            }
+        }) }}
+    {% elseif user %}
+        {{ kit.navItem({
+            text: 'My Account',
+            url: '/account/edit-account',
+        }) }}
+    {% else %}
+        {{ kit.navItemDropdown({
+            text: 'Hi, Frodo Baggins',
+            url: env('CART_DISABLED') ? env('CART_DISABLED_REDIRECT') : '/account/sign-in?inCheckout=false',
+        }) }}
+    {% endif %}
+    </div>
+{% endmacro %}
+
+
+{% macro accountCart(classes, user, showAccountModal) %}
+    {% import "partials/core/ui-kit.twig" as kit %}
+    <div class="navigation__account {{ classes }}">
+    {% if user and showAccountModal %}
+        {{ kit.navItem({
+            text: 'Hi, ' ~ user.userName,
+            url: '/account/edit-account',
+            attributes: {
+                'data-js-hook': 'nav-account',
+            }
+        }) }}
+    {% elseif user %}
+        {{ kit.navItem({
+            text: 'My Account',
+            url: '/account/edit-account',
+        }) }}
+    {% else %}
+        {{ kit.navItem({
+            text: 'Sign In',
+            url: env('CART_DISABLED') ? env('CART_DISABLED_REDIRECT') : '/account/sign-in?inCheckout=false',
+        }) }}
+    {% endif %}
+    </div>
+
+    <div class="navigation__cart cart cartButton {{ classes }}" id="cartButton">
+    {% if env('CART_DISABLED') %}
+        {{ kit.navItem({
+            html: 'Cart',
+            url: env('CART_DISABLED_REDIRECT'),
+        }) }}
+    {% else %}
+        {{ kit.navItem({
+            html: 'Cart <span class="cart-count" data-js-hook="nav-cart">0</span>',
+            url: '/hmhstorefront/cart',
+        }) }}
+    {% endif %}
+    </div>
+
+    {% if user and not showAccountModal %}
+    <div class="nav-off-canvas__lower-menu-item">
+        <a href="/account/sign-out" class="nav-off-canvas__lower-menu-link u-style-body-4" title="Sign Out">Sign Out</a>
+    </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro searchBar() %}
+    {% import 'partials/core/components-importer.twig' as components %}
+    <div class="nav-search" data-js-hook="nav-search">
+        <div class="nav-search__container grid-container" data-js-hook="nav-search__container">
+            {{ components.searchBar({
+                type: 'navigation',
+                label: 'Search by keyword or ISBN',
+                name: 'term'
+            }, requestCache) }}
+            <div class="nav-search__results" data-js-hook="nav-search-results"></div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro navNotice(notice) %}
+    <div class="navigation__notice-container u-background-blue flex-container align-middle align-center" data-js-hook="home-notice">
+        <div class="navigation__notice-text text-center u-style-weight-bold u-style-body-2">{{ notice|raw }}</div>
+    </div>
+{% endmacro %}
+
+{% macro accountModal() %}
+    {% import "partials/core/ui-kit.twig" as kit %}
+    <div class="modal-account hide-for-small" data-js-hook="nav-modal-account" id="my-account-menu">
+        <div class="grid-container">
+            <div class="grid-x grid-margin-x">
+                <div class="modal-account__container medium-6 large-5 large-offset-7">
+                    {{ kit.btnPrimary({
+                        text: 'My Account',
+                        button: false,
+                        location: '/account/edit-account'
+                    }) }}&nbsp;{{ kit.tertiaryButton({
+                        text: 'Sign Out',
+                        button: false,
+                        arrow: false,
+                        location: '/account/sign-out'
+                    }) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}

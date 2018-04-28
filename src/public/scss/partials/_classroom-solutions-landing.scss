@@ -1,0 +1,179 @@
+.classroom-solutions-landing {
+    &__category-links-container {
+        position: relative;
+        z-index: 2;
+        box-shadow: rem-calc(11px) rem-calc(18px) rem-calc(40px) 0 rgba(0,0,0,0.3);
+        padding: rem-calc(39px) rem-calc(70px) rem-calc(26px);
+        margin-bottom: rem-calc(81px);
+
+        @include breakpoint(medium) {
+            font-size: rem-calc(18px);
+            line-height: rem-calc(22px);
+            padding: rem-calc(57px) rem-calc(80px) rem-calc(40px);
+            margin-bottom: rem-calc(105px);
+        }
+
+        @include breakpoint(large) {
+            font-size: rem-calc(21px);
+            line-height: rem-calc(25px);
+            padding: rem-calc(62px) rem-calc(94px) rem-calc(47px);
+            margin-bottom: rem-calc(120px);
+        }
+    }
+
+    &__category-link-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__category-link {
+        display: block;
+        font-size: rem-calc(14px);
+        line-height: rem-calc(17px);
+        margin-bottom: rem-calc(20px);
+
+        @include breakpoint(medium) {
+            font-size: rem-calc(18px);
+            line-height: rem-calc(22px);
+        }
+
+        @include breakpoint(large) {
+            font-size: rem-calc(21px);
+            line-height: rem-calc(25px);
+            margin-bottom: rem-calc(19px);
+            padding-bottom: rem-calc(1px);
+
+            &:hover {
+                border-bottom: 3px solid get-color('gold');
+                margin-bottom: rem-calc(16px);
+            }
+        }
+    }
+
+    &__featured-programs-header {
+        margin-bottom: rem-calc(45px);
+    }
+
+    &__line-container {
+        display: flex;
+        align-items: center;
+        padding: 0 rem-calc(5px);
+
+        @include breakpoint(medium) {
+            display: none;
+        }
+    }
+
+    &__line {
+        border-top: rem-calc(2px) solid get-color('gray4');
+        width: 100%;
+    }
+
+    &__featured-programs-title {
+        font-size: rem-calc(14px);
+        line-height: rem-calc(18px);
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: rem-calc(3px);
+        padding: 0 rem-calc(22%);
+
+        @include breakpoint(medium) {
+            font-size: rem-calc(16px);
+            line-height: rem-calc(19px);
+            padding: 0;
+        }
+
+        &:before,
+        &:after {
+            @include breakpoint(medium) {
+                width: rem-calc(52px);
+                content: '';
+                height: rem-calc(2px);
+                background-color: get-color('gray4');
+                display: inline-block;
+                vertical-align: middle;
+                margin: 0 rem-calc(25px);
+            }
+
+            @include breakpoint(large) {
+                width: rem-calc(62px);
+            }
+        }
+    }
+
+    &__featured-programs-description {
+        font-size: rem-calc(14px);
+        line-height: rem-calc(24px);
+
+        @include breakpoint(medium) {
+            font-size: rem-calc(16px);
+            line-height: rem-calc(28px);
+        }
+    }
+
+    &__extra-margin {
+        margin-bottom: rem-calc(75px);
+    }
+
+    &__section-header-container {
+        @include breakpoint(large) {
+            padding: 0 rem-calc(11px);
+        }
+    }
+
+    &__section-header-title {
+        font-size: rem-calc(36px);
+        line-height: rem-calc(40px);
+        font-weight: bold;
+        margin-bottom: rem-calc(16px);
+
+        @include breakpoint(medium) {
+            font-size: rem-calc(56px);
+            line-height: rem-calc(67px);
+        }
+
+        @include breakpoint(large) {
+            font-size: rem-calc(66px);
+            line-height: rem-calc(70px);
+        }
+    }
+
+    &__section-header-subtitle {
+        font-size: rem-calc(24px);
+        line-height: rem-calc(28px);
+
+        @include breakpoint(medium) {
+            font-size: rem-calc(28px);
+            line-height: rem-calc(32px);
+        }
+
+        @include breakpoint(large) {
+            font-size: rem-calc(38px);
+            line-height: rem-calc(42px);
+        }
+    }
+
+    &__content-image-vert-container {
+        margin-bottom: rem-calc(56px);
+        margin-top: rem-calc(60px);
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(36px);
+        }
+
+        @include breakpoint(large) {
+            margin-bottom: rem-calc(117px);
+            margin-top: rem-calc(50px);
+        }
+    }
+
+    &__primary-cta-container {
+        margin-bottom: rem-calc(55px);
+        margin-top: rem-calc(50px);
+
+        @include breakpoint(medium) {
+            margin-top: 0;
+        }
+    }
+}

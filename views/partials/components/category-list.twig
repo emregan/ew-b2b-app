@@ -1,0 +1,32 @@
+{% macro main(params,requestCache) %}
+    <div class="category-list grid-x grid-margin-x">
+        {% for item in params.items %}
+            {{ _self.item(item) }}
+        {% endfor %}
+    </div>
+{% endmacro %}
+
+{% macro item(item) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    {% set prefix = item.section|slice(0, (item.section|length - 1)) %}
+    {% set image = attribute(item, prefix~'HeaderImage') %}
+
+    {% set description = attribute(item, prefix~'SupportDescription') %}
+    {% set description = description != '' ? description : attribute(item, prefix~'Tagline') %}
+
+    <a href="/classroom-solutions/{{ item.slug }}" class="category-list__item cell small-12 medium-4 large-3" data-js-hook="ui-scroll-reveal-animation">
+        {% if image %}
+            {{ helper.image(image, {
+                class: 'category-list__image'
+            }) }}
+        {% endif %}
+
+        <div class="category-list__content u-background-gray5">
+            <div class="category-list__title u-style-display-xs u-style-weight-bold">{{ item.title }}</div>
+
+            {% if description != '' %}
+                <div class="category-list__body u-style-body-2">{{ description }}</div>
+            {% endif %}
+        </div>
+    </a>
+{% endmacro %}

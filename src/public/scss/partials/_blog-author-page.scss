@@ -1,0 +1,116 @@
+.blog-author-page {
+    &__author-details-container {
+        margin-top:rem-calc(4px);
+        margin-bottom: rem-calc(82px);
+
+        @include breakpoint(medium) {
+            margin-top: rem-calc(42px);
+            margin-bottom: rem-calc(120px);
+        }
+
+        @include breakpoint(large) {
+            margin-top:rem-calc(31px);
+        }
+    }
+
+    &__author-image {
+        width: 100%;
+
+        // @include breakpoint(medium) {
+        //     max-height: rem-calc(272px);
+        // }
+
+        // @include breakpoint(large) {
+        //     max-height: rem-calc(378px);
+        // }
+
+    }
+
+    &__text-container {
+        margin-top: rem-calc(24px);
+
+        @include breakpoint(medium) {
+            margin-top: rem-calc(69px);
+        }
+
+        @include breakpoint(large) {
+            margin-top: rem-calc(96px);
+        }
+    }
+
+    &__name, &__title {
+        width: 75%;
+
+        @include breakpoint(large) {
+            width: 50%;
+        }
+    }
+
+    &__name {
+        font-size: rem-calc(28px);
+        line-height: rem-calc(32px);
+        font-weight: bold;
+        margin-bottom: rem-calc(15px);
+
+        @include breakpoint(medium) {
+            font-size: rem-calc(38px);
+            line-height: rem-calc(42px);
+            margin-bottom: rem-calc(22px);
+        }
+
+        @include breakpoint(large) {
+            font-size: rem-calc(50px);
+            line-height: rem-calc(54px);
+            margin-bottom: rem-calc(16px);
+        }
+    }
+
+    &__title {
+        font-size: rem-calc(13px);
+        line-height: rem-calc(23px);
+        margin-bottom: rem-calc(48px);
+
+        @include breakpoint(medium) {
+            font-size: rem-calc(14px);
+            line-height: rem-calc(24px);
+            margin-bottom: rem-calc(24px);
+        }
+    }
+
+    &__bio, &__tablet-bio {
+        font-size: rem-calc(14px);
+        line-height: rem-calc(24px);
+
+        @include breakpoint(medium) {
+            font-size: rem-calc(16px);
+            line-height: rem-calc(28px);
+        }
+
+        p:last-of-type {
+            margin-bottom: 0;
+        }
+    }
+
+    &__bio {
+        @include breakpoint(medium) {
+            display: none;
+        }
+
+        @include breakpoint(large) {
+            display: block;
+        }
+    }
+
+    &__tablet-bio {
+        display: none;
+
+        @include breakpoint(medium) {
+            display: block;
+            margin-top: rem-calc(40px);
+        }
+
+        @include breakpoint(large) {
+            display: none;
+        }
+    }
+}

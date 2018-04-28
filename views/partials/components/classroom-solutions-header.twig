@@ -1,0 +1,36 @@
+{% macro main(params,requestCache) %}
+    {% import 'partials/core/ui-kit.twig' as kit %}
+    {% import 'partials/core/helpers.twig' as helper %}
+
+    <div class="classroom-solutions-header {{ params.extraClass }} grid-x grid-margin-x align-middle">
+        {% if attribute(params, params.prefix ~ 'HeaderImage') %}
+            <div class="classroom-solutions-header__image cell small-12 medium-10 text-right">
+                {% set image = attribute(params, params.prefix ~ 'HeaderImage') %}
+                <div class="classroom-solutions-header__image-wrapper">{{ helper.imageCover(image) }}</div>
+            </div>
+        {% endif %}
+
+        <div class="classroom-solutions-header__content cell small-12 medium-8 large-6 large-offset-1" data-magellan data-offset="175">
+            {% if attribute(params, params.prefix ~ 'Headline') %}
+                <h1 data-gtm-page-{{ (params.prefix == 'programType') ? 'assessmentType' : params.prefix }}="{{ attribute(params, params.prefix ~ 'Headline') }}" data-gtm-page-level1="{{ attribute(params, params.prefix ~ 'Headline') }}" class="classroom-solutions-header__title u-style-display-xl u-style-weight-bold">{{ attribute(params, params.prefix ~ 'Headline') }}</h1>
+            {% endif %}
+
+            {% if attribute(params, params.prefix ~ 'Tagline') %}
+                <div class="classroom-solutions-header__tagline u-style-display-m">{{ attribute(params, params.prefix ~ 'Tagline') }}</div>
+            {% endif %}
+
+            {% for cta in attribute(params, params.prefix ~ 'Ctas') %}
+                {% if cta.linkUrl %}
+                    {{ kit.tertiaryButton({
+                        text: cta.linkUrl.text,
+                        button: false,
+                        class: 'classroom-solutions-header__cta',
+                        location: cta.linkUrl.url,
+                        target: cta.linkUrl.target,
+                        rel: 'nofollow',
+                    }) }}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endmacro %}

@@ -1,0 +1,344 @@
+/**
+ * @TODO: Merge with .filters
+ */
+
+$buttonHeight: rem-calc(50px);
+$anchorRightPadding: 42px;
+$spacing: -( $buttonHeight / 2 );
+
+.shop-results-filter {
+    $c: &;
+    position: relative;
+
+    &__top{
+        @include breakpoint(small only) {
+            padding: 0 !important;
+        }
+    }
+
+    &__bottom {
+        width: 100%;
+
+        @include breakpoint(medium) {
+            @include flex;
+            @include flex-align(justify, top);
+        }
+    }
+
+    &__button {
+        width: rem-calc(107px);
+        height: $buttonHeight;
+        border-radius: 0;
+        border: rem-calc(3px) solid get-color('black');
+        padding: 0;
+        font-size: rem-calc(14px);
+        line-height: rem-calc(18px);
+        text-transform: uppercase;
+        letter-spacing: rem-calc(1px);
+        position: relative;
+        z-index: auto;
+        margin-bottom: rem-calc(30px);
+
+        &#{&}--open {
+            background-color: get-color('white');
+            color: get-color('black');
+            text-indent: rem-calc(-9999px);
+        }
+    }
+
+    &__close,
+    &__clear {
+        display: none;
+        text-transform: uppercase;
+        font-size: rem-calc(14px);
+        line-height: rem-calc(18px);
+        letter-spacing: rem-calc(1px);
+    }
+
+    &__close {
+        position: absolute;
+        top: rem-calc(10px);
+        right: 0;
+
+        #{$c}--open & {
+            display: block;
+        }
+    }
+
+    &__clear {
+        margin-right: rem-calc(45px);
+        margin-top: rem-calc(10px);
+        min-width: rem-calc(115px);
+    }
+
+    &__button-close {
+        display: none;
+
+        #{$c}--open & {
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            width: 100%;
+            text-indent: 0;
+        }
+    }
+
+    &__container {
+        overflow: hidden;
+        // height: 0px;
+        padding-bottom: 0;
+
+        @include breakpoint(small only) {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh !important;
+            background-color: get-color('white');
+            z-index: 1000;
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+            transform: translateY(-999rem);
+
+            #{$c}--open &{
+                top: 0;
+                transform: translateY(0);
+                // display: block;
+            }
+        }
+
+        @include breakpoint(medium) {
+            border-bottom: rem-calc(3px) solid transparent;
+
+            #{$c}--open &{
+                margin-bottom: rem-calc(18px);
+                padding-bottom: rem-calc(30px);
+                border-color: get-color('black');
+            }
+        }
+    }
+
+    &__items{
+        @include xy-grid($direction: 'vertical', $wrap: true);
+
+        @include breakpoint(small only) {
+            $gutter: map-get($grid-container-padding, 'small');
+            padding: 0 rem-calc($gutter/2);
+            display: none;
+        }
+    }
+
+    &__item{
+        width: xy-cell-size(12);
+        line-height: 1;
+
+        @include breakpoint(medium) {
+            width: xy-cell-size(4);
+        }
+
+        @include breakpoint(large) {
+            width: xy-cell-size(3);
+        }
+    }
+
+    &__anchor,
+    &__active-filter {
+        $leftPadding: rem-calc(8px);
+        display: inline-block;
+        padding: rem-calc(10px) 0;
+        line-height: rem-calc(17px);
+        text-transform: capitalize;
+        position: relative;
+        padding-right: rem-calc($anchorRightPadding);
+        margin-left: -$leftPadding;
+        padding-left: $leftPadding;
+
+        @include breakpoint(medium) {
+            $leftPadding: rem-calc(16px);
+            margin-left: -$leftPadding;
+            padding-left: $leftPadding;
+        }
+
+        &--inactive{
+            color: get-color('gray4');
+            pointer-events: none;
+        }
+
+        &--active{
+            background-color: get-color('black');
+            color: get-color('white');
+        }
+
+        &:not(&--active):not(&--inactive):hover {
+            background-color: get-color('gray4');
+        }
+    }
+
+    &__cross{
+        position: relative;
+        left: rem-calc($anchorRightPadding - 14px);
+        display: inline-block;
+        width: rem-calc(10px);
+
+        #{$c}__anchor:not(#{$c}__anchor--active) &{
+            display: none;
+        }
+    }
+
+    &__refinements {
+        @include flex;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    &__refine-container {
+        position: relative;
+    }
+
+    &__refine-box {
+        border-bottom: rem-calc(3px) solid get-color('black');
+        padding-bottom: rem-calc(28px);
+        margin-bottom: rem-calc(14px);
+
+        #{$c}--open & {
+            margin-bottom: rem-calc(25px);
+            border-color: get-color('gray4');
+        }
+    }
+
+    &__refine-item {
+        margin-left: rem-calc(24px);
+    }
+
+    &__refine-link {
+        color: get-color('gray2');
+
+        &:focus {
+            outline: none;
+        }
+
+        &:hover,
+        #{$c}__refine-item--active & {
+            color: get-color('black');
+            border-bottom: rem-calc(3px) solid get-color('black');
+        }
+    }
+
+    &__refine-content {
+        @include breakpoint(medium) {
+            display: none;
+
+        }
+
+        &--active {
+            display: block;
+        }
+    }
+
+    &__accordion-toggle {
+        $gutter: map-get($grid-container-padding, 'small');
+        @include get-font-weight("bold");
+        display: block;
+        font-size: rem-calc(18px);
+        padding: 0 rem-calc($gutter/2);
+        color: get-color('black');
+        margin-bottom: rem-calc(18px);
+
+        + #{$c}__items {
+            @include breakpoint(small only) {
+                margin-bottom: rem-calc(50px);
+            }
+        }
+    }
+
+    &__accordion-arrow {
+        display: inline-block;
+        vertical-align: bottom;
+        transform: rotate(180deg);
+        margin-right: rem-calc(15px);
+        width: rem-calc(12px);
+        height: rem-calc(6px);
+    }
+
+    &__active-filters {
+        @include flex;
+        @include flex-align(left, top);
+        flex-wrap: wrap;
+        list-style: none;
+        margin: rem-calc(0 0 32px);
+        padding: 0;
+
+        @include breakpoint(medium) {
+            margin: 0;
+        }
+
+        @include breakpoint(large) {
+            width: calc(100% - #{rem-calc(200px)});
+        }
+    }
+
+    &__active-filter {
+        @include flex;
+
+        background-color: get-color('black');
+        margin: rem-calc(0 10px 10px 0);
+        padding: 10px 42px 9px 16px;
+        color: get-color('white');
+
+        &:hover {
+            background-color: get-color('black') !important;
+        }
+    }
+
+    &__anchor-text {
+
+        #{$c}__bottom & {
+            max-width: rem-calc(108px);
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            display: inline-block;
+            vertical-align: middle;
+        }
+    }
+
+    &__active-filter-tmpl {
+        display: none !important;
+        height: 0 !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+    }
+}
+
+.shop-results-filter-mobile {
+    $c: &;
+    $f: '.filters';
+    $padding: map-get($grid-container-padding, 'small');
+    $gutter: map-get($grid-gutter, 'small');
+    margin: 0 rem-calc(-($gutter/2));
+
+    &__top {
+        padding: 0 rem-calc($padding/2);
+        height: rem-calc(50px);
+        margin-bottom: rem-calc(32px);
+        letter-spacing: rem-calc(1px);
+        cursor: pointer;
+
+        polyline {
+            stroke: get-color('white');
+        }
+    }
+
+    &__arrow {
+        margin-right: rem-calc(15px);
+    }
+
+    &__header {
+        margin: 0 rem-calc($padding/2);
+        border-bottom: rem-calc(3px) solid;
+        padding-bottom: rem-calc(16px);
+        margin-bottom: rem-calc(40px);
+    }
+}

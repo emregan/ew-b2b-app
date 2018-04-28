@@ -1,0 +1,162 @@
+.post-list{
+    margin-bottom: rem-calc(40px);
+
+    @include breakpoint(medium) {
+        margin-bottom: rem-calc(80px);
+    }
+
+    @include breakpoint(large) {
+        margin-top: rem-calc(32px);
+        margin-bottom: rem-calc(65px);
+    }
+
+    &__heading{
+        letter-spacing: rem-calc(3px);
+
+        @include breakpoint(small only) {
+            font-size: rem-calc(14px);
+        }
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(10px);
+        }
+
+        @include breakpoint(large) {
+            margin-bottom: rem-calc(20px);
+        }
+
+        &:before,
+        &:after{
+            content: '';
+            width: rem-calc(26px);
+            height: rem-calc(2px);
+            background-color: get-color('gray4');
+            display: inline-block;
+            vertical-align: middle;
+
+            @include breakpoint(medium) {
+                width: rem-calc(41px);
+            }
+
+            @include breakpoint(large) {
+                width: rem-calc(62px);
+            }
+        }
+
+        &:before{
+            margin-right: rem-calc(20px);
+
+            @include breakpoint(medium) {
+                margin-right: rem-calc(28px);
+            }
+
+            @include breakpoint(large) {
+                margin-right: rem-calc(32px);
+            }
+        }
+
+        &:after{
+            margin-left: rem-calc(20px);
+
+            @include breakpoint(medium) {
+                margin-left: rem-calc(28px);
+            }
+
+            @include breakpoint(large) {
+                margin-left: rem-calc(32px);
+            }
+        }
+    }
+
+    &__entry{
+        padding-top: rem-calc(40px);
+        padding-bottom: rem-calc(40px);
+        border-bottom: rem-calc(2px) solid get-color('gray4');
+
+        @include breakpoint(medium) {
+            padding-top: rem-calc(50px);
+            padding-bottom: rem-calc(42px);
+        }
+
+        @include breakpoint(large) {
+            padding-top: rem-calc(40px);
+            padding-bottom: rem-calc(50px);
+        }
+    }
+
+    &__image{
+
+        @include breakpoint(small only) {
+            margin-bottom: rem-calc(25px);
+
+            // .page-blog & {
+            //     height: 49.5vw;
+            //     overflow: hidden;
+
+            //     img {
+            //         width: 100%;
+            //     }
+            // }
+        }
+
+        @include breakpoint(medium) {
+            @include flex-order(1)
+        }
+
+        // .page-blog & {
+            // @include breakpoint(medium) {
+                // height: 19vw;
+                // max-height: rem-calc(248px);
+                // overflow: hidden;
+            // }
+        // }
+    }
+
+    &__title{
+        margin-bottom: rem-calc(8px);
+        display: block;
+        line-height: rem-calc(22px);
+
+        @include breakpoint(medium) {
+            line-height: rem-calc(32px);
+
+            .page-blog & {
+                line-height: rem-calc(28px);
+            }
+        }
+
+        @include breakpoint(large) {
+            line-height: rem-calc(32px);
+
+            .page-blog & {
+                line-height: rem-calc(32px);
+            }
+        }
+    }
+
+    &__summary{
+        margin-bottom: rem-calc(28px);
+        line-height: rem-calc(23px);
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(26px);
+            line-height: rem-calc(24px);
+        }
+    }
+
+    &__author{
+        margin-bottom: rem-calc(4px);
+    }
+
+    &__author-title{
+        line-height: rem-calc(16px);
+
+        @include breakpoint(medium) {
+            line-height: rem-calc(18px);
+        }
+    }
+
+    &__date{
+        margin-top: rem-calc(20px);
+    }
+}

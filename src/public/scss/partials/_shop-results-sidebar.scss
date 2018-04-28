@@ -1,0 +1,12 @@
+.shop-results-sidebar {
+    margin-top: rem-calc(8px);
+
+    @include breakpoint(medium only) {
+        margin-top: rem-calc(-24px);
+    }
+
+    @include breakpoint(large) {
+        // margin-top: rem-calc(-34px);
+        margin-top: rem-calc(0);
+    }
+}

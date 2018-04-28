@@ -1,0 +1,115 @@
+.description{
+    margin-bottom: $moduleMargin;
+
+    &__wrapper {
+        margin: 0;
+
+        @include breakpoint(large) {
+            $width: xy-cell-size(10 of 12);
+            width: $width;
+        }
+    }
+
+    &__item {
+        margin-bottom: rem-calc(48px);
+    }
+
+    &__text {
+        margin-bottom: rem-calc(24px);
+        line-height: rem-calc(23px);
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(36px);
+            line-height: rem-calc(24px);
+        }
+    }
+
+    &__program {
+        padding: rem-calc(25px 15px);
+        padding-bottom: rem-calc(0);
+
+        @include breakpoint(medium) {
+            padding: rem-calc(25px 25px 0 32px)
+        }
+
+        @include breakpoint(large) {
+            padding-top: rem-calc(25px);
+            padding-left: rem-calc(35px)
+        }
+    }
+    &__title,
+    &__body {
+        max-width: rem-calc(226px);
+
+        @include breakpoint(large) {
+            max-width: rem-calc(335px);
+        }
+    }
+
+    &__title {
+        margin-bottom: rem-calc(15px);
+        line-height: rem-calc(28px);
+
+        @include breakpoint(medium) {
+            line-height: rem-calc(32px);
+        }
+
+        @include breakpoint(large) {
+            margin-bottom: rem-calc(24px);
+            line-height: rem-calc(42px);
+        }
+    }
+
+    &__body {
+        line-height: rem-calc(20px);
+
+        @include breakpoint(medium) {
+            line-height: rem-calc(22px);
+        }
+
+        @include breakpoint(large) {
+            margin-bottom: rem-calc(24px);
+            line-height: rem-calc(25px);
+        }
+    }
+
+    &__footer {
+        margin-top: rem-calc(60px);
+
+        &:not(&--logo) {
+            padding-bottom: rem-calc(30px);
+
+            @include breakpoint(medium) {
+                padding-bottom: rem-calc(36px);
+            }
+
+            @include breakpoint(large) {
+                padding-bottom: rem-calc(38px);
+            }
+        }
+
+        @include breakpoint(large) {
+            margin-top: rem-calc(56px);
+        }
+    }
+
+    &__cta {
+        .ui-btn-tertiary {
+            @include breakpoint(small only) {
+                text-align: left;
+            }
+        }
+    }
+
+    &__logo-img {
+        max-width: rem-calc(48px);
+
+        @include breakpoint(medium) {
+            max-width: rem-calc(72px);
+        }
+
+        @include breakpoint(large) {
+            max-width: rem-calc(84px);
+        }
+    }
+}

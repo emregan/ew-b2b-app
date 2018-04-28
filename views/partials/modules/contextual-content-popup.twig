@@ -1,0 +1,63 @@
+{#
+    items: {
+        image: Asset
+        text: String
+        description: String
+    }
+#}
+{% macro main(params,requestCache) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    {% import "partials/core/ui-kit.twig" as kit %}
+    {% set alignment = (params.loopMeta.centerModules) ? 'align-right' : 'align-center' %}
+    {% set srID = random() %}
+
+    {{ helper.nestedLayoutOpen({
+        name: 'contextual-content-popup',
+        align: alignment,
+        id: params.loopMeta.slug,
+        nestedAlign: 'align-center',
+    }) }}
+        {% for item in params.slides %}
+            {{ _self.item(item, srID, loop.index) }}
+        {% endfor %}
+
+        {% if params.slides.length > 6 %}
+            <div class="cell small-12" data-js-hook="contextual-content-popup-btn">
+                {{ kit.btnPrimary({
+                    text: 'See more',
+                    button: false,
+                    location: ''
+                }) }}
+            </div>
+        {% endif %}
+    {{ helper.nestedLayoutClose() }}
+{% endmacro %}
+
+{% macro item(item, srID, i) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    {% set indexClass = (i > 6) ? 'contextual-content-popup__item-hidden' : '' %}
+    {% set caseStudyUrl = item.caseStudy ? '/case-studies/'~item.caseStudy.slug : '' %}
+    {% set url = item.externalLink is not empty ? item.externalLink : caseStudyUrl %}
+
+    <div class="contextual-content-popup__item cell small-12 medium-6 large-4 {{ indexClass }}" data-js-hook="ui-scroll-reveal-animation" data-sequence-id="{{ srID }}">
+        {% if url %}
+            <a href="{{ url }}">
+        {% endif %}
+        <div class="contextual-content-popup__image">
+        {% if item.image %}
+            {{ helper.imageCover(item.image, {
+                'class': 'contextual-content-popup__image-cover',
+            }) }}
+        {% endif %}
+        </div>
+        <div class="contextual-content-popup__content flex-container align-bottom">
+            <div class="contextual-content-popup__wrapper">
+                <div class="contextual-content-popup__text u-style-display-m u-style-weight-bold">{{ item.text }}</div>
+                <div class="contextual-content-popup__description u-style-body-1">{{ item.description }}</div>
+            </div>
+        </div>
+        {% if url %}
+            </a>
+        {% endif %}
+    </div>
+{% endmacro %}

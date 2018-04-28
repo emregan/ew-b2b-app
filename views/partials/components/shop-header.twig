@@ -1,0 +1,58 @@
+{% macro main(params,requestCache) %}
+    {% import "partials/core/ui-kit.twig" as kit %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    {% set size = (params.size is defined) ? params.size : 'small' %}
+
+    <header class="shop-header shop-header--{{ size }} grid-x grid-margin-x align-center">
+        <div class="cell small-12">
+            {% if params.title is defined and params.title is not empty %}
+                <h1 class="shop-header__title u-style-weight-bold u-style-display-xxl">{{ params.title|raw }}</h1>
+            {% endif %}
+
+            {% if params.subTitle is defined and params.subTitle is not empty %}
+                <div class="shop-header__sub-title u-style-weight-bold u-style-display-xs">{{ params.subTitle }}</div>
+            {% endif %}
+        </div>
+
+        {% if params.image %}
+            <div class="shop-header__bg">
+                {{ helper.imageCover(params.image, {
+                    'class': 'shop-header__image-cover',
+                }) }}
+            </div>
+        {% endif %}
+        {# @TODO background video #}
+    </header>
+
+    {{ _self.shopSearch(params.type, params.term)}}
+{% endmacro %}
+
+{% macro shopSearch(searchType, term) %}
+    {% import 'partials/core/components-importer.twig' as component %}
+    {% set searchParams = {
+        name: 'term',
+        type: 'shop'
+    } %}
+    {% if searchType == 'detail' %}
+        {% set searchParams = searchParams|merge({
+            legend: 'Shop for'
+        }) %}
+    {% elseif searchType == 'search' %}
+        {% set searchParams = searchParams|merge({
+            legend: 'Shop results for'
+        }) %}
+    {% else %}
+        {% set searchParams = searchParams|merge({
+            label: 'Search by keyword or ISBN',
+        }) %}
+    {% endif %}
+
+    {% if term is defined %}
+        {% set searchParams = searchParams|merge({ value: term }) %}
+    {% endif %}
+
+    <div class="shop-search" data-js-hook="shop-search">
+        {{ component.searchBar(searchParams, requestCache) }}
+        <div class="shop-search__results grid-x grid-margin-x align-center" data-js-hook="shop-search-results"></div>
+    </div>
+{% endmacro %}

@@ -1,0 +1,34 @@
+{% macro main(params,requestCache) %}
+    {% import "partials/components/_svg-icons.twig" as icon %}
+    {% import 'partials/core/helpers.twig' as helper %}
+
+    <div
+        class="skew-header skew-header--{{ params.align }}"
+        {% if params.formRelatedPage.section is defined and params.formRelatedPage.section == 'programs' %}
+        data-gtm-page-program="{{ params.formRelatedPage.title|striptags|stripsymbols }}"
+        {% endif %}
+        {% if params.formRelatedPage.section is defined %}data-gtm-page-override="{{ params.formRelatedPage.section }} page"{% endif %}
+        {% if params.formRelatedPage.programPrimaryType is defined %}data-gtm-page-assessmentType="{{ params.formRelatedPage.programPrimaryType.title }}"{% endif %}
+        {% if params.formRelatedPage.programPrimarySubject is defined %}data-gtm-page-subject-primary="{{ params.formRelatedPage.programPrimarySubject.title }}"{% endif %}
+        {% if params.formRelatedPage.programSecondarySubjects is defined %}data-gtm-page-subject-secondary="compileArray({{ params.formRelatedPage.programSecondarySubjects|json_encode }})"{% endif %}
+        {% if params.formRelatedPage.programPrimaryType is defined %}data-gtm-page-programType-primary="{{ params.formRelatedPage.programPrimaryType.title }}"{% endif %}
+        {% if params.formRelatedPage.programSecondaryTypes is defined %}data-gtm-page-programType-secondary="compileArray({{ params.formRelatedPage.programSecondaryTypes|json_encode }})"{% endif %}
+        {% if params.formRelatedPage.programGradeLevels is defined %}data-gtm-page-gradeLevels="compileArray({{ params.formRelatedPage.programGradeLevels|json_encode }})"{% endif %}
+        data-gtm-page-formType="{% if params.formRelatedPage.section is defined %}{{ params.formRelatedPage.section }} specific{% else %}contact form{% endif %}"
+    >
+        <div class="grid-x">
+            <div class="skew-header__image" style="background-image: url('{{ imageUrl(params.image) }}')">
+                <div class="skew-header__angle"></div>
+            </div>
+
+            <div class="cell">
+                {% if params.back %}
+                    <a href="{{ params.back.location }}" class="skew-header__go-back u-style-weight-bold u-color-white grid-x">{{ icon.back_arrow('white') }} {{ params.back.text|raw }}</a>
+                {% else %}
+                    <div class="skew-header__spacer"></div>
+                {% endif %}
+            </div>
+            {# {% endif %} #}
+        </div>
+    </div>
+{% endmacro %}

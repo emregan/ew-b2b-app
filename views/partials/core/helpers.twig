@@ -1,0 +1,114 @@
+{% macro image(image, attrs) %}
+    {% set picture = imageTransform(image) %}
+    {% set attrStrig = '' %}
+    {% for attrName,attrVal in attrs %}
+        {% if attrName != 'alt' %}
+            {% set attrStrig = attrStrig~attrName~'='~attrVal~' ' %}
+        {% endif %}
+    {% endfor %}
+
+    {# <img src="{{ src }}" {{ attrStrig }}> #}
+    <picture {{ attrStrig }}>
+        {% if picture.transforms %}
+            <!--[if IE 9]><video style="display: none;"><![endif]-->
+        {% endif %}
+
+        {% for transform in picture.transforms %}
+            <source srcset="{{ transform.url }}" media="(min-width: {{ transform.size }}px)">
+        {% endfor %}
+
+        {% if picture.transforms %}
+            <!--[if IE 9]></video><![endif]-->
+        {% endif %}
+
+        {% if picture.src %}
+            <img srcset="{{ picture.src }}" {% if attrs.alt %}alt="{{attrs.alt}}"{% endif %}/>
+        {% endif %}
+    </picture>
+{% endmacro %}
+
+{% macro imageCover(image, attrs) %}
+    {% set picture = imageTransform(image) %}
+    {% set classVal = attrs.class is defined ? attrs.class~' image-cover' : 'image-cover' %}
+    {% set attrStrig = '' %}
+
+    {% for attrName,attrVal in attrs %}
+        {% if attrName != 'class' %}
+            {% set attrStrig = attrStrig~attrName~'="'~attrVal~'" ' %}
+        {% endif %}
+    {% endfor %}
+
+    {# fallback #}
+    <div class="{{ classVal }}" {{ attrStrig }} style="background-image: url('{{ picture.src }}')"></div>
+
+    {% if picture.transforms %}
+        {% for transform in picture.transforms %}
+            {% set showFor = 'show-for-small-only'%}
+            {% set showFor = transform.size %}
+            <div class="{{ classVal }} {{ transform.show }}" {{ attrStrig }} style="background-image: url('{{ transform.url|split(',')|first }}')"></div>
+        {% endfor %}
+    {% endif %}
+{% endmacro %}
+
+{% macro nestedLayoutOpen(params) %}
+    {% set nestedClass = (params.nested is defined and params.nested.class is defined) ? params.nested.class : '' %}
+    {% set nestedAttr = (params.nested is defined and params.nested.attr is defined) ? params.nested.attr : '' %}
+    {% set size = (params.size is defined) ? params.size : '' %}
+    {% set align = params.align is defined ? params.align : 'align-center' %}
+    {% set nestedAlign = params.nestedAlign is defined ? params.nestedAlign : 'align-top' %}
+
+    <div class="{{ params.name }} grid-x grid-margin-x {{ align }}" {% if params.id %}id={{ params.id }}{% endif %} {% for attribute, value in params.attributes %}{{ attribute }}="{{ value }}"{% endfor %}>
+        <div class="{{ params.name }}__wrapper grid-x grid-margin-x {{ nestedAlign }} {{ size }} {{ nestedClass }}" {{ nestedAttr }}>
+{% endmacro %}
+
+{% macro nestedLayoutClose() %}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro video(video) %}
+    {# Sets controls or properties for inline videos #}
+    {% set loop = video.loop|default(true) ? ' loop' : '' %}
+    {% set videoControls = video.showControls ? 'controls' : 'autoplay muted playsinline'~loop %}
+    {% set videoType = video.type|default('video') %}
+
+    <video
+         class="video-js"
+         {{ videoControls }}
+        data-{{ videoType }}-id="{{ video.id }}"
+        data-js-hook="brightcove-video"
+        data-account="{{ video.accountId }}"
+        data-player="{{ video.playerId }}"
+        data-embed="default"
+        data-application-id
+        data-gtm-page-hasVideo="totalElements()"
+    ></video>
+{% endmacro %}
+
+{% macro modalOpen(params) %}
+    {% import "partials/core/ui-kit.twig" as kit %}
+    {% set id = (params.id is defined) ? params.id : random() %}
+    {% set class = (params.class is defined) ? params.class : '' %}
+    {% set overlay = (params.overlay|default(false)) ? params.overlay : false %}
+
+    <div class="reveal {{ class }}" id="{{ id }}" data-reveal data-overlay="{{ overlay }}" data-js-hook="{{ class }}">
+
+        <div class="{{ class }}__close">
+            {{ kit.navIcon({
+                icon: 'cross',
+                selected: true,
+                color: 'black',
+                attributes: {
+                    'data-close': '',
+                    'aria-label': 'Close reveal'
+                }
+            }) }}
+        </div>
+
+        <div class="{{ class }}__wrapper">
+{% endmacro %}
+
+{% macro modalClose() %}
+        </div>
+    </div>
+{% endmacro %}

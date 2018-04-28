@@ -1,0 +1,112 @@
+.shop-categories {
+    $c: &;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    @include breakpoint(medium only) {
+        margin-bottom: rem-calc(48px);
+    }
+
+    &--active {
+        margin-bottom: rem-calc(32px);
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(64px);
+        }
+
+        @include breakpoint(large) {
+            margin-bottom: rem-calc(56px);
+        }
+    }
+
+    &__arrow {
+        transform: rotate(180deg);
+        display: inline-block;
+        vertical-align: middle;
+        width: rem-calc(12px);
+        height: rem-calc(18px);
+        margin-top: rem-calc(-4px);
+        margin-right: rem-calc(12px);
+        transition: transform 0.25s ease;
+
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        // Point down when accordion is open
+        #{$c}__group[aria-expanded="true"] & {
+            transform: rotate(270deg);
+        }
+
+        @include breakpoint(large) {
+            #{$c}--secondary & {
+                display: none;
+            }
+        }
+    }
+
+    &__heading {
+        line-height: rem-calc(20px);
+        margin-bottom: rem-calc(12px);
+        display: block;
+        font-weight: bold;
+
+        @include breakpoint(medium) {
+            line-height: rem-calc(22px);
+            margin-bottom: rem-calc(20px);
+        }
+
+        @include breakpoint(large) {
+            line-height: rem-calc(25px);
+
+            #{$c}--secondary & {
+                font-size: rem-calc(28px);
+                margin-bottom: rem-calc(12px);
+            }
+        }
+    }
+
+    &__list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        margin-bottom: rem-calc(64px);
+
+        #{$c}--active & {
+            margin-bottom: 0
+        }
+
+        @include breakpoint(medium) {
+            margin-bottom: 0;
+        }
+
+        @include breakpoint(large) {
+            #{$c}--active & {
+                padding-bottom: rem-calc(30px);
+            }
+
+            #{$c}--secondary & {
+                display: block !important;
+            }
+        }
+    }
+
+    &__link {
+        line-height: rem-calc(32px);
+
+        @include breakpoint(medium) {
+            line-height: rem-calc(36px);
+        }
+
+        @include breakpoint(large) {
+            line-height: rem-calc(26px);
+            font-size: rem-calc(18px);
+        }
+    }
+
+    &__link:hover {
+        opacity: 0.5;
+    }
+}

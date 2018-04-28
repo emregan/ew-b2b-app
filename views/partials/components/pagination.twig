@@ -1,0 +1,49 @@
+{% macro main(pagination,requestCache) %}
+    {% import "partials/components/_svg-icons.twig" as svg %}
+    {% if pagination.totalPages > 1 %}
+        <div class="ui-pagination text-center" data-js-hook="ui-scroll-reveal-animation">
+            {% if pagination.prevPage %}
+                {% set prevPage = pagination.prevPage == 1 ? null : pagination.prevPage %}
+                <a href="{{ querystring(requestCache, {page: prevPage}) }}" class="ui-pagination__prev">{{ svg.back_arrow }}</a>
+            {% endif %}
+
+            {{ _self.renderNumbers(pagination, requestCache) }}
+
+            {% if pagination.nextPage %}
+                {% set nextPage = pagination.nextPage == 1 ? null : pagination.nextPage %}
+                <a href="{{ querystring(requestCache, {page: nextPage}) }}" class="ui-pagination__next">{{ svg.back_arrow }}</a>
+            {% endif %}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro renderNumbers(pagination, requestCache) %}
+    {% if pagination.currentPage != pagination.range[0] and pagination.range|length == 4 %}
+        {{ _self.num(1, false, requestCache) }}
+        {{ _self.hellip }}
+    {% endif %}
+
+    {% for index, page in pagination.range %}
+        {% set isActive = page == pagination.currentPage  %}
+        {{ _self.num(page, isActive, requestCache) }}
+    {% endfor %}
+
+    {% if pagination.currentPage == pagination.range[0] and pagination.range|length == 4 %}
+        {{ _self.hellip }}
+        {{ _self.num(pagination.totalPages, false, requestCache) }}
+    {% endif %}
+{% endmacro %}
+
+{% macro num(num, active, requestCache) %}
+    {% set classVal = 'ui-pagination__number' %}
+    {% set classVal = active ? classVal~' ui-pagination__number--active' : classVal %}
+    {% if num == 1 %}
+        <a href="{{ querystring(requestCache, {page: null}) }}" class="{{ classVal }}">{{ num }}</a>
+    {% else %}
+        <a href="{{ querystring(requestCache, {page: num}) }}" class="{{ classVal }}">{{ num }}</a>
+    {% endif %}
+{% endmacro %}
+
+{% macro hellip() %}
+    <span class="ui-pagination__number">&hellip;</span>
+{% endmacro %}

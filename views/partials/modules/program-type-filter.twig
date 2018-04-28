@@ -1,0 +1,66 @@
+{% macro main(params,requestCache) %}
+    <div class="program-type-filter" {% if params.loopMeta.slug %}id="{{ params.loopMeta.slug }}"{% endif %}>
+        <div class="program-type-filter__wrapper grid-x grid-margin-x align-center">
+            {{ _self.filters(params.subjects, params.programTypes) }}
+            {{ _self.items(params.programs) }}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro filters(subjects, programTypes) %}
+{% if subjects is not empty or programTypes is not empty %}
+    <div class="program-type-filter__filters cell small-10">
+        <div class="program-type-filter__content margin-x">
+            <div class="program-type-filter__content-wrapper cell small-12">
+                {% if subjects is not empty %}
+                    {{ _self.selectField({
+                        data: subjects,
+                        label: 'Select subject',
+                        hook: 'filter-subject'
+                    }) }}
+                {% endif %}
+                {% if programTypes is not empty %}
+                    {{ _self.selectField({
+                        data: programTypes,
+                        label: 'Select program type',
+                        hook: 'filter-program-type'
+                    }) }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endif %}
+{% endmacro %}
+
+{% macro items(programs) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    <div class="program-type-filter__items cell small-12">
+        <div class="program-type-filter__content grid-x grid-margin-x">
+            <div class="program-type-filter__no-results cell small-12 u-style-display-m u-style-weight-bold hide text-center" data-js-hook="filter-no-results">No Results</div>
+            {% for program in programs %}
+                <a href="{{ program.url }}" class="program-type-filter__item cell small-6 medium-4 large-3"
+                    data-js-hook="filter-item"
+                    data-filter-subject="{{ program.programPrimarySubject.slug }}"
+                    data-filter-program-type="{{ program.programPrimaryType.slug }}"
+                    data-gtm-markup-program-name="{{ program.title|striptags|stripsymbols }}"
+                    data-gtm-markup-grade-levels="{{ program.programGradeLevels|json_encode }}"
+                >
+                    {{ helper.image(program.programHeaderImage, {
+                        class: 'program-type-filter__image'
+                    }) }}
+                    <div class="program-type-filter__title u-style-weight-bold u-style-display-xs">{{ program.title|striptags('<em>')|raw }}</div>
+                    <div class="program-type-filter__grade u-style-body-2">{{ program.programGradeLevels|grade_range }}</div>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro selectField(params) %}
+    <select class="mdc-select mdc-list" data-js-hook="filter-select" name="{{ params.hook }}" role="listbox">
+      <option class="mdc-list-item" role="option" value="" aria-selected="true" selected="selected">{{ params.label }}</option>
+      {% for item in params.data %}
+          <option class="mdc-list-item" role="option" value="{{ item.slug }}">{{ item.title|raw }}</option>
+      {% endfor %}
+    </select>
+{% endmacro %}

@@ -1,0 +1,96 @@
+.modal {
+    padding: 0;
+    border: 0;
+    position: relative;
+    box-shadow: 11px 18px 40px 0 rgba(0,0,0,0.3);
+
+    &:focus {
+        outline: none;
+    }
+
+    &__heading {
+        line-height: rem-calc(30px);
+        margin-bottom: rem-calc(10px);
+
+        @include breakpoint(medium) {
+            line-height: rem-calc(34px);
+        }
+
+        @include breakpoint(large) {
+            line-height: rem-calc(46px);
+        }
+
+        &:empty {
+            display: none;
+        }
+    }
+
+    &__wrapper {
+        padding: rem-calc(64px 46px);
+
+        @include breakpoint(medium) {
+            padding: rem-calc(80px 70px);
+        }
+
+        @include breakpoint(large) {
+            padding: rem-calc(94px 88px);
+        }
+    }
+
+    &__close {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    &__description {
+        margin-bottom: rem-calc(34px);
+
+        p {
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            font-size: rem-calc(13px);
+            line-height: rem-calc(24px);
+
+            @include breakpoint(medium) {
+                font-size: rem-calc(14px);
+            }
+
+            @include breakpoint(large) {
+                font-size: rem-calc(16px);
+                line-height: rem-calc(28px);
+            }
+        }
+
+        .ui-btn-primary {
+            margin-top: rem-calc(32px);
+            margin-bottom: rem-calc(36px);
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        ul {
+            margin-left: 0;
+            font-size: rem-calc(15px);
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        a {
+            text-decoration: underline;
+        }
+
+        &:empty {
+            display: none;
+        }
+    }
+
+    &__description + &__heading {
+        margin-top: rem-calc(40px);
+    }
+}

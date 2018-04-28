@@ -1,0 +1,6 @@
+{% import 'partials/components/bio-modal.twig' as bioModal %}
+
+{% if requestCache.xhr %}
+    {{ bioModal.modalContent(data, requestCache) }}
+{% endif %}
+

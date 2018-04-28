@@ -1,0 +1,36 @@
+{% extends 'layouts/_main.twig' %}
+{% import 'partials/core/modules-importer.twig' as modules %}
+{% import 'partials/core/components-importer.twig' as component %}
+{% import "partials/core/ui-kit.twig" as kit %}
+
+{% set pageType = 'forms' %}
+{% set seoTemplate = pageType ~ '-thank-you' %}
+{% block content %}
+    {% if (data.formRelatedPage and data.formRelatedPage|length > 0 and data.formHeaderImage) %}
+        {{ component.skewHeader({
+            formRelatedPage: data.formRelatedPage,
+            image: data.formHeaderImage,
+            align: 'left',
+            back: {
+                text: 'Back to&nbsp;' ~ data.formRelatedPage.title,
+                location: data.formRelatedPage.url
+            }
+        }, requestCache) }}
+    {% endif %}
+
+    <div class="form">
+        <div class="grid-x">
+            <div class="form__wrapper cell small-12 medium-10 medium-offset-1 large-8 large-offset-2">
+                <div class="form__header">
+                    <div class="form__header-title">
+                        {{ data.title|raw }}
+                    </div>
+                    <div class="form__header-subtitle">
+                        {{ data.formThankYouBody|raw }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

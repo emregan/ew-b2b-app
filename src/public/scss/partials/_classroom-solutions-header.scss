@@ -1,0 +1,85 @@
+.classroom-solutions-header{
+    margin-bottom: rem-calc(88px);
+
+    .classroom-solutions-subjects ~ &{
+        padding-top: rem-calc(45px);
+    }
+
+    &__image {
+        z-index: -1;
+        @include breakpoint(medium) {
+            @include flex-order(1);
+            $gutter: map-safe-get($grid-gutter, 'medium');
+            $negativeMarging: ($gutter/2);
+            $positiveCols: xy-cell-size(6);
+            margin-left: calc(-#{$positiveCols} + #{rem-calc($negativeMarging)}) !important;
+        }
+
+        @include breakpoint(large) {
+            $gutter: map-safe-get($grid-gutter, 'large');
+            $negativeMarging: ($gutter/2);
+            $positiveCols: xy-cell-size(5);
+            margin-left: calc(-#{$positiveCols} + #{rem-calc($negativeMarging)}) !important;
+        }
+    }
+
+    &__image-wrapper {
+        $negativeMarging: -(map-safe-get($grid-container-padding, 'small')/2);
+        margin-left: rem-calc($negativeMarging);
+        margin-right: rem-calc($negativeMarging);
+        position: relative;
+        height: rem-calc(180px);
+
+        @include breakpoint(medium) {
+            $negativeMarging: -(map-safe-get($grid-container-padding, 'medium')/2);
+            margin-left: rem-calc($negativeMarging);
+            margin-right: rem-calc($negativeMarging);
+            height: rem-calc(342px);
+        }
+
+        @include breakpoint(large) {
+            height: rem-calc(442px);
+        }
+    }
+
+    &__content {
+        position: relative;
+    }
+
+    &__title {
+        margin-bottom: rem-calc(15px);
+        line-height: rem-calc(40px);
+
+        @include breakpoint(small only) {
+            margin-top: rem-calc(20px);
+        }
+
+        @include breakpoint(medium) {
+            line-height: rem-calc(70px);
+        }
+    }
+
+    &__tagline {
+        margin-bottom: rem-calc(24px);
+        line-height: rem-calc(28px);
+
+        @include breakpoint(medium) {
+            line-height: rem-calc(32px);
+            margin-bottom: rem-calc(40px);
+        }
+
+        @include breakpoint(large) {
+            line-height: rem-calc(42px);
+        }
+    }
+
+    &__cta {
+        display: block;
+        margin-bottom: rem-calc(5px);
+        text-align: left;
+
+        .ui-btn-tertiary__arrow {
+            text-align: center;
+        }
+    }
+}

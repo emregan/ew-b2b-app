@@ -1,0 +1,16 @@
+.home-subpage-header {
+    &__wrapper {
+        padding-top: rem-calc(140px);
+        padding-bottom: rem-calc(105px);
+
+        @include breakpoint(medium) {
+            padding-top: rem-calc(180px);
+            padding-bottom: rem-calc(95px);
+        }
+
+        @include breakpoint(large) {
+            // padding-top: rem-calc(330px);
+            padding-bottom: rem-calc(100px);
+        }
+    }
+}

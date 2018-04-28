@@ -1,0 +1,25 @@
+{% macro main(params,requestCache) %}
+    <div class="program-service-list grid-x grid-margin-x">
+        {% for item in params.items %}
+            {{ _self.item(item, loop.index) }}
+        {% endfor %}
+    </div>
+{% endmacro %}
+
+{% macro item(item, index) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    <a href="/programs/{{ item.slug }}" class="program-service-list__item cell small-12 medium-4 large-3 program-service-list__index-{{index}}-item" data-js-hook="ui-scroll-reveal-animation">
+        {{ helper.image(item.programHeaderImage, {
+            'class': 'program-service-list__image',
+        }) }}
+
+        <div class="program-service-list__title u-style-display-xs u-style-weight-bold">{{ item.title|striptags|raw }}</div>
+
+        {% if item.programShortDescription %}
+            <div class="program-service-list__type u-style-body-2">{{ item.programShortDescription }}</div>
+        {% endif %}
+        <div class="program-service-list__grade u-style-body-2">{% spaceless %}
+            {{ item.programGradeLevels|grade_range }}
+        {% endspaceless %}</div>
+    </a>
+{% endmacro %}

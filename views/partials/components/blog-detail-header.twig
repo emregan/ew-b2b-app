@@ -1,0 +1,74 @@
+{#
+Params: {
+    heroImage: String
+    title: String
+    date: String
+    pageType: String
+    back: {
+        text: String
+        url: String
+    }
+    date: Date
+    eventLocation: {
+        title: String
+    }
+    eventVenue: String
+    eventColor: String
+}
+#}
+{% macro main(params,requestCache) %}
+    {% import "partials/components/_svg-icons.twig" as svg %}
+    {% import "partials/components/_svg-shapes.twig" as shape %}
+    {% import 'partials/core/helpers.twig' as helper %}
+
+    {% set pageType = params.pageType %}
+    {% set extraClass = (params.extraClass is defined) ? params.extraClass : '' %}
+    {% set imageSize = (params.imageSize is defined) ? params.imageSize : 'medium-9 medium-offset-3 large-7' %}
+    {% set hideDate = (params.hideDate is defined) ? hideDate : false %}
+
+    <header class="blog-detail {{ extraClass }} grid-x">
+        <div class="blog-detail__shape">{{ shape.triangle(params.eventColor, requestCache) }}</div>
+        {% if params.back %}
+            <div class="cell">
+                <a href="{{ url(requestCache, [params.back.url]) }}" class="blog-detail__go-back u-style-weight-extrabold grid-x">{{ svg.back_arrow }} {{ params.back.text|striptags|raw }}</a>
+            </div>
+        {% endif %}
+
+        {% if pageType == 'events' %}
+            <div class="blog-detail__event-date cell small-12 medium-5 medium-offset-7 large-4 large-offset-8">
+                <time class="blog-detail__date grid-x align-bottom u-style-weight-bold" data-gtm-page-publishTime="{{ params.date|date("U") }}" data-gtm-page-publishDate="{{ params.date|date("Y-m-d") }}" datetime="{{ params.date|date('Y-m-dTh:i') }}">
+                    <div class="blog-detail__month cell small-6 u-style-display-xs u-style-weight-bold">{{ params.date|date("F") }}</div>
+                    <div class="blog-detail__day cell small-6  text-right u-style-weight-bold">{{ params.date|date("d") }}</div>
+                </time>
+            </div>
+        {% endif %}
+
+        <div class="cell medium-12 {{ (pageType == 'blog') ? '' : 'medium-offset-1'}} large-6 blog-detail__title-date">
+            {% if pageType == 'events' %}
+                 <div class="blog-detail__section u-style-weight-bold u-style-body-2 u-color-gray1">EVENT</div>
+            {% endif %}
+
+            <h1 class="blog-detail__title u-style-display-l u-style-weight-bold">{{ params.title|raw }}</h1>
+            {% if pageType == 'blog' or pageType == 'press-releases' or pageType == 'news' %}
+                {% if hideDate == false %}
+                    <time class="blog-detail__date u-style-weight-bold" data-gtm-page-publishTime="{{ params.date|date("U") }}" data-gtm-page-publishDate="{{ params.date|date("Y-m-d") }}" datetime="{{ params.date|date('Y-m-dTh:i') }}">{{ params.date|date("F d, Y") }}</time>
+                {% endif %}
+            {% endif %}
+        </div>
+
+        {% if pageType == 'events' and params.eventLocation and params.eventVenue %}
+            <div class="blog-detail__location cell small-12 medium-5 medium-offset-7 large-4 large-offset-1">
+                <div class="blog-detail__venue u-style-body-4">{{ params.eventVenue }}</div>
+                <div class="blog-detail__location-title u-style-body-4">{{ params.eventLocation.title|raw }}</div>
+            </div>
+        {% endif %}
+
+        {% if params.heroImage %}
+            <div class="blog-detail__img-container cell {{ imageSize }}">
+                {{ helper.image(params.heroImage, {
+                    class: 'blog-detail__img'
+                }) }}
+            </div>
+        {% endif %}
+    </header>
+{% endmacro %}

@@ -1,0 +1,37 @@
+{% import 'partials/components/shop-results-content.twig' as shopResults %}
+{% import 'partials/components/shop-accordion-menu.twig' as shopAccordionMenu %}
+{% import 'partials/components/pagination.twig' as pagination  %}
+{% import 'partials/components/shop-results-filter.twig' as shopFilters %}
+
+{% if requestCache.xhr %}
+    {{ shopResults.main({
+        results: data.results.response,
+        shopCategories: data.cats.shopCategories
+    }, requestCache) }}
+
+    {{ pagination.main(data.pagination, requestCache) }}
+
+    <div class="js-xhr-sidebar">
+    {% set term = getQuery(requestCache, 'term')|first %}
+    {% set urlRoot = term is defined ? '?term='~term~'&subcategory=' : '?subcategory=' %}
+
+    {{ shopAccordionMenu.main({
+        type: 'secondary',
+        opener: { title: 'All', count: data.results.total, url: '?subcategory= '},
+        items: data.cats.subCategories,
+        urlRoot: urlRoot,
+        hookName: 'search-cats',
+    }, requestCache) }}
+    </div>
+
+    <div>
+        <script id="shop-results-json">
+            {{ data.results|json_encode|raw }}
+        </script>
+    </div>
+
+    {{ shopFilters.main(data.aggs, requestCache)}}
+
+{% endif %}
+
+

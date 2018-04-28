@@ -1,0 +1,22 @@
+.blog-two-images {
+    margin-bottom: rem-calc(50px);
+
+    &__image {
+        width: 100%;
+        height: auto;
+    }
+
+    &__slide {
+        &--first {
+            margin-bottom: rem-calc(30px);
+
+            @include breakpoint(medium) {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    &__caption {
+        margin: 0;
+    }
+}

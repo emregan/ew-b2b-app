@@ -1,0 +1,38 @@
+{% macro main(params,requestCache) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    {% set alignment = (params.loopMeta.centerModules) ? 'align-right' : 'align-center' %}
+    {% set srID = random() %}
+
+    {{ helper.nestedLayoutOpen({
+        name: 'events-feature',
+        align: alignment,
+        id: params.loopMeta.slug
+    }) }}
+        <div class="events-feature grid-x grid-margin-x">
+            {% for event in params.events %}
+                {{ _self.event(event, loop.index, srID) }}
+            {% endfor %}
+
+            <div class="events-feature__view-more-container cell small-8 small-offset-4 medium-4 medium-offset-8">
+                <ul>
+                    <li class="events-feature__view-more-link"><a href="/events-webinars">VIEW MORE EVENTS</a></li>
+                </ul>
+            </div>
+        </div>
+    {{ helper.nestedLayoutClose() }}
+{% endmacro %}
+
+{% macro event(data, i, srID) %}
+    {% set extraClass = (i == 3) ? 'events-feature__last-event-container' : '' %}
+    <a href="/event/{{ data.slug }}" style="display: block;" class="events-feature__event-container {{ extraClass }} cell small-12 medium-6 large-4 u-background-gray5" data-js-hook="ui-scroll-reveal-animation" data-sequence-id="{{ srID }}">
+        <div class="events-feature__top-text-container">
+            <div class="events-feature__event-text">EVENT</div>
+            <div class="events-feature__date-day">{{ data.eventDate|date('d') }}</div>
+        </div>
+        <div class="events-feature__date-month">{{ data.eventDate|date('F') }}</div>
+        <div class="events-feature__venue">{{ data.eventVenue }}</div>
+        <div class="events-feature__location">{{ data.eventLocation.title|raw }}</div>
+        <div class="events-feature__title">{{ data.title|raw }}</div>
+        <div class="events-feature__summary">{{ data.summaryHtml|raw }}... <span class="events-feature__link">Learn more</span></div>
+    </a>
+{% endmacro %}

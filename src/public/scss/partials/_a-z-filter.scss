@@ -1,0 +1,151 @@
+.a-z-filter {
+    width: 100%;
+
+    &__expand-icon {
+        height: rem-calc(40px);
+        width: rem-calc(40px);
+        cursor: pointer;
+        transition: transform 0.5s, background-color 0.5s;
+        border-radius: 50%;
+        border: 3px solid get-color('black');
+        background-color: get-color('black');
+        margin: 0 auto;
+        svg {
+            width: rem-calc(22px);
+            height: rem-calc(22px);
+            display: inline-block;
+            margin: rem-calc(6px) auto 0;
+            path {
+                transition: fill 0.5s, stroke 0.5s;
+                fill: get-color('gray5');
+                stroke: get-color('gray5');
+                stroke-width: 10px;
+            }
+        }
+        &-expanded {
+            transform: rotate(45deg);
+            background-color: get-color('gray5');
+            svg {
+                path {
+                    fill: get-color('black');
+                    stroke: get-color('black');
+                }
+            }
+        }
+    }
+
+    &__program-list-wrapper {
+        max-height: 0;
+        overflow-y: hidden;
+        transition: height 0.5s, max-height 0.5s, opacity 0.2s;
+        opacity: 0;
+        margin: 0 2.5rem;
+        &-expanded {
+            opacity: 1;
+            max-height: 1600px;
+
+            @include breakpoint(medium) {
+                max-height: 1000px;
+            }
+
+            @include breakpoint(large) {
+                max-height: 600px;
+            }
+        }
+    }
+
+    &__program-list {
+        position: relative;
+        transform: translateY(-100px);
+        opacity: 0;
+        transition: transform 0.6s, opacity 0.6s;
+    }
+
+    &__program-list-wrapper-expanded &__program-list {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    &__close-icon {
+        height: rem-calc(40px);
+        width: rem-calc(40px);
+        cursor: pointer;
+        margin: rem-calc(57px) auto 0;
+        display: inline-block;
+    }
+
+    &__container {
+        margin: 0 -2.5rem rem-calc(88px) -2.5rem;
+        padding: rem-calc(52px) 0 rem-calc(59px);
+
+        @include breakpoint(medium) {
+            padding: rem-calc(54px) 0 rem-calc(56px);
+        }
+
+        @include breakpoint(large) {
+            padding: rem-calc(57px) 0 rem-calc(54px);
+            margin-bottom: rem-calc(120px);
+        }
+    }
+
+    &__title {
+        font-size: rem-calc(16px);
+        line-height: rem-calc(20px);
+        font-weight: bold;
+        margin-bottom: rem-calc(25px);
+
+        @include breakpoint(medium) {
+            font-size: rem-calc(18px);
+            line-height: rem-calc(22px);
+        }
+
+        @include breakpoint(large) {
+            font-size: rem-calc(21px);
+            line-height: rem-calc(25px);
+        }
+    }
+
+    &__letter-filter {
+        margin-bottom: rem-calc(71px);
+        margin-top: rem-calc(35px);
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(81px);
+            margin-top: rem-calc(60px);
+        }
+
+        @include breakpoint(large) {
+            margin-bottom: rem-calc(91px);
+        }
+    }
+
+    &__letter-filter-option {
+        padding: rem-calc(12px) rem-calc(16px) rem-calc(8px);
+        font-size: rem-calc(30px);
+        line-height: rem-calc(30px);
+        font-weight: bold;
+        cursor: pointer;
+
+        @include breakpoint(medium) {
+            font-size: rem-calc(38px);
+            line-height: rem-calc(38px);
+        }
+
+        @include breakpoint(large) {
+            font-size: rem-calc(50);
+            line-height: rem-calc(50px);
+        }
+    }
+
+    &__letter-filter-option-selected,
+    &__letter-filter-option:hover {
+        background-color: get-color('black');
+        color: get-color('white');
+    }
+
+    &__program-link {
+        font-size: rem-calc(14px);
+        line-height: rem-calc(18px);
+        margin-bottom: rem-calc(24px);
+    }
+}

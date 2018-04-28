@@ -1,0 +1,68 @@
+.proof-point {
+    text-align: center;
+    margin-bottom: $moduleMargin;
+
+    @include breakpoint(medium) {
+        .page-classroom-solutions & {
+            margin-bottom: rem-calc(120px);
+        }
+    }
+
+    &__wrapper {
+        width: xy-cell-size(12);
+        margin: 0;
+
+        @include breakpoint(large) {
+            .page-page &,
+            .page-about &,
+            .page-programs &,
+            .page-about-us & {
+                $width: xy-cell-size(10 of 12);
+                width: $width;
+            }
+        }
+    }
+
+    &__item {
+        margin-bottom: rem-calc(48px);
+
+        @include breakpoint(medium) {
+            margin-bottom: 0;
+        }
+
+        @include breakpoint(medium) {
+            margin-bottom: 0;
+        }
+    }
+
+    &__figure {
+        position: relative;
+        padding-bottom: 100%;
+        margin-bottom: rem-calc(16px);
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(20px);
+        }
+    }
+
+    &__headline {
+        font-weight: bold;
+        margin: rem-calc(40px) 0 rem-calc(9px);
+    }
+
+    &__body {
+        &, * {
+            line-height: rem-calc(23px);
+
+            @include breakpoint(medium) {
+                line-height: rem-calc(24px);
+            }
+        }
+
+        p {
+            @include breakpoint(small only) {
+                margin-bottom: 0;
+            }
+        }
+    }
+}

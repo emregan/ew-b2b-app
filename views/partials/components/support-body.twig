@@ -1,0 +1,113 @@
+{% macro main(data,requestCache) %}
+    {{ _self.supportHeaderContent({title: data.title, subtitle: data.supportTagline}) }}
+
+    <div class="support-body grid-x grid-margin-x">
+        <div class="support-body__featured-link-block cell small-12 medium-12 large-8 u-background-gray5">
+            <div class="support-body__link-block-main-title">
+                {{ data.supportLinksHeader }}
+            </div>
+            <div class="support-body__link-block-columns grid-x grid-margin-x">
+                {{ _self.mainBlockColumn(
+                    data.supportLinksList1Header,
+                    data.supportLinksList1,
+                    "support-body__link-block-first-column"
+                ) }}
+                {{ _self.mainBlockColumn(
+                    data.supportLinksList2Header,
+                    data.supportLinksList2,
+                    ""
+                ) }}
+            </div>
+        </div>
+
+        {{ _self.secondaryLinkBlock(data) }}
+
+        <div class="support-body__link-blocks-bottom-title large-12 align-middle cell">
+            {{ data.supportContactHeader }}
+        </div>
+
+        <div class="support-body__link-block-bottom-wrapper grid-x grid-margin-x">
+        {% if data.supportContactLink1Cta %}
+            {{ _self.bottomLinkBlock(
+                data.supportContactLink1Header,
+                data.supportContactLink1Cta.url,
+                data.supportContactLink1Cta.text,
+                data.supportContactLink1Cta.target,
+                "green",
+                "large-offset-1"
+            ) }}
+        {% endif %}
+        {% if data.supportContactLink2Cta %}
+            {{ _self.bottomLinkBlock(
+                data.supportContactLink2Header,
+                data.supportContactLink2Cta.url,
+                data.supportContactLink2Cta.text,
+                data.supportContactLink2Cta.target,
+                "blue",
+                ""
+            ) }}
+        {% endif %}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro supportHeaderContent(params, requestCache) %}
+    <div class="support-header__container">
+        <h1 class="support-header__title">{{ params.title }}</h1>
+        <h2 class="support-header__subtitle">{{ params.subtitle }}</h2>
+    </div>
+{% endmacro %}
+
+{% macro mainBlockColumn(subtitle, links, extraClass) %}
+    <div class="support-body__link-block-column {{extraClass}} cell medium-6 large-6">
+        <div class="support-body__link-block-subtitle">
+            {{ subtitle }}
+        </div>
+        <div class="support-body__link-block-main-links">
+            {% for link in links %}
+                {{ _self.mainBlockLink(link) }}
+            {% endfor %}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro mainBlockLink(link) %}
+    <a href="{{ link.linkUrl.url }}" class="support-body__link-block-main-link"{% if link.linkUrl.target %} target="_blank"{% endif %}>
+        {{ link.linkUrl.text | raw }}
+    </a>
+{% endmacro %}
+
+{% macro secondaryLinkBlock(params) %}
+    <div class="support-body__secondary-link-block cell small-12 medium-12 large-4 u-background-gold">
+        <div class="support-body__secondary-link-block-main-title">
+            {{ params.supportHelpHeader }}
+        </div>
+        <div class="support-body__link-block-description">
+            {{ params.supportHelpDescription | raw }}
+        </div>
+        {% if params.supportHelpCta %}
+        <ul class="support-body__link-list">
+            <li class="support-body__link-block-link">
+                <a href="{{ params.supportHelpCta.url }}"{% if params.supportHelpCta.target %} target="_blank"{% endif %}>
+                    {{ params.supportHelpCta.text }}
+                </a>
+            </li>
+        </ul>
+        {% endif %}
+    </div>
+{% endmacro %}
+
+{% macro bottomLinkBlock(title, url, text, target, color, offsetClass) %}
+    <div class="support-body__link-block-bottom cell small-12 medium-6 large-5 {{ offsetClass }} u-background-{{ color }}">
+        <div class="support-body__bottom-link-block-title">
+            {{ title }}
+        </div>
+        <ul class="support-body__link-list">
+            <li class="support-body__link-block-link">
+                <a href="{{ url }}"{% if target %} target="_blank"{% endif %}>
+                    {{ text }}
+                </a>
+            </li>
+        </ul>
+    </div>
+{% endmacro %}

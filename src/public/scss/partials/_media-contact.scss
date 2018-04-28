@@ -1,0 +1,58 @@
+.media-contact {
+    box-shadow: 0 7px 10px 0 rgba(0,0,0,0.16);
+    padding: rem-calc(24px 16px 16px);
+    margin-bottom: rem-calc(42px);
+
+    @include breakpoint(medium) {
+        padding: rem-calc(24px 16px 20px);
+    }
+
+    @include breakpoint(large) {
+        padding: rem-calc(16px 16px 20px);
+    }
+
+    &__contact {
+        margin-bottom: rem-calc(40px);
+    }
+
+    &__contact:last-of-type {
+        margin-bottom: 0;
+    }
+
+    &__heading {
+        line-height: rem-calc(19px);
+        margin-bottom: rem-calc(15px);
+
+        @include breakpoint(medium) {
+            line-break: rem-calc(22px);
+            margin-bottom: rem-calc(16px);
+        }
+
+        @include breakpoint(large) {
+            line-height: rem-calc(25px);
+            margin-bottom: rem-calc(22px);
+        }
+    }
+
+    &__name {
+        line-height: rem-calc(17px);
+
+        @include breakpoint(medium) {
+            line-height: rem-calc(19px);
+        }
+    }
+
+    &__title,
+    &__email {
+        display: inline-block;
+        line-height: rem-calc(18px);
+    }
+
+    &__title {
+        margin-bottom: 8px;
+    }
+
+    &__email {
+        text-decoration: underline;
+    }
+}

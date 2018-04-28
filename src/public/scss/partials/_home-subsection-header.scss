@@ -1,0 +1,42 @@
+.home-subsection-header {
+    margin-bottom: rem-calc(55px);
+
+    @include breakpoint(medium) {
+        margin-bottom: rem-calc(65px);
+    }
+
+    @include breakpoint(large) {
+        margin-bottom: rem-calc(72px);
+    }
+
+    &__line {
+        display: inline-block;
+        vertical-align: middle;
+        height: rem-calc(2px);
+        background-color: get-color('gray3');
+        width: rem-calc(24px);
+
+        @include breakpoint(medium) {
+            width: rem-calc(65px);
+        }
+    }
+
+    &__text {
+        display: inline-block;
+        vertical-align: middle;
+        max-width: rem-calc(184px);
+        margin: rem-calc(0 15px);
+        line-height: rem-calc(28px);
+
+        @include breakpoint(medium) {
+            max-width: rem-calc(380px);
+            line-height: rem-calc(32px);
+            margin: rem-calc(0 30px);
+        }
+
+        @include breakpoint(large) {
+            max-width: rem-calc(580px);
+            line-height: rem-calc(42px);
+        }
+    }
+}

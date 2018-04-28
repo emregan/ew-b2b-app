@@ -1,0 +1,82 @@
+.program-service-list{
+    margin-bottom: rem-calc(50px);
+
+    @include breakpoint(medium) {
+        margin-bottom: rem-calc(62px);
+    }
+
+    @include breakpoint(large) {
+        margin-bottom: rem-calc(30px);
+    }
+
+    &__item{
+        margin-bottom: rem-calc(46px);
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(38px);
+        }
+
+        @include breakpoint(large) {
+            margin-bottom: rem-calc(70px);
+        }
+    }
+
+    &__index-4-item {
+        .page-classroom-solutions &{
+            @include breakpoint(medium) {
+                display: none;
+            }
+
+            @include breakpoint(large) {
+                display: block;
+            }
+        }
+    }
+
+    &__image{
+        display: block;
+        margin-bottom: rem-calc(18px);
+        line-height: 0;
+
+        .page-classroom-solutions &{
+            width: 100%;
+        }
+    }
+
+    &__title{
+        margin-bottom: rem-calc(10px);
+        line-height: rem-calc(20px);
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(4px);
+            line-height: rem-calc(22px);
+        }
+
+        @include breakpoint(large) {
+            margin-bottom: rem-calc(8px);
+            line-height: rem-calc(25px);
+        }
+    }
+
+    &__type{
+        line-height: rem-calc(18px);
+
+        @include breakpoint(large) {
+            line-height: rem-calc(14px);
+        }
+    }
+
+    &__grade{
+        margin-top: rem-calc(10px);
+        line-height: rem-calc(12px);
+
+        @include breakpoint(medium) {
+            margin-top: rem-calc(6px);
+            line-height: rem-calc(18px);
+        }
+
+        @include breakpoint(large) {
+            line-height: rem-calc(14px);
+        }
+    }
+}

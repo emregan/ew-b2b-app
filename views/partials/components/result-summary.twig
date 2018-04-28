@@ -1,0 +1,88 @@
+{% macro main(params,requestCache) %}
+    <div
+        data-js-hook="result-summary"
+        data-results="{{ params.type }}"
+        class="result-summary result-summary--{{ params.type }} grid-x grid-margin-x align-center small-margin-collapse u-background-white small-12"
+    >
+        <div class="result-summary__content">
+            {{ _self.resultsSections(params, requestCache) }}
+        </div>
+
+        {% if params.cta %}
+            {{ _self.cta(params.cta) }}
+        {% endif %}
+
+        {% if params.exactMatch is defined %}
+            {{ _self.exactMatch(params.exactMatch, requestCache) }}
+        {% endif %}
+    </div>
+{% endmacro %}
+
+{% macro resultsSections(sections, requestCache) %}
+    {% for section in sections.results %}
+        <div class="result-summary__section result-summary__section--{{ section.type}}">
+            <div class="result-summary__group grid-x grid-padding-x align-justify">
+                {{ _self.group(section, requestCache) }}
+
+                {% if section.cta %}
+                    {{ _self.cta(section.cta) }}
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+{% endmacro %}
+
+{% macro group(groupList, requestCache) %}
+    <div class="result-summary__group-item">
+        <div class="result-summary__name u-color-gray1 u-style-weight-bold">{{ groupList.name }}</div>
+        <div class="result-summary__list" data-js-hook="result-summary-list" data-type="{{ groupList.type }}">
+            {% if groupList.hasContent %}
+                {{ _self.results(groupList.data, groupList.type, requestCache) }}
+            {% endif %}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro results(params, type, requestCache) %}
+    {% for item in  params %}
+        {% if isSearchProduct(item) %}
+            {% set url = searchProductUrl(requestCache, item) %}
+        {% else %}
+            {% set url = item.url %}
+        {% endif %}
+
+        <div class="result-summary__item" data-js-hook="result-summary-item" data-type="{{ type }}">
+
+            <a href="{{ url }}" data-product-name="{{ item.title|raw }}" data-product-isbn13="{{ item.isbn13Code|default('undefined') }}" data-product-isbn10="{{ item.isbn10Code|default('undefined') }}" class="result-summary__link">{{ item.title|raw }}</a>
+            {# Add age and grade #}
+            {% if item.meta %}
+                <span class="result-summary__meta">{{ item.meta|join(' ') }}</span>
+            {% endif %}
+        </div>
+    {% endfor %}
+{% endmacro %}
+
+{% macro cta(params) %}
+    {% import "partials/core/ui-kit.twig" as kit %}
+    <div class="result-summary__cta cell small-12">
+        {{ kit.btnPrimary({
+            text: params.title,
+            button: false,
+            location: params.url
+        }) }}
+    </div>
+{% endmacro %}
+
+{% macro exactMatch(item, requestCache) %}
+    {% if isSearchProduct(item) %}
+        {% set url = searchProductUrl(requestCache, item) %}
+    {% else %}
+        {% set url = item.url %}
+    {% endif %}
+
+    <span
+        class="result-summary__exact-match"
+        data-js-hook="result-summary-exact-match"
+        data-url={{ url }}
+    ></span>
+{% endmacro %}

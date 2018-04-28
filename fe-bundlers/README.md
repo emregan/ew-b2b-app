@@ -1,0 +1,36 @@
+# Gulp all the way
+
+## Tasks
+- scss:development
+	- Generate [source map](https://www.npmjs.com/package/gulp-sourcemaps)
+	- [auto prefix](https://www.npmjs.com/package/gulp-autoprefixer)
+		- last 2 versions
+		- ie >= 9
+		- iOS >= 5
+	- Compile to `/public/css`
+- scss:destribution
+	- Compress css
+	- no sourcemap
+	- [auto prefix](https://www.npmjs.com/package/gulp-autoprefixer)
+		- last 2 versions
+		- ie >= 9
+		- iOS >= 5
+	- Compile to `/public/css`
+- browserify:development
+	- [browserify recipes](https://github.com/gulpjs/gulp/blob/master/docs/recipes/browserify-uglify-sourcemap.md)
+	- Consider replacing with [Gulp recipe](https://github.com/gulpjs/gulp/blob/master/docs/recipes/fast-browserify-builds-with-watchify.md) for large scale JS project
+- browserify:destribution
+	- [browserify recipes](https://github.com/gulpjs/gulp/blob/master/docs/recipes/browserify-uglify-sourcemap.md)
+	- [uglify](https://www.npmjs.com/package/gulp-uglify)
+- build:development
+	- scss:development
+	- browserify:development
+- build:destribution
+	- scss:destribution
+	- browserify:destribution
+- watch
+	- calls build:development pre watch
+	- scss:development
+	- browserify:development
+- default
+	- build:destribution

@@ -1,0 +1,35 @@
+{% macro main(params,requestCache) %}
+    {% set alignment = (params.loopMeta.centerModules) ? 'align-right' : 'align-center' %}
+    {% set nestedAlign = (params.loopMeta.centerModules and params.documents.length == 1) ? 'align-center' : '' %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    {% set srID = random() %}
+
+    {{ helper.nestedLayoutOpen({
+        name: 'documents',
+        align: alignment,
+        nestedAlign: nestedAlign,
+        id: params.loopMeta.slug,
+    }) }}
+
+        {% for doc in params.documents %}
+            {{ _self.file(doc, srID, requestCache) }}
+        {% endfor %}
+
+    {{ helper.nestedLayoutClose() }}
+{% endmacro %}
+
+{% macro file(file, srID, requestCache) %}
+    {% import "partials/components/_svg-icons.twig" as icon %}
+
+    <a href="{{ signedUrl(requestCache, ['documents/download', file.slug]) }}" class="documents__item cell small-12 medium-6" target="_blank">
+        <div data-js-hook="ui-scroll-reveal-animation" data-sequence-id="{{ srID }}">
+            <div class="documents__download flex-container align-right">
+                <div class="documents__icon flex-container align-center align-middle">{{ icon.document }}</div>
+            </div>
+            {# @TODO Change with document file tupe #}
+            <div class="documents__kind u-style-body-2 u-style-weight-bold">{{ file.documentFile.kind }}</div>
+            <div class="documents__title u-style-display-m">{{ file.title|raw }}</div>
+            <div class="documents__sub-text u-style-body-2">{{ file.documentIntroBody|raw }}</div>
+        </div>
+    </a>
+{% endmacro %}

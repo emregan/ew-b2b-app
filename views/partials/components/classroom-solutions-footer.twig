@@ -1,0 +1,27 @@
+{% macro main(params,requestCache) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+
+    <div class="classroom-solutions-footer">
+        <div class="classroom-solutions-footer__wrappper grid-x grid-margin-x align-bottom">
+            <div class="classroom-solutions-footer__image cell small-12 medium-6 large-offset-1">
+                <div class="classroom-solutions-footer__image-wrapper">
+                    {% if params.programTypeSupportImage %}
+                        {{ helper.image(params.programTypeSupportImage, {
+                            class: 'classroom-solutions-footer__image-img'
+                        }) }}
+                    {% endif %}
+                    <div class="classroom-solutions-footer__bg u-background-green"></div>
+                </div>
+            </div>
+            <div class="classroom-solutions-footer__content cell small-12 medium-5 medium-offset-1 large-4">
+                {% if params.programTypeSupportHeader %}
+                    <div class="classroom-solutions-footer__title u-style-display-l u-style-weight-bold">{{ params.programTypeSupportHeader }}</div>
+                {% endif %}
+
+                {% if params.programTypeSupportDescription %}
+                    <div class="classroom-solutions-footer__description">{{ params.programTypeSupportDescription|raw }}</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endmacro %}

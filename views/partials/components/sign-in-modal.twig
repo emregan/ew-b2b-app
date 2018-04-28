@@ -1,0 +1,43 @@
+{% macro main(params,requestCache) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    {% import "partials/core/ui-kit.twig" as kit %}
+
+    {{ helper.modalOpen({
+        class: 'sign-in-modal',
+        id: 'sign-in-modal',
+    }) }}
+
+        <div class="sign-in-modal__heading u-style-weight-bold u-style-display-m">We’re sorry</div>
+
+        <div class="sign-in-modal__description">
+            <p>You have selected a product that is available for purchase only by a customer with an institutional account. If you have an institutional account, please sign out and sign back in using an institutional account email address and password.</p>
+        </div>
+
+        <div class="sign-in-modal__sign-in">
+            {{ kit.btnPrimary({
+                text: 'Sign in'
+            }) }}
+        </div>
+
+        <div class="sign-in-modal__links">
+            {{ kit.tertiaryButton({
+                button: false,
+                text: 'Create an Institutional Professional account',
+                class: 'sign-in-modal__link'
+            }) }}
+
+            {{ kit.tertiaryButton({
+                button: false,
+                text: 'Learn More',
+                class: 'sign-in-modal__link'
+            }) }}
+
+            {{ kit.tertiaryButton({
+                button: false,
+                text: 'Contact Us',
+                class: 'sign-in-modal__link'
+            }) }}
+        </div>
+
+    {{ helper.modalClose() }}
+{% endmacro %}

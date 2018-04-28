@@ -1,0 +1,186 @@
+.modal-bio{
+    $c: &;
+    background-color: rgba(get-color('black'), 0.45);
+    padding: 0;
+
+    &__wrapper{
+        height: 100vh;
+    }
+
+    &__background{
+        $containerPadding: map-safe-get($grid-container-padding, 'small');
+        padding-left: rem-calc($containerPadding / 2);
+        padding-right: rem-calc($containerPadding / 2);
+        overflow: hidden;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+
+        @include breakpoint(medium) {
+            $containerPadding: (map-safe-get($grid-container-padding, 'medium') / 2);
+            $colPadding: (map-safe-get($grid-gutter, 'medium') / 2);
+            padding-left: rem-calc($containerPadding - $colPadding);
+            padding-right: rem-calc($containerPadding - $colPadding);
+        }
+    }
+
+    &__content {
+        @include breakpoint(small only) {
+            padding-bottom: rem-calc(200px);
+        }
+    }
+
+    &__nav{
+        @include xy-cell($size: 6, $gutters: 0);
+        margin-bottom: rem-calc(40px);
+
+        @include breakpoint(medium) {
+            @include xy-cell(6);
+        }
+
+        @include breakpoint(large) {
+            @include xy-cell(4 of 10);
+            @include xy-cell-offset(1 of 10);
+            margin-bottom: rem-calc(45px);
+        }
+    }
+
+    &__arrows{
+        border-bottom: 3px solid get-color('gray4');
+        display: inline-block;
+        margin-top: rem-calc(25px);
+        padding-bottom: rem-calc(20px);
+    }
+
+    &__back,
+    &__next{
+        display: inline-block;
+        padding: 0 rem-calc(20px);
+        cursor: pointer;
+
+        svg {
+            width: rem-calc(9px);
+            height: rem-calc(14px);
+        }
+    }
+
+    &__next{
+        transform: rotate(180deg);
+
+        svg {
+            transform: translateY(3px);
+        }
+    }
+
+    &__close{
+        @include xy-cell($size: 6, $gutters: 0);
+        text-align: right;
+        margin-bottom: rem-calc(40px);
+
+        @include breakpoint(medium) {
+            @include xy-cell(6);
+        }
+
+        @include breakpoint(large) {
+            @include xy-cell(5 of 10);
+            margin-bottom: rem-calc(45px);
+        }
+    }
+
+    .ui-nav-icon{
+        $negativeMargin: map-safe-get($grid-container-padding, 'small');
+        $negativeMargin: -($negativeMargin / 2);
+        margin-right: rem-calc($negativeMargin);
+
+        @include breakpoint(medium) {
+            // $negativeMargin: map-safe-get($grid-container-padding, 'medium');
+            // $negativeMargin: -($negativeMargin / 2);
+            // margin-right: rem-calc($negativeMargin);
+
+            $containerPadding: (map-safe-get($grid-container-padding, 'medium') / 2);
+            $colPadding: (map-safe-get($grid-gutter, 'medium') / 2);
+            margin-right: rem-calc(-($containerPadding - $colPadding));
+        }
+
+        svg{
+            width: rem-calc(20px);
+            height: rem-calc(20px);
+        }
+    }
+
+    &__headshot{
+        @include xy-cell($size: 12, $gutters: 0 );
+        margin-bottom: rem-calc(30px);
+
+        @include breakpoint(medium) {
+            @include xy-cell(5);
+        }
+
+        @include breakpoint(large) {
+            @include xy-cell(3 of 10);
+            @include xy-cell-offset(1 of 10);
+            margin-bottom: 0;
+        }
+    }
+
+    &__bio{
+        @include xy-cell($size: 12, $gutters: 0 );
+
+        @include breakpoint(medium) {
+            @include xy-cell(7);
+        }
+
+        @include breakpoint(large) {
+            @include xy-cell(5 of 10);
+        }
+    }
+
+    &__title{
+        width: rem-calc(150px);
+        line-height: rem-calc(32px);
+        margin-bottom: rem-calc(15px);
+
+        @include breakpoint(medium) {
+            width: rem-calc(200px);
+            line-height: rem-calc(42px);
+            margin-bottom: rem-calc(42px);
+        }
+
+        @include breakpoint(large) {
+            width: rem-calc(300px);
+            line-height: rem-calc(54px);
+            margin-bottom: rem-calc(21px);
+        }
+    }
+
+    &__person-title{
+        line-height: rem-calc(24px);
+        margin-bottom: rem-calc(16px);
+
+        @include breakpoint(medium) {
+            line-height: rem-calc(24px);
+        }
+
+        @include breakpoint(large) {
+            width: rem-calc(300px);
+            line-height: rem-calc(24px);
+            margin-bottom: rem-calc(21px);
+        }
+    }
+
+    &__person-bio{
+        line-height: rem-calc(28px);
+    }
+
+    &__social {
+        margin-top: rem-calc(32px);
+    }
+
+    &__social-link {
+        display: inline-block;
+        line-height: 0;
+
+        &:not(:last-child) {
+            margin-right: rem-calc(20px);
+        }
+    }
+}

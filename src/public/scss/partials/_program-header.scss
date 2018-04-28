@@ -1,0 +1,369 @@
+.program-header{
+    // like JS `this` variable reference
+    $c: &;
+    margin-bottom: rem-calc(50px);
+
+    &--no-bottom-margin {
+        margin-bottom: 0;
+    }
+
+    @include breakpoint(large) {
+        margin-bottom: rem-calc(88px);
+
+        &--no-bottom-margin {
+            margin-bottom: 0;
+        }
+    }
+
+    &__title {
+        text-transform: uppercase;
+        line-height: rem-calc(42px);
+        margin-bottom: rem-calc(10px);
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(14px);
+        }
+
+        @include breakpoint(large) {
+            line-height: rem-calc(32px);
+            margin-bottom: rem-calc(24px);
+        }
+
+        .page-about-us & {
+            display: none;
+        }
+    }
+
+    &__intro{
+        margin-bottom: rem-calc(52px);
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(56px);
+        }
+
+        @include breakpoint(large) {
+            margin-bottom: rem-calc(70px);
+        }
+    }
+
+    &__image-cover-wrapper {
+        $negativeMargin: map-safe-get($grid-container-padding, 'small');
+        $negativeMargin: -($negativeMargin / 2);
+        margin: 0 rem-calc($negativeMargin);
+        position: relative;
+        padding-top: calc((1 / 2) * 100%);
+        overflow: hidden;
+
+        @include breakpoint(medium) {
+            $negativeMargin: map-safe-get($grid-container-padding, 'medium');
+            $negativeMargin: -($negativeMargin / 2);
+            margin: 0 rem-calc($negativeMargin);
+            padding-top: calc((1 / 2.1) * 100%);
+        }
+
+        @include breakpoint(large) {
+            padding-top: calc((1 / 2.17) * 100%);
+        }
+
+        @include breakpoint(xlarge) {
+            padding-top: calc((1 / 2.21) * 100%);
+        }
+    }
+
+    &__video{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+
+        .video-js{
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    &__image-logo {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, 100%);
+    }
+
+    &__wrapper{
+        position: relative;
+        background-color: get-color('white');
+        box-shadow: 11px 18px 40px 0 rgba(0,0,0,0.3);
+        margin-top: rem-calc(-20px);
+
+        @include breakpoint(small only) {
+            padding: rem-calc(22px 20px 10px);
+        }
+
+        @include breakpoint(medium) {
+            $height: rem-calc(90px);
+            height: $height;
+            margin-top: -($height / 2);
+            padding-left: rem-calc(22px);
+            padding-right: rem-calc(60px);
+        }
+    }
+
+    &__primary{
+        @include breakpoint(small only) {
+            margin-bottom: rem-calc(26px);
+        }
+
+        .ui-btn-primary{
+            @include breakpoint(medium) {
+                max-width: rem-calc(195px);
+            }
+        }
+    }
+
+    &__secondary-btn{
+        @include breakpoint(small only) {
+            margin-bottom: rem-calc(26px);
+        }
+
+        @include breakpoint(medium) {
+            display: inline-block;
+
+            &:last-child{
+                margin-left: rem-calc(40px);
+            }
+        }
+    }
+
+    &__headline {
+        margin-bottom: rem-calc(36px);
+        line-height: rem-calc(32px);
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(48px);
+            line-height: rem-calc(42px);
+        }
+
+        @include breakpoint(large) {
+            margin-bottom: rem-calc(60px);
+            line-height: rem-calc(54px);
+        }
+    }
+
+    &__tag{
+        display: inline-block;
+        margin-bottom: 24px;
+        line-height: rem-calc(20px);
+        font-size: rem-calc(16px);
+        letter-spacing: rem-calc(1px);
+
+        @include breakpoint(small only) {
+            width: 100%;
+        }
+
+        @include breakpoint(medium) {
+            margin: 0 rem-calc(15px);
+        }
+
+        @include breakpoint(large) {
+            margin: 0 rem-calc(25px);
+        }
+    }
+
+    &__sections {
+        $navHeight: map-get($headerExpanded, 'small');
+        position: fixed;
+        z-index: 30;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: rem-calc($programMobSubNav);
+        overflow: hidden;
+        background: get-color('white');
+        box-shadow: rem-calc(4px 12px 21px 0) rgba(0,0,0,0.14);
+        transition: transform 0.5s;
+        transform: translateY($navHeight);
+
+        @include breakpoint(medium only) {
+            $navHeight: map-get($headerExpanded, 'medium');
+            transform: translateY($navHeight);
+
+            .navigation--shrink ~ .grid-container & {
+                $navHeight: map-get($headerShrink, 'small');
+                transform: translateY($navHeight);
+            }
+        }
+
+        @include breakpoint(large) {
+            @include xy-cell(2);
+            position: static;
+            background: transparent;
+            box-shadow: none;
+            overflow: inherit;
+            transform: none;
+            // Prevent content jump if nav is longer than content
+            // this is visiable when going from static to fixed.
+            height: 0;
+        }
+    }
+
+    &__sections-wrap {
+        height: 100%;
+
+        // Making height 0 so if the right content is smaller than the nav ther is no jump
+        // This happens when the nav transition from static to fixed.
+        @include breakpoint(large) {
+            // height: 0;
+        }
+    }
+
+    &__sections-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        #{$c}__sections--active & {
+            @include breakpoint(large) {
+                width: 100%;
+                max-width: 15%;
+            }
+
+            @include breakpoint(xlarge) {
+                max-width: 11%;
+            }
+        }
+    }
+
+    &__sections-icon {
+        width: rem-calc(16px);
+        height: rem-calc(48px);
+        margin-right: rem-calc(16px);
+        transform-origin: center;
+        transform: rotate(-90deg);
+        opacity: 0;
+        display: inline-block;
+        vertical-align: middle;
+
+        .program-header__sections--active & {
+            transform: rotate(90deg);
+        }
+
+        @include breakpoint(small only) {
+            position: absolute;
+            top: 0;
+        }
+
+        @include breakpoint(large) {
+            display: none;
+        }
+
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    &__sections-item {}
+
+    &__sections-dot {
+        $size: rem-calc(7px);
+        display: none;
+        opacity: 0;
+        width: $size;
+        height: $size;
+        background-color: get-color('black');
+        border-radius: 100%;
+        margin-right: rem-calc(14px);
+        flex-shrink: 0;
+
+        @include breakpoint(large) {
+            opacity: 1;
+            display: block;
+            margin-top: rem-calc(6px);
+
+            // This prevents intro from been active on init
+            // #{$c}__sections:not(#{$c}__sections--active) & {
+                // border-radius: 100% !important;
+                // transform: scale(1) rotate(0) !important;
+            // }
+        }
+    }
+
+    &__section-name {
+        @include xy-grid-container;
+        display: block;
+        width: 100%;
+        border-top: rem-calc(2px) solid get-color('gray4');
+        font-size: rem-calc(14px);
+        line-height: 1.5;
+        color: get-color('black');
+        text-align: left;
+
+        @include breakpoint(small only) {
+            &:not(.program-header__section-name--opener) {
+                padding-top: rem-calc(13.5px);
+                padding-bottom: rem-calc(13.5px);
+                position: relative;
+            }
+        }
+
+        @include breakpoint(large) {
+            @include flex;
+            @include flex-align(left, top);
+            padding: 0;
+            border: 0;
+            margin-bottom: rem-calc(12px);
+            height: auto;
+        }
+
+        &--active,
+        &:hover {
+            color: get-color('black');
+
+            .program-header__sections-icon {
+                opacity: 1;
+            }
+        }
+
+        &--active {}
+
+        &--opener {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+
+            .program-header__sections--active & {
+                display: none;
+            }
+
+            @include breakpoint(large) {
+                display: none;
+            }
+        }
+    }
+
+    &__sections-text {
+        @include breakpoint(small only) {
+            padding-left: rem-calc(36px);
+            display: inline-block;
+        }
+    }
+
+    &__sections-dot {
+        border-radius: 50%;
+        transition-property: border-radius, transform;
+        transition-duration: 0.125s;
+        transition-timing-function: linear;
+
+        .program-header__section-name--active &,
+        .program-header__section-name:hover &{
+            border-radius: 0;
+            transform: scale(1.6) rotate(45deg);
+        }
+    }
+}
+
+// 37

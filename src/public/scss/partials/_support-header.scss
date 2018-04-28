@@ -1,0 +1,70 @@
+.support-header {
+    &__container {
+        position: relative;
+        z-index: 2;
+        margin-top: rem-calc(-30px);
+
+        @include breakpoint(medium) {
+            margin-top: rem-calc(-250px);
+        }
+
+        @include breakpoint(large) {
+            margin-bottom: 0;
+            margin-top: rem-calc(-423px);
+        }
+    }
+
+    &__title, &__subtitle {
+        font-weight: bold;
+        text-align: center;
+    }
+
+    &__title {
+        font-size: rem-calc(54px);
+        line-height: rem-calc(58px);
+        margin-bottom: rem-calc(38px);
+
+        @include breakpoint(medium) {
+            font-size: rem-calc(72px);
+            line-height: rem-calc(86px);
+            margin-bottom: rem-calc(48px);
+        }
+
+        @include breakpoint(large) {
+            font-size: rem-calc(88px);
+            line-height: rem-calc(92px);
+            margin-bottom: rem-calc(75px);
+        }
+
+        .page-classroom-solutions &{
+            @include breakpoint(640px) {
+                font-size: rem-calc(57px);
+            }
+
+            @include breakpoint(760px) {
+                font-size: rem-calc(72px);
+            }
+
+            @include breakpoint(large) {
+                font-size: rem-calc(88px);
+            }
+        }
+    }
+
+    &__subtitle {
+        font-size: rem-calc(16px);
+        line-height: rem-calc(20px);
+        margin-bottom: rem-calc(46px);
+
+        @include breakpoint(medium) {
+            font-size: rem-calc(18px);
+            line-height: rem-calc(22px);
+            margin-bottom: rem-calc(45px);
+        }
+
+        @include breakpoint(large) {
+            font-size: rem-calc(21px);
+            line-height: rem-calc(25px);
+        }
+    }
+}

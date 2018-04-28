@@ -1,0 +1,43 @@
+.u-messages-error-error {
+   position: absolute;
+   width: 100%;
+   font-size: rem-calc(12.8px);
+}
+
+span.u-messages-error-error {
+   color: get-color('error');
+   margin-top: rem-calc(16px);
+   text-align: right;
+}
+
+.u-messages-error-server, .u-messages-success-server {
+    margin-top: rem-calc(-8px);
+    margin-bottom: rem-calc(16px);
+    font-size: rem-calc(12.8px);
+    font-weight: bold;
+}
+
+.u-messages-error-server {
+    color: get-color('error');
+}
+
+.u-messages-success-server {
+    color: get-color('green');
+}
+
+.u-messages-error-help {
+   width: 100%;
+   font-size: rem-calc(12.8px);
+   color: get-color('black');
+   display: block;
+   text-transform: none;
+   text-align: left;
+}
+
+.u-messages-error-help.text-below {
+   display: inherit;
+   position: absolute;
+   bottom: rem-calc(-32px);
+   display: inline;
+   left: 0;
+}

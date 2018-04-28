@@ -1,0 +1,26 @@
+{% macro main(params,requestCache) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    {% set offset = (params.loopMeta.centerModules) ? 'large-offset-2' : 'large-offset-1' %}
+    {% set srID = random() %}
+
+    <div class="image-list image-list--{{ params.alignment }} grid-x grid-margin-x" {% if params.loopMeta.slug %}id="{{ params.loopMeta.slug }}"{% endif %}>
+
+        <figure class="image-list__figure cell small-12 medium-8 medium-offset-2 large-6 {% if params.alignment == 'right' %}large-order-2 large-offset-0{% else %}{{ offset }}{% endif %}" data-js-hook="ui-scroll-reveal-animation" data-sequence-id="{{ srID }}">
+        {% if params.image %}
+            {% set var = value %}
+            {{ helper.image(params.image, {
+                class: 'image-list__image'
+            }) }}
+        {% endif %}
+        </figure>
+        <div class="image-list__content cell small-12 medium-8 medium-offset-2 large-4 {% if params.alignment == 'right' %}{{ offset }}{% else %}large-offset-0{% endif %}" data-js-hook="ui-scroll-reveal-animation" data-sequence-id="{{ srID }}">
+            {% for bullet in params.bullets %}
+                <div class="image-list__bullet">
+                    <div class="image-list__bullet-header u-style-display-s u-style-weight-bold">{{ bullet.headerText }}</div>
+                    <div class="image-list__bullet-sub-text u-style-body-1">{{ bullet.subText|raw }}</div>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+{% endmacro %}

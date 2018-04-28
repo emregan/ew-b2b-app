@@ -1,0 +1,68 @@
+{% spaceless %}
+{% import "partials/core/_assets.twig" as assets %}
+{% import 'partials/core/components-importer.twig' as components %}
+{% endspaceless %}<!DOCTYPE html>
+<html lang="en" data-browser-mobile="{{useragent.isMobile}}" data-browser-os="{{ useragent.os }}" data-browser-version="{{ useragent.version|split('.')|first }}" data-browser-name="{{ useragent.browser }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {{ assets.gtm }}
+    {{ assets.css(pageType) }}
+
+    {% if user %}
+    <script>
+        <!--var userAnalyticsData = {
+            id: {{ user.uUid|json_encode|raw }},
+            firstName: {{ user.userName|json_encode|raw }}
+        };-->
+    </script>
+    {% endif %}
+
+    <script>
+        <!--
+        var Analytics = window.Analytics || []; 
+        -->
+        {% if analyticsData is defined %}
+            <!-- Analytics.push({{analyticsData}}); -->
+        {% endif %}
+    </script>
+
+    {{ assets.js(pageType) }}
+
+</head>
+<body class="loading page-{{ pageType }}{% if user %} user-logged-in{% endif %}" data-gtm-page-type="{{ pageType }}" data-gtm-page-currentBreakpoint="viewport()">
+    {% if globals is defined and globals.header is defined and globals.header is not empty %}
+        {{ components.navigation({
+            header: globals.header,
+            user: user,
+        }, requestCache) }}
+    {% endif %}
+
+    <div class="grid-container" data-js-hook="grid-container">
+        {% block content %}
+            <h1>Layout Template</h1>
+            <p>You shouldn't see this at all!</p>
+        {% endblock %}
+    </div>
+    
+    {% if globals is defined and globals.footer is defined and globals.footer is not empty %}
+    
+        {{ components.footer({
+    		footerCopyright: "Houghton Mifflin Harcourt. All rights reserved.",
+    		 footerLinks:[
+			    {
+		    		text: 'Terms & Conditions',
+					url: "#"
+	    		}, {
+		    		text: "Privacy Policy",
+					url: "#"
+	    		}, {
+		    		text: "CPSIA",
+					url: "#"
+	    		}
+			  ],
+    	}, requestCache) }}
+    {% endif %}
+
+</body>
+</html>

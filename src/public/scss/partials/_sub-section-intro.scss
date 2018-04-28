@@ -1,0 +1,48 @@
+.sub-section-intro {
+    text-align: center;
+    margin-bottom: rem-calc(60px);
+
+    &__heading {
+        font-size: rem-calc(24px);
+        line-height: rem-calc(28px);
+        margin-bottom: rem-calc(25px);
+
+        @include breakpoint(medium) {
+            font-size: rem-calc(38px);
+            line-height: rem-calc(42px);
+            margin-bottom: rem-calc(30px);
+        }
+
+        @include breakpoint(large) {
+            font-size: rem-calc(50px);
+            line-height: rem-calc(54px);
+        }
+    }
+
+    &__shape {
+        display: inline-block;
+        width: rem-calc(32px);
+        height: rem-calc(32px);
+        transform: rotate(45deg);
+    }
+
+    &__body {
+        margin-top: rem-calc(40px);
+
+        @include breakpoint(medium) {
+            margin-top: rem-calc(44px);
+        }
+
+        @include breakpoint(large) {
+            margin-top: rem-calc(34px);
+        }
+
+        &, * {
+            line-height: rem-calc(24px);
+
+            @include breakpoint(medium) {
+                line-height: rem-calc(28px);
+            }
+        }
+    }
+}

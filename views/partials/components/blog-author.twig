@@ -1,0 +1,17 @@
+{#
+Params: {
+    name: String
+    title: String
+    slug: slug
+}
+#}
+{% macro main(params,requestCache) %}
+    <div class="blog-author cell medium-5 large-3">
+        <a href="/people/{{ params.slug }}" class="ui-blog-author blog-author__link">
+            <span class="blog-author__name u-style-weight-bold" data-gtm-page-author="{{ params.name }}">{{ params.name }}</span>
+            {% if params.title %}
+                <span class="blog-author__title u-style-weight-regular">{{ params.title|raw }}</span>
+            {% endif %}
+        </a>
+    </div>
+{% endmacro %}

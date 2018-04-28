@@ -1,0 +1,11 @@
+{% macro main(params,requestCache) %}
+    {% set size = (params.loopMeta is defined and (params.loopMeta.centerModules)) ? 'large-10 large-offset-2' : 'large-12' %}
+    {# {% set type = params.type is defined ? params.type : 'program' %} #}
+    <div class="group-label grid-x grid-margin-x" data-js-hook="ui-scroll-reveal-animation" {% if params.loopMeta.slug %}id="{{ params.loopMeta.slug }}"{% endif %}>
+        <div class="cell {{ size }} text-center">
+            <div class="group-label__line"></div>
+            <div class="group-label__text u-style-display-xxs u-style-weight-bold">{{ params.text }}</div>
+            <div class="group-label__line"></div>
+        </div>
+    </div>
+{% endmacro %}

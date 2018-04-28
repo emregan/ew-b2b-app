@@ -1,0 +1,6 @@
+{% import 'partials/components/result-summary.twig' as resultSummary %}
+
+{% if requestCache.xhr %}
+    {{ resultSummary.main(data, requestCache) }}
+{% endif %}
+

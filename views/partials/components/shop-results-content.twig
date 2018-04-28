@@ -1,0 +1,107 @@
+{% macro main(params,requestCache) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+
+    {{ helper.nestedLayoutOpen({
+        name: 'shop-results-content',
+        align: 'align-left',
+        attributes: {
+            'data-js-hook': 'shop-results-content'
+        },
+    }) }}
+
+    {% if params.results is empty %}
+        <div class="shop-results-content__empty u-style-weight-bold u-style-display-l">
+            No results found
+            {% if params.term %}
+                <div class="shop-results-content__empty__term ui-style-weight-regular">
+                    for "{{ params.term }}"
+                </div>
+            {% endif %}
+
+            <div class="shop-results-content__empty__list-container">
+                <ul class="shop-categories__list">
+                    <span class=" shop-results-content__empty__list-header u-style-display-xs u-style-weight-bold">Shop Categories<span>
+                    {% for shopCat in params.shopCategories %}
+                        <li class="shop-results-content__empty__item">
+                            <a
+                                href="{{ shopCat.url|default('#') }}"
+                                class="shop-categories__link u-style-display-s u-style-weight-bold"
+                            >
+                                {{ shopCat.title }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    {% endif %}
+
+    {# @TODO Temporary loop while real data is available #}
+    {% for item in params.results %}
+        {{ _self.resultItem(item, requestCache) }}
+    {% endfor %}
+
+    {{ helper.nestedLayoutClose() }}
+{% endmacro %}
+
+{% macro resultItem(item, requestCache) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    {% import "partials/core/ui-kit.twig" as kit %}
+
+    <div class="shop-results-item cell small-12 medium-3" data-js-hook="ui-scroll-reveal-animation shop-results-item" data-product-name="{{ item.title|raw }}" data-product-isbn13="{{ item.isbn13Code|default('undefined') }}" data-product-isbn10="{{ item.isbn10Code|default('undefined') }}">
+        <div class="shop-results-item__content grid-x" data-js-hook="shop-results-item__content">
+            <div class="shop-results-item__image cell small-3 medium-12 medium-offset-0 text-center" data-js-hook="shop-results-item__image">
+                {% set imageUrl = item['thumbnail-image-url'] is defined ? '/shop/books'~item['thumbnail-image-url'] : '/sites/hmh/images/global/iconNoImage.png' %}
+                <a href="{{ searchProductUrl(requestCache, item) }}">
+                    <img src="{{ imageUrl }}" class="shop-results-item__image-asset" />
+                </a>
+            </div>
+            <div class="shop-results-item__body cell small-8 small-offset-1 medium-12 medium-offset-0 u-border-gray4" data-js-hook="shop-results-item__body">
+                <a href="{{ searchProductUrl(requestCache, item) }}" class="shop-results-item__body-content" data-js-hook="shop-results-item__body-content">
+                    <span data-product-name="{{ item.title|raw }}" data-product-isbn13="{{ item.isbn13Code|default('undefined') }}" data-product-isbn10="{{ item.isbn10Code|default('undefined') }}" class="shop-results-item__title u-style-weight-bold u-style-display-xxs" data-js-hook="shop-results-item__title">{{ item.title|raw }}</span>
+
+
+                    {% if item.grades is defined %}
+                        <div class="shop-results-item__meta u-style-body-2">{{ item.grades|grade_range }}</div>
+                    {% endif %}
+                    {% if item.format is defined %}
+                        <div class="shop-results-item__meta u-style-body-2">{{ item.format }}</div>
+                    {% endif %}
+
+                    {% if item.response_type == 'hmh-k12-components' %}
+                        <div class="shop-results-item__description">{{ item.description|raw }}</div>
+                    {% else %}
+                        <div class="shop-results-item__description">{{ item.description|striptags('<b><i><em><strong><sup><sub><br>')|raw }}</div>
+                    {% endif %}
+                </a>
+
+                <div class="shop-results-item__price-box" data-js-hook="shop-results-item__price-box">
+                    <div class="shop-results-item__price u-style-weight-bold">${{ item.price|number_format(2, '.', ',') }}</div>
+
+                    {% if env('CART_DISABLED') %}
+                        {{ kit.btnSecondary({
+                            text: 'Learn More',
+                            button: false,
+                            class: 'shop-results-item__learn-more show-for-medium',
+                            location: searchProductUrl(requestCache, item),
+                        }) }}
+                    {% else %}
+                        {{ kit.addToCart({
+                            class: 'shop-results-item__add-to-cart show-for-medium',
+                            name: 'quantity',
+                            text: searchProductAddToCartText(item),
+                            product: {
+                                productCode: item.productCode,
+                                isbn13: item.isbn13Code,
+                                title: item.title,
+                                url: searchProductUrl(requestCache, item),
+                                inventoryStatus: searchProductStatus(item),
+                                format: item.format
+                            }
+                        }) }}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}

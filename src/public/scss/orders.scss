@@ -1,0 +1,39 @@
+/*----------------------------------------------------*/
+/*  Vendors
+/*----------------------------------------------------*/
+/** Foundation */
+@import 'foundation-sites/scss/foundation';
+
+/*----------------------------------------------------*/
+/*  Core Styles
+/*----------------------------------------------------*/
+// Import foundation settings
+@import './_shared/settings';
+// Shared components (Header, footer, etc)
+@import './_shared/shared';
+@import './pages/orders/orders-variables';
+
+/*----------------------------------------------------*/
+/*  Foundation styles
+/*----------------------------------------------------*/
+/* @include foundation-everything;
+
+@include foundation-xy-grid-classes;
+@include foundation-flex-classes;
+@include foundation-visibility-classes;
+@include foundation-typography;
+@include foundation-accordion;
+@include foundation-callout;
+@include foundation-tooltip;
+@include foundation-tabs;
+@include foundation-reveal; */
+
+/*----------------------------------------------------*/
+/*  Global Styles
+/*----------------------------------------------------*/
+@import './pages/orders/orders-global';
+
+/*----------------------------------------------------*/
+/*  Partials
+/*----------------------------------------------------*/
+

@@ -1,0 +1,61 @@
+{% macro main(params, requestCache) %}
+    {# Check for params #}
+    {% set params = params|length > 0 ? params : {} %}
+    {% set modalID = (params.loopMeta and params.loopMeta.slug) ? params.loopMeta.slug : '' %}
+
+    <div class="modal-bio full reveal" id="bio-modal-{{ modalID }}" data-reveal data-js-hook="bio-modal">
+        <div class="modal-bio__wrapper grid-x grid-margin-x align-right small-margin-collapse">
+            <div class="modal-bio__background cell small-12 large-10 u-background-white">
+                <div class="modal-bio__content grid-x grid-margin-x" data-js-hook="bio-content">
+                    {{ _self.modalContent() }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro modalContent(person) %}
+    {% import "partials/core/ui-kit.twig" as kit %}
+    {% import "partials/components/_svg-icons.twig" as icon %}
+    {% import 'partials/core/helpers.twig' as helper %}
+
+    <div class="modal-bio__nav">
+        <div class="modal-bio__arrows">
+            <div class="modal-bio__back" data-js-hook="open-bio prev-bio" data-bio-slug="">{{ icon.back_arrow }}</div>
+            <div class="modal-bio__next" data-js-hook="open-bio next-bio" data-bio-slug="">{{ icon.back_arrow }}</div>
+        </div>
+    </div>
+    <div class="modal-bio__close">
+        {{ kit.navIcon({
+            icon: 'cross',
+            selected: true,
+            color: 'black',
+            attributes: {
+                'data-close': '',
+                'aria-label': 'Close reveal'
+            }
+        }) }}
+    </div>
+
+    <div class="modal-bio__headshot" data-js-hook="bio-headshot">
+        {% if person and person.personImage %}
+            <img src="{{ person.personImage.url }}" alt="{{ person.title|striptags }}">
+        {% endif %}
+
+        {% if person and person.personSocialMediaLinks %}
+            <div class="modal-bio__social">
+                {% for link in person.personSocialMediaLinks %}
+                    <a href="{{ link.linkUrl }}" class="modal-bio__social-link" target="_blank">{{ helper.image(link.icon) }}</a>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="modal-bio__bio" data-js-hook="bio-bio">
+        {% if person %}
+            <div class="modal-bio__title u-style-display-l u-style-weight-bold">{{ person.title|raw }}</div>
+            <div class="modal-bio__person-title u-style-body-2">{{ person.personTitle|raw }}</div>
+            <div class="modal-bio__person-bio u-style-body-1">{{ person.personBio|raw }}</div>
+        {% endif %}
+    </div>
+{% endmacro %}

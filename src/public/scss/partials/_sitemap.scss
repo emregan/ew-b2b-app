@@ -1,0 +1,23 @@
+.sitemap {
+    $c: &;
+
+    &__heading {
+        margin-bottom: rem-calc(16px);
+    }
+
+    &__list {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    &__item {
+        line-height: rem-calc(25px);
+        margin-bottom: rem-calc(6px);
+
+        #{$c}__columns--main & {
+            margin-bottom: rem-calc(30px);
+        }
+    }
+
+}

@@ -1,0 +1,17 @@
+.blog-tags {
+    @include xy-grid($direction: 'horizontal', $wrap: true);
+
+    .page-events & {
+        margin-top: rem-calc(64px);
+        margin-bottom: rem-calc(65px);
+    }
+
+    &__tag-link {
+        font-size: rem-calc(14px);
+        background: get-color('gray5');
+        color: get-color('black');
+        padding: rem-calc(10px 22px);
+        margin-right: rem-calc(5px);
+        margin-bottom: rem-calc(8px);
+    }
+}

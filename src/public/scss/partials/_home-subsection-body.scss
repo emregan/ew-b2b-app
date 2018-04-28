@@ -1,0 +1,290 @@
+/*----------------------------------------------------*/
+/*  There are 3 associated components: entry, stat, event.
+/*  Breaking them out into separate top level for readability
+/*----------------------------------------------------*/
+
+.home-subsection-body {
+    @include breakpoint(medium) {
+        padding-top: rem-calc(40px);
+    }
+
+    @include breakpoint(large) {
+        // padding-top: rem-calc(152px);
+        padding-top: rem-calc(80px);
+    }
+}
+
+.home-subsection-body__entry {
+    margin-bottom: rem-calc(15px);
+
+    @include breakpoint(large) {
+        margin-bottom: rem-calc(24px);
+    }
+
+    .home-subsection-body--left .home-subsection-body__cell--1 &--small {
+        @include flex-align($x: right);
+    }
+
+    .home-subsection-body--right .home-subsection-body__cell--1 &{
+        @include flex-align($x: right);
+    }
+
+    &-image,
+    &-body {
+        @include xy-cell($size: 12, $gutters: 0);
+        background-color: get-color('gray5');
+
+        @include breakpoint(medium) {
+
+            .home-subsection-body--right .home-subsection-body__cell--1 .home-subsection-body__entry--small &{
+                @include xy-cell($size: 5 of 7, $gutters: 0);
+            }
+        }
+
+        @include breakpoint(large) {
+            .home-subsection-body__entry--small &{
+                @include xy-cell($size: 4 of 5, $gutters: 0);
+            }
+
+            .home-subsection-body--right .home-subsection-body__cell--1 .home-subsection-body__entry--small &{
+                @include xy-cell($size: 4 of 7, $gutters: 0);
+            }
+        }
+    }
+
+    &-image {
+        position: relative;
+        line-height: 0;
+        margin-top: rem-calc(76px);
+
+        @include breakpoint(medium) {
+            .home-subsection-body__entry--large &{
+                @include xy-cell($size: 3 of 7, $gutters: 0);
+                margin-top: 0;
+            }
+
+            .home-subsection-body__entry--small &{
+                margin-top: rem-calc(40px);
+            }
+        }
+
+        @include breakpoint(large) {
+            .home-subsection-body__entry--small &{
+                margin-top: rem-calc(80px);
+            }
+        }
+    }
+
+    &-body {
+        background-color: get-color('gray5');
+        position: relative;
+        z-index: 1;
+
+        @include breakpoint(medium) {
+            padding: rem-calc(16px 24px 30px);
+
+            .home-subsection-body__entry--large &{
+                @include xy-cell($size: 4 of 7, $gutters: 0);
+            }
+        }
+
+        @include breakpoint(large) {
+            padding: rem-calc(26px 32px 32px);
+
+            .home-subsection-body__entry--large &{
+                @include xy-cell($size: 3 of 7, $gutters: 0);
+                padding: rem-calc(32px);
+                padding-right: rem-calc(32px);
+            }
+        }
+    }
+
+    &-image-img {
+        position: relative;
+        z-index: 1;
+        margin-top: rem-calc(-76px);
+        width: 100%;
+        display: inline-block;
+
+        @include breakpoint(small only) {
+            // padding: rem-calc(0 25px);
+
+            .home-subsection-body__entry--large &{
+                max-width: 70%;
+            }
+        }
+
+        @include breakpoint(medium) {
+            margin-top: rem-calc(-40px);
+        }
+
+        @include breakpoint(large) {
+            margin-top: rem-calc(-80px);
+        }
+    }
+
+    &-text {
+        line-height: rem-calc(20px);
+        margin-bottom: rem-calc(30px);
+
+        @include breakpoint(small only) {
+            padding: rem-calc(15px 25px 0);
+        }
+    }
+
+    &-cta {
+        margin-top: rem-calc(30px);
+        @include breakpoint(small only) {
+            padding: rem-calc(0 25px 30px);
+        }
+
+        @include breakpoint(large) {
+            margin-top: rem-calc(25px);
+        }
+    }
+}
+
+
+.home-subsection-body__statistic {
+    $spacingS: 15px;
+    $spacingM: 0px;
+    $spacingL: 5px;
+
+    $marginS: 35px;
+    $marginM: 42px;
+    $marginL: 54px;
+    margin-top: rem-calc($marginS + $spacingS);
+
+    @include breakpoint(medium) {
+        margin-top: rem-calc($marginM + $spacingM);
+    }
+
+    @include breakpoint(medium) {
+        margin-top: rem-calc($marginL + $spacingL);
+    }
+
+    &-stat {
+        margin-top: rem-calc(-$marginS);
+        letter-spacing: rem-calc(-0.32px);
+
+        @include breakpoint(medium) {
+            margin-top: rem-calc(-$marginM);
+            letter-spacing: rem-calc(-0.38px);
+        }
+
+        @include breakpoint(large) {
+            margin-top: rem-calc(-$marginL);
+            letter-spacing: rem-calc(-0.54px);
+        }
+    }
+
+    &-content {
+        padding: rem-calc(0px 35px 28px 24px);
+
+        @include breakpoint(medium) {
+            padding-bottom: rem-calc(36px);
+
+            .home-subsection-body--left & {
+                @include xy-cell(5 of 7);
+            }
+
+        }
+
+        @include breakpoint(large) {
+            padding: rem-calc(0px 60px 60px 40px);
+
+            .home-subsection-body--left & {
+                @include xy-cell(4 of 7);
+            }
+
+            .home-subsection-body--right &{
+                @include xy-cell(4 of 5);
+            }
+        }
+    }
+
+    &-text {
+        line-height: rem-calc(26px);
+    }
+}
+
+
+.home-subsection-body__event {
+    margin-top: rem-calc(30px+40px);
+
+    @include breakpoint(medium) {
+        margin-top: rem-calc(15px+46px);
+    }
+
+    @include breakpoint(large) {
+        margin-top: rem-calc(62px);
+    }
+
+    &-content {
+        padding: rem-calc(0 22px 30px);
+
+        @include breakpoint(medium) {
+            padding-right: rem-calc(25px);
+            padding-left: rem-calc(25px);
+
+            .home-subsection-body--left & {
+                @include xy-cell(5 of 7);
+            }
+        }
+
+        @include breakpoint(large) {
+            padding-bottom: rem-calc(40px);
+
+            .home-subsection-body--right &{
+                @include xy-cell(4 of 5);
+            }
+
+            .home-subsection-body--left & {
+                @include xy-cell(4 of 7);
+            }
+        }
+    }
+
+    &-date {
+        margin-bottom: rem-calc(10px);
+    }
+
+    &-month {}
+
+    &-day {
+        font-size: rem-calc(85px);
+        margin-top: rem-calc(-40px);
+
+        @include breakpoint(medium) {
+            margin-top: rem-calc(-46px);
+            font-size: rem-calc(100px);
+        }
+
+        @include breakpoint(large) {
+            font-size: rem-calc(144px);
+            margin-top: rem-calc(-62px);
+        }
+    }
+
+    &-location {
+        margin-bottom: rem-calc(45px);
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(36px);
+        }
+    }
+
+    &-title {
+        margin-bottom: rem-calc(28px);
+        line-height: rem-calc(28px);
+
+        @include breakpoint(medium) {
+            line-height: rem-calc(32px);
+        }
+
+        @include breakpoint(large) {
+            line-height: rem-calc(42px);
+            margin-bottom: rem-calc(42px);
+        }
+    }
+}

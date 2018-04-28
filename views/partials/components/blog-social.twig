@@ -1,0 +1,20 @@
+{% macro main(params,requestCache) %}
+    {% import "partials/components/_svg-icons.twig" as svg %}
+
+    <div class="blog-social cell medium-2 large-offset-1">
+        <ul class="grid-x medium-flex-dir-column align-center">
+            <li class="cell small-3 small-offset-1 medium-offset-0 medium-12">
+                <a href="#twitter" rel="nofollow" class="grid-x u-style-weight-extrabold blog-social__link">{{ svg.twitter }} Tweet</a>
+                <a href="https://twitter.com/share?text={{ params.title }}" class="twitter-share-button" data-show-count="true" data-size="large">Tweet</a>
+            </li>
+            <li class="cell small-3 medium-12">
+                <div class="fb-share-button" data-href="{{ params.slug }}" data-layout="button" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2Fshare-button%2F%23&amp;src=sdkpreparse">Share</a></div>
+                <a href="#facebook" rel="nofollow" class="grid-x u-style-weight-extrabold blog-social__link">{{ svg.facebook }} Share</a>
+            </li>
+            <li class="cell small-3 medium-12">
+                <a href="#pinterest" rel="nofollow" class="grid-x u-style-weight-extrabold blog-social__link">{{ svg.pinterest }} Pin</a>
+                <a href="https://www.pinterest.com/pin/create/button/">Save</a>
+            </li>
+        </ul>
+    </div>
+{% endmacro %}

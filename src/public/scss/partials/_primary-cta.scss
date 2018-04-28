@@ -1,0 +1,89 @@
+.primary-cta{
+    margin-bottom: $moduleMargin;
+    text-align: center;
+    position: relative;
+
+    &__text{
+        margin-bottom: rem-calc(22px);
+        line-height: rem-calc(20px);
+
+        @include breakpoint(medium) {
+            line-height: rem-calc(22px);
+        }
+
+        @include breakpoint(large) {
+            line-height: rem-calc(25px);
+        }
+    }
+
+    &__btn{
+        .ui-btn-primary{
+            margin: auto;
+        }
+    }
+
+    &__bg-shape-container {
+        $deg: 15.7deg;
+        $degMedium: 11.7deg;
+        position: absolute;
+        top: 50%;
+        left: rem-calc(-20px);
+        transform: translateY(-73%) skewY($deg);
+        z-index: -1;
+        height: rem-calc(278px);
+        width: 100vw;
+        max-width: 1280px;
+        transition: transform 1s ease;
+        -webkit-backface-visibility: hidden;
+
+
+        @include breakpoint(medium) {
+            height: rem-calc(320px);
+            left: rem-calc(-28px);
+            transform: translateY(-73%) skewY($degMedium);
+        }
+
+        @include breakpoint(large) {
+            left: rem-calc(-24px);
+            height: rem-calc(535px);
+        }
+
+        &--animated {
+            transform: translateY(-73%) skewY(-$deg);
+
+            @include breakpoint(medium) {
+                transform: translateY(-73%) skewY(-$degMedium);
+            }
+        }
+    }
+
+    // &__bg-shape-wrapper {
+    //     position: relative;
+    //     height: 50%;
+    //     width: 100%;
+    //     overflow: hidden;
+
+    //     // hack to remove vertical white space between divs
+    //     &:not(:first-child) {
+    //         margin-top: rem-calc(-1px);
+    //     }
+    // }
+
+    // &__bg-shape {
+    //     height: 100%;
+    //     transform-origin: top left;
+    //     // transform: skewY(15.7deg);
+
+    //     @include breakpoint(medium) {
+    //         // transform: skewY(11.7deg);
+    //     }
+
+    //     &--bottom {
+    //         // transform: skewY(-15.7deg);
+
+    //         @include breakpoint(medium) {
+    //             // transform: skewY(-11.7deg);
+    //         }
+    //     }
+    // }
+}

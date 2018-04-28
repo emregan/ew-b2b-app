@@ -1,0 +1,29 @@
+{% macro main(params,requestCache) %}
+    {% import 'partials/core/components-importer.twig' as component %}
+
+    <div class="shop-results-sidebar cell large-3 grid-x grid-margin-x medium-margin-collapse align-justify">
+
+        <div class="cell small-12 medium-4 large-12">
+            {{ component.shopAccordionMenu({
+                items: params.shopCategories,
+                dataGtmType: ['page-level1', 'page-subject']
+            }, requestCache) }}
+        </div>
+
+        {% set term = getQuery(requestCache, 'term')|first %}
+        {% set urlRoot = term is defined ? '?term='~term~'&subcategory=' : '?subcategory=' %}
+
+        <div class="cell small-12 medium-4 large-12" data-js-hook="sidebar-results">
+            {{ component.shopAccordionMenu({
+                type: 'secondary',
+                opener: { title: 'All', count: params.total, url: '?subcategory= '},
+                items: params.subCategories,
+                urlRoot: urlRoot,
+                hookName: 'search-cats',
+            }, requestCache) }}
+        </div>
+
+        {{ component.shopViewToggle('show-for-medium-only', requestCache) }}
+
+    </div>
+{% endmacro %}

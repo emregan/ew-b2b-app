@@ -1,0 +1,141 @@
+{% macro bot(data, requestCache) %}
+    {% import 'partials/core/modules-importer.twig' as modules %}
+    {% import 'partials/core/components-importer.twig' as components %}
+
+    {% if segment(requestCache, 3) == undefined or segment(requestCache, 3) is empty %}
+        {% if data.section == 'about' or data.type == 'subpageLayout' %}
+            {{ components.postLandingHeader({
+                'title': data.tagline,
+                'body': data.introBody,
+                'image': data.headerImage,
+                'alignment': 'right',
+            }, requestCache) }}
+        {% endif %}
+
+        {{ components.programHeader(data, requestCache) }}
+
+        {% for programBlock in data.bodyContainer %}
+            {% set newAttr = {
+                'loopMeta': {
+                    'slug': 'body-'~loop.index,
+                    'heading': 'h2',
+                    'pageColor': getProgramColor(data.headerColor, data.customHeaderColor),
+                    'section': data.section,
+                    'centerModules': data.centerModules,
+                },
+            } %}
+            {{ attribute(modules, programBlock.type, [programBlock|merge(newAttr), requestCache]) }}
+        {% endfor %}
+    {% else %}
+        {% for subPage in data.subpages %}
+            {% set sectionSlug = subPage.slug %}
+            {% if segment(requestCache, 3) == sectionSlug %}
+                <div class="program-section program-section--{{ sectionSlug }}">
+                    {% for subpageIntroduction in subPage.subpageIntroduction %}
+                        {% set newAttr = {
+                            'loopMeta': {
+                                'slug': 'sub-intro-'~loop.index,
+                                'heading': 'h1',
+                                'pageColor': getProgramColor(data.headerColor, data.customHeaderColor),
+                                'section': data.section,
+                                'centerModules': data.centerModules,
+                            }
+                        } %}
+                        {{ attribute(modules, subpageIntroduction.type, [subpageIntroduction|merge(newAttr), requestCache]) }}
+                    {% endfor %}
+                    {% for subpageBodyContainer in subPage.subpageBodyContainer %}
+                        {% set newAttr = {
+                            'loopMeta': {
+                                'slug': 'sub-body-'~loop.index,
+                                'heading': 'h2',
+                                'pageColor': getProgramColor(data.headerColor, data.customHeaderColor),
+                                'section': data.section,
+                                'centerModules': data.centerModules,
+                            }
+                        } %}
+                        {{ attribute(modules, subpageBodyContainer.type, [subpageBodyContainer|merge(newAttr), requestCache]) }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endmacro %}
+
+{% macro web(data, requestCache) %}
+    {% import 'partials/core/modules-importer.twig' as modules %}
+    {% import 'partials/core/components-importer.twig' as components %}
+
+    <div class="modules-section" id="introduction" data-page-slug="introduction" data-magellan-target="introduction">
+        {% if data.section == 'about' or data.type == 'subpageLayout' %}
+            {% set image = data.section == 'about' ? data.headerImage : data.heroImage %}
+
+            {{ components.postLandingHeader({
+                'title': data.tagline,
+                'body': data.introBody,
+                'image': image,
+                'alignment': 'right',
+                'section': data.section
+            }, requestCache) }}
+        {% endif %}
+
+        {{ components.programHeader(data, requestCache) }}
+
+        {% for introModule in data.introduction %}
+            {% set newAttr = {
+                'loopMeta': {
+                    'slug': 'intro-'~loop.index,
+                    'heading': 'h2',
+                    'pageColor': getProgramColor(data.headerColor, data.customHeaderColor),
+                    'section': data.section,
+                    'centerModules': data.centerModules,
+                },
+            } %}
+            {{ attribute(modules, introModule.type, [introModule|merge(newAttr), requestCache]) }}
+        {% endfor %}
+
+        {% for programBlock in data.bodyContainer %}
+            {% set newAttr = {
+                'loopMeta': {
+                    'slug': 'body-'~loop.index,
+                    'heading': 'h2',
+                    'pageColor': getProgramColor(data.headerColor, data.customHeaderColor),
+                    'section': data.section,
+                    'centerModules': data.centerModules,
+                },
+            } %}
+            {{ attribute(modules, programBlock.type, [programBlock|merge(newAttr), requestCache]) }}
+        {% endfor %}
+    </div>
+
+    {% for subPage in data.subpages %}
+        {% set sectionSlug = subPage.slug %}
+        <div class="modules-section" id="{{ sectionSlug }}" data-page-slug="{{ sectionSlug }}" class="program-section program-section--{{ sectionSlug }}" data-magellan-target="{{ sectionSlug }}">
+            {% for subpageIntroduction in subPage.subpageIntroduction %}
+                {% set newAttr = {
+                    'loopMeta': {
+                        'slug': 'sub-intro-'~loop.index,
+                        'heading': 'h2',
+                        'pageColor': getProgramColor(data.headerColor, data.customHeaderColor),
+                        'section': data.section,
+                        'centerModules': data.centerModules,
+                    },
+                } %}
+                {{ attribute(modules, subpageIntroduction.type, [subpageIntroduction|merge(newAttr), requestCache]) }}
+            {% endfor %}
+
+            {% for subpageBodyContainer in subPage.subpageBodyContainer %}
+                {% set newAttr = {
+                    'loopMeta': {
+                        'slug': 'sub-body-'~loop.index,
+                        'heading': 'h3',
+                        'pageColor': getProgramColor(data.headerColor, data.customHeaderColor),
+                        'section': data.section,
+                        'centerModules': data.centerModules,
+                    }
+                } %}
+                {{ attribute(modules, subpageBodyContainer.type, [subpageBodyContainer|merge(newAttr), requestCache]) }}
+            {% endfor %}
+        </div>
+    {% endfor %}
+
+{% endmacro %}

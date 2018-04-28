@@ -1,0 +1,121 @@
+$gridMarginSmall: map-safe-get($grid-container-padding, 'small');
+$gridMarginMedium: map-safe-get($grid-container-padding, 'medium');
+$gridPaddingMedium: map-safe-get($grid-margin-gutters, 'medium');
+$gridPaddinglarge: map-safe-get($grid-margin-gutters, 'large');
+$gridPaddingMedium: (($gridMarginMedium - $gridPaddingMedium) / 2);
+$gridMarginLarge: $gridMarginMedium;
+$gridPaddinglarge: (($gridMarginLarge - $gridPaddinglarge) / 2);
+$gridMarginLarge: ($gridMarginLarge / 2);
+$gridMarginSmall: ($gridMarginSmall / 2);
+$gridMarginMedium: ($gridMarginMedium / 2);
+
+.press-release-news-header {
+    padding-top: rem-calc(30px);
+    padding-bottom: rem-calc(45px);
+    padding-left: rem-calc($gridMarginSmall);
+    padding-right: rem-calc($gridMarginSmall);
+    margin-left: rem-calc(-$gridMarginSmall);
+    margin-right: rem-calc(-$gridMarginSmall);
+
+    @include breakpoint(medium) {
+        @include xy-grid;
+        @include flex-align(null, 'middle')
+        padding-top: rem-calc(45px);
+        padding-bottom: rem-calc(20px);
+        padding-left: rem-calc($gridPaddingMedium);
+        padding-right: rem-calc($gridPaddingMedium);
+        margin-left: rem-calc(-$gridMarginMedium);
+        margin-right: rem-calc(-$gridMarginMedium);
+    }
+
+    @include breakpoint(large) {
+        padding-top: rem-calc(52px);
+        padding-bottom: rem-calc(38px);
+        padding-left: rem-calc($gridPaddinglarge);
+        padding-right: rem-calc($gridPaddinglarge);
+        margin-left: rem-calc(-$gridMarginLarge);
+        margin-right: rem-calc(-$gridMarginLarge);
+    }
+
+    &__go-back {
+        text-transform: uppercase;
+        color: get-color('black');
+        font-size: rem-calc(14px);
+        line-height: rem-calc(18px);
+        margin-bottom: rem-calc(35px);
+
+        @include breakpoint(medium) {
+            @include xy-gutters($gutter-position: left right);
+            margin-bottom: 0;
+        }
+
+        svg {
+            width: rem-calc(12px);
+            height: rem-calc(18px);
+            margin-right: rem-calc(15px);
+        }
+    }
+
+    &__title-wrap {
+
+        @include breakpoint(medium) {
+            @include xy-gutters($gutter-position: left right);
+            @include xy-cell(7);
+        }
+
+        @include breakpoint(large) {
+            $offset: xy-cell-size(1);
+
+            @include xy-cell(6);
+            margin-left: calc( #{$offset} + #{$gridPaddinglarge/2} );
+        }
+    }
+
+    &__title {
+        margin-bottom: rem-calc(48px);
+        line-height: rem-calc(40px);
+
+        @include breakpoint(medium) {
+            line-height: rem-calc(68px);
+        }
+
+        @include breakpoint(large) {
+            margin-bottom: rem-calc(16px);
+            line-height: rem-calc(80px);
+        }
+    }
+
+    &__content {
+        line-height: rem-calc(16px);
+
+        @include breakpoint(medium) {
+            @include xy-gutters($gutter-position: left right);
+            @include xy-cell(5);
+        }
+
+        @include breakpoint(large) {
+            @include xy-cell(5);
+        }
+
+        p {
+            margin-bottom: rem-calc(35px);
+        }
+
+        a {
+            text-decoration: underline;
+        }
+
+        @include breakpoint(medium) {
+            line-height: rem-calc(18px);
+        }
+
+        strong {
+            @include get-font-size('body-1');
+            line-height: rem-calc(18px);
+
+            @include breakpoint(medium) {
+                line-height: rem-calc(20px);
+            }
+        }
+    }
+}

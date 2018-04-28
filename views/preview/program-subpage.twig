@@ -1,0 +1,14 @@
+{% extends 'layouts/_main.twig' %}
+{% import 'partials/core/modules-importer.twig' as modules %}
+{% import 'partials/core/components-importer.twig' as components %}
+
+{% set pageType = 'programs' %}
+
+{% block content %}
+    {% for subpageIntroduction in data.subpageIntroduction %}
+        {{ attribute(modules, subpageIntroduction.type, [subpageIntroduction, '#FF0000']) }}
+    {% endfor %}
+    {% for subpageBodyContainer in data.subpageBodyContainer %}
+        {{ attribute(modules, subpageBodyContainer.type, [subpageBodyContainer, '#FF0000']) }}
+    {% endfor %}
+{% endblock %}

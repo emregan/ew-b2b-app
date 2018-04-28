@@ -1,0 +1,290 @@
+/**
+ * Header for blog article (detail)
+ */
+.blog-detail {
+    position: relative;
+
+    // Children
+    &__go-back {
+        text-transform: uppercase;
+        color: get-color('black');
+        font-size: rem-calc(14px);
+        align-items: center;
+        margin-top: rem-calc(18px);
+        margin-bottom: rem-calc(40px);
+        letter-spacing: rem-calc(1px);
+
+        @include breakpoint(medium) {
+            margin-top: rem-calc(40px);
+            margin-bottom: rem-calc(18px);
+        }
+
+        @include breakpoint(large) {
+            margin-top: rem-calc(54px);
+            margin-bottom: rem-calc(15px);
+        }
+
+        svg {
+            height: rem-calc(18px);
+            width: rem-calc(12px);
+            margin-right: rem-calc(8px);
+            position: relative;
+            bottom: rem-calc(1px);
+
+            @include breakpoint(large) {
+                margin-right: rem-calc(15px);
+            }
+        }
+    }
+
+    &__shape {
+        $shapewidth: map-safe-get($grid-container-padding, 'small');
+
+        position: absolute;
+        top: 0;
+        left: (-$shapewidth/2);
+        z-index: -1;
+        width: calc(91.25% + #{$shapewidth});
+
+        .page-events &{
+            left: auto;
+            right: (-$shapewidth/2);
+        }
+
+        @include breakpoint(medium) {
+            $shapewidth: map-safe-get($grid-container-padding, 'medium');
+
+            left: (-$shapewidth/2);
+            width: calc(91.25% + #{$shapewidth});
+            max-width: rem-calc(458px);
+
+            .page-events &{
+                left: auto;
+                right: (-$shapewidth/2);
+            }
+        }
+
+        @include breakpoint(large) {
+            width: calc(91.25% + #{$shapewidth});
+            max-width: rem-calc(875px);
+        }
+
+        svg {
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+
+            .page-events &{
+                transform: scaleX(-1);
+            }
+        }
+    }
+
+    &__title {
+        line-height: rem-calc(32px);
+        margin-bottom: rem-calc(16px);
+
+        .page-events &{
+            margin-bottom: rem-calc(0);
+        }
+
+        .page-press-releases &{
+            margin-bottom: rem-calc(21px);
+            margin-top: rem-calc(9px);
+        }
+
+        @include breakpoint(medium) {
+            line-height: rem-calc(40px);
+            margin-bottom: rem-calc(25px);
+
+            .page-press-releases &{
+                margin-bottom: rem-calc(29px);
+                margin-top: rem-calc(0);
+            }
+        }
+
+        @include breakpoint(medium) {
+            line-height: rem-calc(54px);
+            margin-bottom: rem-calc(40px);
+
+            .page-press-releases &{
+                margin-bottom: rem-calc(29px);
+                line-height: rem-calc(42px);
+            }
+
+            .page-events &{
+                line-height: rem-calc(42px);
+            }
+        }
+
+        @include breakpoint(medium only) {
+            .page-blog & {
+                margin-bottom: rem-calc(25px);
+            }
+        }
+
+        @include breakpoint(large) {
+            .page-press-releases &{
+                margin-top: rem-calc(0);
+                margin-bottom: rem-calc(47px);
+                line-height: rem-calc(54px);
+            }
+        }
+    }
+
+    &__title-date {
+        @include flex-order(1);
+        margin-bottom: rem-calc(45px);
+
+        .page-events &{
+            margin-bottom: rem-calc(38px);
+        }
+
+        .page-press-releases &{
+            margin-bottom: rem-calc(71px);
+        }
+
+        .blog-author-page &{
+            display: none;
+        }
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(30px);
+
+            .page-events &{
+                margin-bottom: rem-calc(72px);
+            }
+
+            .page-press-releases &{
+                margin-top: 0;
+                margin-bottom: rem-calc(107px);
+            }
+        }
+
+        @include breakpoint(large) {
+            @include flex-order(0);
+            margin-top: rem-calc(146px);
+            z-index: 1;
+
+            .page-events &{
+                margin-top: rem-calc(38px);
+            }
+
+            .page-press-releases &{
+                margin-top: rem-calc(83px);
+                margin-bottom: rem-calc(156px);
+            }
+        }
+    }
+
+    &__date {
+        font-size: rem-calc(13px);
+
+        .case-study-detail & {
+            display: none;
+        }
+
+        @include breakpoint(medium) {
+            .page-press-releases &{
+                font-size: rem-calc(14px)
+            }
+        }
+
+        @include breakpoint(large) {
+            .page-blog &{
+                font-size: rem-calc(14px)
+            }
+        }
+    }
+
+    &__img-container{
+        margin-bottom: rem-calc(20px);
+
+        .page-press-releases &{
+            $positiveCols: xy-cell-size(4);
+            margin-left: calc( #{$positiveCols} );
+            margin-bottom: rem-calc(36px);
+        }
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(45px);
+
+            .page-press-releases &{
+                $positiveCols: xy-cell-size(8);
+                margin-left: calc( #{$positiveCols} );
+            }
+        }
+
+        @include breakpoint(large) {
+            $negativeCols: xy-cell-size(2);
+            margin-left: calc( -#{$negativeCols} );
+            margin-bottom: rem-calc(150px);
+
+            .page-press-releases &{
+                $negativeCols: xy-cell-size(0);
+                margin-left: calc( -#{$negativeCols} );
+                margin-top: rem-calc(83px)
+            }
+
+            .page-blog & {
+                margin-bottom: rem-calc(100px);
+            }
+        }
+
+    }
+
+    &__img {
+        width: 100%;
+        display: block;
+    }
+
+    // @TODO remove manual baseline
+    &__day{
+        font-size: rem-calc(120px);
+        line-height: rem-calc(70px);;
+        margin-top: rem-calc(22px);
+
+        @include breakpoint(medium) {
+            font-size: rem-calc(144px);
+            line-height: rem-calc(84px);
+            margin-top: rem-calc(22px);
+
+        }
+    }
+
+    &__section{
+        margin-bottom: rem-calc(12px);
+        letter-spacing: rem-calc(1px);
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(15px);
+        }
+    }
+
+    &__location{
+        margin-top: rem-calc(16px);
+        margin-bottom: rem-calc(50px);
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(36px);
+        }
+
+        @include breakpoint(large) {
+            margin-bottom: rem-calc(0);
+        }
+    }
+
+    &__venue,
+    &__location-title{
+        line-height: 20px;
+
+        @include breakpoint(medium) {
+            line-height: 22px;
+        }
+
+        @include breakpoint(large) {
+            line-height: 25px;
+        }
+    }
+}

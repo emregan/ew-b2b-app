@@ -1,0 +1,44 @@
+{#
+    params: {
+        slides:[{
+            video?: HmhBrightcove
+            image?: Assets
+        }],
+        captionMain: String
+        captionSub: String
+    }
+#}
+{% macro main(params,requestCache) %}
+    {% set offset = (params.loopMeta.centerModules) ? 'large-offset-2' : 'large-offset-1' %}
+    <div class="large-carousel grid-x grid-margin-x" data-js-hook="large-carousel" {% if params.loopMeta.slug %}id="{{ params.loopMeta.slug }}"{% endif %}>
+        <div class="large-carousel__content cell small-12 medium-10 medium-offset-1 {{ offset }}">
+            <div class="large-carousel__slider" {% if params.slides|length > 1 %}data-js-hook="large-carousel__slider"{% endif %}>
+                {% for slide in params.slides %}
+                    {{ _self.slide(slide) }}
+                {% endfor %}
+            </div>
+            <div class="large-carousel__caption-main u-style-display-s u-style-weight-bold">{{ params.captionMain }}</div>
+            <div class="large-carousel__caption-sub u-style-body-1">{{ params.captionSub }}</div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro slide(params) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    <div class="large-carousel__slide">
+        {% if params.image %}
+            {{ helper.image(params.image, {
+                'class': 'large-carousel__image',
+            }) }}
+        {% endif %}
+
+        {% if params.video %}
+            {{ brightcoveStore(params.video) }}
+            <div class="large-carousel__video">{{ helper.video(params.video) }}</div>
+        {% endif %}
+    </div>
+{% endmacro %}
+
+{% macro dots(params) %}
+
+{% endmacro %}

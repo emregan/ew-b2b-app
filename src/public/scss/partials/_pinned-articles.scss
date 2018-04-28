@@ -1,0 +1,462 @@
+// @TODO: remove after implementing image transform
+.pinned-articles__image-asset{
+    width: 100%;
+}
+
+.pinned-articles{
+    margin-bottom: rem-calc(32px);
+
+    @include breakpoint(medium) {
+        margin-bottom: rem-calc(96px);
+    }
+
+    @include breakpoint(large) {
+        margin-bottom: rem-calc(120px);
+    }
+
+    // &--pins-4{}
+    // &--pins-3{}
+    // &--pins-1{}
+}
+
+// using .pinned-articles__article will overwrite defaults for item-1
+.pinned-articles__article--item-2,
+.pinned-articles__article--item-3,
+.pinned-articles__article--item-4{
+
+    .pinned-articles--pins-4 &,
+    .pinned-articles--pins-3 &{
+        @include xy-cell(12, none, 0);
+
+        @include breakpoint(medium) {
+            @include xy-cell(6);
+        }
+    }
+}
+
+.pinned-articles__article--item-1{
+    @include xy-cell(12, none, 0);
+}
+
+.pinned-articles__article--item-2{
+    // background-color: get-color('gray5');
+
+    .pinned-articles--pins-4 &,
+    .pinned-articles--pins-3 &{
+        @include breakpoint(large) {
+            @include xy-cell(5);
+            transform: translateY(rem-calc(-24px));
+        }
+    }
+
+    .pinned-articles--pins-3 &{
+        @include breakpoint(large) {
+            @include xy-cell-offset(1);
+        }
+    }
+
+    .pinned-articles--pins-2 &{
+        background-color: transparent;
+        @include xy-cell(12, none, 0);
+
+        @include breakpoint(large) {
+            margin-top: rem-calc(32px);
+            @include xy-cell(10, none, 0);
+            @include xy-cell-offset(1);
+        }
+    }
+}
+
+.pinned-articles__article--item-3{
+    // background-color: get-color('blue');
+
+    .pinned-articles--pins-4 &{
+        @include breakpoint(large) {
+            @include xy-cell(3);
+            margin-top: rem-calc(90px);
+        }
+    }
+
+    .pinned-articles--pins-3 &{
+        background-color: get-color('green');
+        @include breakpoint(large) {
+            $gutter: map-get($grid-margin-gutters, large);
+            @include xy-cell(4);
+            margin-top: rem-calc($gutter);
+        }
+    }
+}
+
+.pinned-articles__article--item-4{
+    // background-color: get-color('green');
+
+    .pinned-articles--pins-4 &{
+        @include breakpoint(medium only) {
+            $gutter: map-get($grid-margin-gutters, medium);
+            margin-left: calc( #{(xy-cell-size(6))} + #{$gutter/2} );
+        }
+
+        @include breakpoint(large) {
+            @include xy-cell(4);
+            margin-top: rem-calc(32px);
+        }
+    }
+}
+
+.pinned-articles__row{
+
+    .pinned-articles__article--item-2 &,
+    .pinned-articles__article--item-3 &,
+    .pinned-articles__article--item-4 & {
+        transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        position: relative;
+
+        &:hover{
+            transform: translateY(-10px);
+
+            &:after{
+                opacity: 1;
+            }
+        }
+
+        &:after {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            box-shadow: 0px 8px 16px 0 rgba(get-color('black'), 0.09);
+            opacity: 0;
+            transition: opacity 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+    }
+
+    .pinned-articles__article--item-2 & {
+        background-color: get-color('gray5');
+    }
+
+    .pinned-articles__article--item-3 & {
+        background-color: get-color('blue');
+
+        .pinned-articles--pins-3 & {
+            background-color: get-color('green');
+        }
+    }
+
+    .pinned-articles__article--item-4 & {
+        background-color: get-color('green');
+    }
+
+    .pinned-articles--pins-2 .pinned-articles__article--item-2 &{
+        @include breakpoint(medium only) {
+            @include flex-align($y: bottom)
+        }
+    }
+}
+
+.pinned-articles__image,
+.pinned-articles__content{
+    @include xy-cell(12, false, 0);
+}
+
+.pinned-articles__image{
+    @include breakpoint(small only) {
+        .page-blog & {
+            height: 49.5vw;
+            overflow: hidden;
+        }
+    }
+
+    .pinned-articles__article--item-1 &,
+    .pinned-articles--pins-2 .pinned-articles__article--item-2 &{
+        @include xy-cell(12, false, 0);
+        line-height: 0;
+        position: relative;
+
+        @include breakpoint(large) {
+            margin-right: 0;
+        }
+    }
+
+    .pinned-articles__article--item-1 &{
+
+        @include breakpoint(medium only) {
+            height: rem-calc(328px);
+        }
+
+        @include breakpoint(medium) {
+            $gutter: map-get($grid-margin-gutters, medium);
+            @include xy-cell(9, false);
+            @include flex-order(1);
+            margin-left: calc( #{-(xy-cell-size(3))} - #{-($gutter/2)} );
+        }
+    }
+
+    .pinned-articles--pins-2 .pinned-articles__article--item-2 &{
+        @include breakpoint(medium only) {
+            $gutter: map-get($grid-margin-gutters, medium);
+            @include xy-cell(8, false);
+            margin-left: $gutter/2;
+            height: rem-calc(256px);
+        }
+
+        @include breakpoint(large) {
+            @include xy-cell(7 of 10, false);
+            margin-left: 0;
+        }
+    }
+}
+
+.pinned-articles__content{
+    z-index: 1;
+    padding: rem-calc(32px) rem-calc(20px);
+
+    .pinned-articles--pins-4 &{
+
+        @include breakpoint(medium) {
+            padding: rem-calc(15px) rem-calc(34px) rem-calc(32px) rem-calc(28px);
+            padding-bottom: rem-calc(40px);
+        }
+
+        @include breakpoint(large) {
+            padding: rem-calc(25px);
+            padding-bottom: rem-calc(40px);
+        }
+    }
+
+    .pinned-articles__article--item-1 &,
+    .pinned-articles--pins-2 .pinned-articles__article--item-2 &{
+        @include xy-cell(12, none, 0);
+        background-color: get-color('gold');
+        z-index: 1;
+
+        @include breakpoint(medium) {
+            @include xy-cell(6);
+            padding: rem-calc(24px) rem-calc(30px) rem-calc(32px) rem-calc(28px);
+        }
+
+        @include breakpoint(large) {
+            padding: rem-calc(32px) rem-calc(46px) rem-calc(44px);
+        }
+    }
+
+    .pinned-articles__article--item-1 &{
+
+        @include breakpoint(medium) {
+            margin-top: rem-calc(44px);
+        }
+
+        @include breakpoint(large) {
+            margin-top: rem-calc(56px);
+            margin-bottom: rem-calc(80px);
+        }
+    }
+
+    .pinned-articles--pins-2 .pinned-articles__article--item-2 &{
+        background-color: get-color('blue');
+
+        @include breakpoint(medium) {
+            $gutter: map-get($grid-margin-gutters, medium);
+            @include xy-cell(6);
+            margin-left: calc( #{-(xy-cell-size(2))} - #{-($gutter)} );
+            margin-bottom: rem-calc(25px);
+
+        }
+
+        @include breakpoint(large) {
+            $gutter: map-get($grid-margin-gutters, large);
+            @include xy-cell(5 of 10);
+            margin-left: calc( #{-(xy-cell-size(2 of 10))} - #{-($gutter/2)} );
+            margin-top: rem-calc(40px);
+            margin-bottom: rem-calc(40px);
+        }
+    }
+
+}
+
+.pinned-articles__image-cover{
+    display: none;
+
+    .pinned-articles__article--item-1 &,
+    .pinned-articles--pins-2 .pinned-articles__article--item-2 &{
+        @include breakpoint(medium) {
+            display: block;
+        }
+    }
+}
+
+.pinned-articles__image-asset{
+
+    .pinned-articles--pins-4 .pinned-articles__article--item-1 &,
+    .pinned-articles--pins-3 .pinned-articles__article--item-1 &,
+    .pinned-articles--pins-2 &{
+        @include breakpoint(medium) {
+            display: none
+        }
+    }
+}
+
+.pinned-articles__title{
+    @include get-font-size('display-xs');
+    margin-bottom: rem-calc(6px);
+    line-height: rem-calc(20px);
+    display: block;
+
+    @include breakpoint(medium) {
+        line-height: rem-calc(22px);
+    }
+
+    @include breakpoint(large) {
+        line-height: rem-calc(25px);
+    }
+
+    .pinned-articles--pins-4 .pinned-articles__article--item-2 &{
+        @include get-font-size('display-m');
+
+        @include breakpoint(medium) {
+            line-height: rem-calc(32px);
+        }
+
+        @include breakpoint(large) {
+            margin-bottom: rem-calc(12px);
+            line-height: rem-calc(42px);
+        }
+    }
+
+    .pinned-articles__article--item-1 &{
+        @include get-font-size('display-l');
+        line-height: rem-calc(32px);
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(20px);
+            line-height: rem-calc(42px);
+        }
+
+        @include breakpoint(large) {
+            margin-bottom: rem-calc(15px);
+            line-height: rem-calc(54px)
+        }
+    }
+}
+
+.pinned-articles__summary,
+.pinned-articles__author-title,
+.pinned-articles__date{
+    .pinned-articles--pins-4 &{
+        @include get-font-size('body-2');
+    }
+}
+
+.pinned-articles__date {
+    .page-blog & {
+        font-size: rem-calc(13px);
+
+        @include breakpoint(medium) {
+            font-size: rem-calc(14px);
+        }
+    }
+
+    @include breakpoint(medium) {
+        font-size: rem-calc(14px);
+    }
+}
+
+.pinned-articles__author-title {
+    .page-blog & {
+        font-size: rem-calc(13px);
+        line-height: rem-calc(16px);
+
+        @include breakpoint(medium) {
+            font-size: rem-calc(14px);
+            line-height: rem-calc(18px);
+        }
+    }
+
+    @include breakpoint(medium) {
+        font-size: rem-calc(14px);
+        line-height: rem-calc(18px);
+    }
+}
+
+.pinned-articles__summary{
+    margin-bottom: rem-calc(32px);
+    line-height: rem-calc(24px);
+
+    .page-blog & {
+        font-size: rem-calc(13px);
+        line-height: rem-calc(23px);
+    }
+
+    @include breakpoint(medium only) {
+        margin-bottom: rem-calc(32px);
+    }
+
+    @include breakpoint(medium) {
+        .page-blog & {
+            font-size: rem-calc(14px);
+            line-height: rem-calc(24px);
+        }
+    }
+
+    @include breakpoint(large) {
+        margin-bottom: rem-calc(25px);
+        line-height: rem-calc(24px);
+    }
+
+    .pinned-articles--pins-4 .pinned-articles__article--item-2 &{
+        @include breakpoint(large) {
+            margin-bottom: rem-calc(25px);
+        }
+    }
+
+    .pinned-articles__article--item-1 &{
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(32px);
+        }
+
+        @include breakpoint(large) {
+            margin-bottom: rem-calc(25px);
+        }
+    }
+}
+
+.pinned-articles__author{
+    @include get-font-size('body-1');
+    margin-bottom: rem-calc(5px);
+
+    .pinned-articles--pins-4 .pinned-articles__article--item-2 &{
+        @include get-font-size('body-1');
+
+        @include breakpoint(large) {
+            margin-bottom: rem-calc(5px);
+        }
+    }
+
+    .pinned-articles__article--item-1 &{
+        @include get-font-size('body-1');
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(4px);
+        }
+    }
+}
+
+.pinned-articles__date{
+    margin-top: rem-calc(20px);
+}
+
+.pinned-articles__article{
+    margin-bottom: rem-calc(32px);
+
+    @include breakpoint(medium) {
+        $margin: map-get($grid-margin-gutters, medium);
+        margin-bottom: rem-calc($margin);
+    }
+
+    @include breakpoint(large) {
+        margin-bottom: rem-calc(0);
+    }
+}
+

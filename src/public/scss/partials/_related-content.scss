@@ -1,0 +1,117 @@
+.related-content {
+    margin-top: rem-calc(82px);
+
+    @include breakpoint(medium) {
+        margin-top: rem-calc(110px);
+    }
+
+    @include breakpoint(large) {
+        margin-top: rem-calc(120px);
+    }
+
+    &__heading {
+        line-height: rem-calc(16px);
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: rem-calc(45px);
+        max-width: rem-calc(145px);
+        text-align: center;
+        text-transform: uppercase;
+        background: get-color('white');
+        position: relative;
+        box-sizing: content-box;
+        padding: rem-calc(0 15px);
+        letter-spacing: rem-calc(3px);
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(52px);
+            max-width: rem-calc(160px);
+        }
+
+        @include breakpoint(large) {
+            margin-bottom: rem-calc(68px);
+            max-width: rem-calc(190px);
+        }
+
+        &:before {
+            content: '';
+            position: absolute;
+            z-index: -1;
+            width: calc(100% + #{rem-calc(52px)});
+            top: 50%;
+            left: rem-calc(-26px);
+            margin-top: rem-calc(-1px);
+            height: rem-calc(2px);
+            background: get-color('gray3');
+
+            @include breakpoint(medium) {
+                width: calc(100% + #{rem-calc(124px)});
+                left: rem-calc(-62px);
+            }
+        }
+    }
+
+    &__item {
+        margin-bottom: rem-calc(24px);
+    }
+
+    &__body {
+        background: get-color('gray5');
+        padding: rem-calc(32px 24px 32px);
+    }
+
+    &__title {
+        line-height: rem-calc(20px);
+        margin-bottom: rem-calc(15px);
+
+        @include breakpoint(medium) {
+            line-height: rem-calc(22px);
+        }
+
+        @include breakpoint(large) {
+            line-height: rem-calc(25px);
+        }
+    }
+
+    &__excerpt {
+        margin-bottom: rem-calc(30px);
+
+        .page-blog & {
+            line-height: rem-calc(23px);
+        }
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(32px);
+
+            .page-blog & {
+                line-height: rem-calc(24px);
+            }
+        }
+    }
+
+    &__image {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    &__author {
+        margin-bottom: rem-calc(30px);
+    }
+
+    &__author-name {
+        font-size: rem-calc(16px);
+
+        .page-blog & {
+            line-height: rem-calc(26px);
+        }
+    }
+
+    &__author-title {
+        font-size: rem-calc(14px);
+    }
+
+    &__image-wrapper {
+        line-height: 0;
+    }
+}

@@ -1,0 +1,200 @@
+.support-body {
+    position: relative;
+    z-index: 2;
+
+    &__featured-link-block {
+        padding: rem-calc(24px) rem-calc(31px) rem-calc(17px);
+        box-shadow: rem-calc(11px) rem-calc(18px) rem-calc(40px) 0 rgba(0,0,0,0.3);
+        margin-bottom: rem-calc(33px);
+
+        @include breakpoint(medium) {
+            padding: rem-calc(39px) rem-calc(10px) rem-calc(31px) rem-calc(62px);
+        }
+
+        @include breakpoint(large) {
+            padding: rem-calc(52px) rem-calc(10px) rem-calc(45px) rem-calc(62px);
+            margin-bottom: 0;
+        }
+    }
+
+    &__link-block-main-title {
+        font-size: rem-calc(24px);
+        line-height: rem-calc(28px);
+        font-weight: bold;
+        margin-bottom: rem-calc(40px);
+
+        @include breakpoint(medium) {
+            font-size: rem-calc(28px);
+            line-height: rem-calc(32px);
+            margin-bottom: rem-calc(45px);
+        }
+
+        @include breakpoint(large) {
+            font-size: rem-calc(38px);
+            line-height: rem-calc(42px);
+            margin-bottom: rem-calc(48px);
+        }
+    }
+
+    &__link-block-column {
+        float: left;
+    }
+
+    &__link-block-subtitle {
+        font-size: rem-calc(16px);
+        font-weight: bold;
+        margin-bottom: rem-calc(16px);
+
+        @include breakpoint(medium) {
+            font-size: rem-calc(18px);
+            line-height: rem-calc(32px);
+            margin-bottom: rem-calc(23px);
+        }
+
+        @include breakpoint(large) {
+            font-size: rem-calc(21px);
+            line-height: rem-calc(42px);
+            margin-bottom: rem-calc(18px);
+        }
+    }
+
+    &__link-block-main-link {
+        margin-bottom: rem-calc(16px);
+        font-size: rem-calc(14px);
+        line-height: rem-calc(18px);
+        display: block;
+
+        @include breakpoint(medium) {
+            font-size: rem-calc(16px);
+            line-height: rem-calc(20px);
+        }
+    }
+
+    &__link-block-first-column {
+        margin-bottom: rem-calc(23px);
+
+        @include breakpoint(medium) {
+            margin-bottom: 0;
+        }
+    }
+
+    &__secondary-link-block {
+        padding: rem-calc(26px) rem-calc(32px) rem-calc(29px);
+
+        @include breakpoint(medium) {
+            padding: rem-calc(40px) rem-calc(48px) rem-calc(45px);
+        }
+
+        @include breakpoint(large) {
+            padding: rem-calc(56px) rem-calc(64px) rem-calc(80px);
+        }
+    }
+
+    &__secondary-link-block-main-title {
+        font-size: rem-calc(18px);
+        line-height: rem-calc(22px);
+        font-weight: bold;
+        margin-bottom: rem-calc(20px);
+
+        @include breakpoint(medium) {
+            font-size: rem-calc(24px);
+            line-height: rem-calc(28px);
+        }
+
+        @include breakpoint(large) {
+            font-size: rem-calc(28px);
+            line-height: rem-calc(32px);
+        }
+    }
+
+    &__link-block-description {
+        font-size: rem-calc(13px);
+        line-height: rem-calc(23px);
+        margin-bottom: rem-calc(26px);
+
+        @include breakpoint(medium) {
+            font-size: rem-calc(14px);
+            line-height: rem-calc(24px);
+            margin-bottom: rem-calc(42px);
+        }
+
+        @include breakpoint(large) {
+            margin-bottom: rem-calc(48px);
+        }
+    }
+
+    &__link-block-link {
+        font-weight: 800;
+        font-size: rem-calc(14px);
+        line-height: rem-calc(18px);
+        letter-spacing: rem-calc(1px);
+        text-transform: uppercase;
+
+        @include breakpoint(large) {
+            margin-top: rem-calc(38px);
+        }
+    }
+
+    &__link-blocks-bottom-title {
+        text-align: center;
+        font-size: rem-calc(24px);
+        font-weight: bold;
+        margin: rem-calc(38px) 0 rem-calc(20px);
+
+        @include breakpoint(medium) {
+            font-size: rem-calc(28px);
+        }
+
+        @include breakpoint(large) {
+            font-size: rem-calc(38px);
+            margin: rem-calc(38px) 0 rem-calc(31px);
+        }
+    }
+
+    &__link-block-bottom {
+        padding: rem-calc(17px) rem-calc(23px) rem-calc(30px);
+        margin-bottom: rem-calc(24px);
+
+        @include breakpoint(medium) {
+            padding: rem-calc(33px) rem-calc(31px) rem-calc(45px);
+        }
+
+        @include breakpoint(large) {
+            padding: rem-calc(25px) rem-calc(32px) rem-calc(45px);
+        }
+    }
+
+    &__bottom-link-block-title {
+        font-size: rem-calc(16px);
+        line-height: rem-calc(20px);
+        font-weight: bold;
+        margin-bottom: rem-calc(29px);
+
+        @include breakpoint(medium) {
+            font-size: rem-calc(18px);
+            line-height: rem-calc(22px);
+            margin-bottom: rem-calc(44px);
+        }
+
+        @include breakpoint(large) {
+            font-size: rem-calc(21px);
+            line-height: rem-calc(25px);
+        }
+    }
+
+    &__link-block-bottom-wrapper {
+        margin-bottom: rem-calc(42px);
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(24px);
+        }
+
+        @include breakpoint(large) {
+            margin-bottom: rem-calc(97px);
+        }
+    }
+
+    &__link-list {
+        margin-bottom: 0;
+    }
+}

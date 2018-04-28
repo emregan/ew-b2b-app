@@ -1,0 +1,43 @@
+.blog-image-carousel {
+    margin-bottom: rem-calc(45px);
+
+    @include breakpoint(medium) {
+        margin-bottom: rem-calc(40px);
+    }
+
+    @include breakpoint(large) {
+        margin-bottom: rem-calc(50px);
+    }
+
+    &__slide {
+        position: relative;
+        outline: none;
+    }
+
+    &__image {
+        @include breakpoint(large) {
+            padding: rem-calc(0 15px);
+        }
+    }
+
+    &__caption {
+        background: get-color('gray5');
+        padding: rem-calc(20px);
+        line-height: rem-calc(24px);
+
+        @include breakpoint(medium) {
+            position: absolute;
+            right: 0;
+            bottom: rem-calc(75px);
+        }
+
+        @include breakpoint(large) {
+            bottom: rem-calc(50px);
+            right: rem-calc(15px);
+        }
+    }
+
+    &__dots {
+        @include carousel-dots;
+    }
+}

@@ -1,0 +1,37 @@
+.program-type-filter {
+
+    &__filters {
+        margin-bottom: rem-calc(40px);
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(80px);
+        }
+
+        @include breakpoint(large) {
+            margin-bottom: rem-calc(135px);
+        }
+    }
+
+    &__image {
+        margin-bottom: rem-calc(10px);
+    }
+
+    &__title {
+        margin-bottom: rem-calc(10px);
+    }
+
+    &__item {
+        margin-bottom: rem-calc(34px);
+    }
+
+    &__no-results {
+        margin-bottom: rem-calc(50px);
+    }
+
+    .mdc-select{
+        border-bottom-color: get-color('black');
+        border-bottom-width: rem-calc(2px);
+        line-height: 1.4;
+        height: auto;
+    }
+}

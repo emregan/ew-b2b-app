@@ -1,0 +1,116 @@
+{% macro main(params, requestCache) %}
+    {# Normalize data #}
+    {% set data = normalizeFilters(requestCache, params.data, params.type) %}
+    {% set openText = (params.btn is defined and params.btn.open is defined) ? params.btn.open : 'Filter' %}
+    {% set closeText = (params.btn is defined and params.btn.close is defined) ? params.btn.close : 'Close' %}
+
+    <div class="filters {% if getQuery(requestCache, 'tags') %}filters--filtered {% endif %}filters--{{ data.type }} {% if data.tabbed %}filters--tabbed{% endif %} grid-x grid-padding-x" data-js-hook="filters" data-filter-type="{{ data.type }}">
+
+        <div class="filters__top cell small-12 large-10 large-offset-1 u-border-black">
+            <button class="filters__button u-style-weight-bold u-color-white u-background-black" data-js-hook="filters-toggle">{{ openText }} <span class="filters__button-close u-style-weight-bold">{{ closeText }}</span></button>
+        </div>
+
+        <div class="filters__tags cell small-12 large-10 large-offset-1" data-js-hook="filter-container">
+            {{ _self.headerMobile }}
+
+            {% if data.tabbed %}
+                {{ _self.tabbedColumns(data.filters, data.type) }}
+            {% else %}
+                {{ _self.columns(data.filters, data.type) }}
+            {% endif %}
+
+            {% if data.showClearAll %}
+                <div class="filters__clear text-right" data-js-hook="filters__clear">
+                    <a href="?" rel="nofollow" class="filters__clear-anchor u-style-body-1 u-style-weight-bold">Clear all</a>
+                </div>
+            {% endif %}
+        </div>
+        <div class="filters__border cell medium-12 u-border-black show-for-medium"></div>
+    </div>
+{% endmacro %}
+
+{% macro tabbedColumns(filters, type) %}
+    {% import "partials/components/_svg-icons.twig" as svg %}
+
+    <div class="filters__tabs grid-x grid-margin-x" data-js-hook="filters-tabs">
+        <div class="filters__refine-box cell medium-12 grid-x align-middle show-for-medium">
+            <div class="filters__refine-by u-style-display-xs u-style-weight-bold">Browse By:</div>
+            <ul class="filters__refinements" data-js-hook="filters-tabs-container" id="filters-tabs-container">
+                {% for key,filter in filters %}
+                    {% set tabActive = filter.tabActive is defined ? filter.tabActive : false %}
+
+                    <li class="filters__refine-item {% if tabActive %}filters__refine-item--active{% endif %}" data-js-hook="filters-tabs-item">
+                        <a href="#{{ filter.slug }}" rel="nofollow" class="filters__refine-link u-style-display-xs u-style-weight-bold">{{ filter.title }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="filters__refine-container" data-js-hook="filters-tabs-accordion-container" data-tabs-content="filters-tabs-container">
+        {% for key,filter in filters %}
+            {% set tabActive = filter.tabActive is defined ? filter.tabActive : false %}
+
+            <div class="filters__refine-content {% if tabActive %}filters__refine-content--active{% endif %}" id="{{ filter.slug }}" data-js-hook="filters-tabs-accordion-content" data-accordion-item>
+                <a href="#" rel="nofollow" class="filters__accordion-toggle hide-for-medium">
+                    <span class="filters__accordion-arrow">{{ svg.back_arrow }}</span> {{ filter.title }}</a>
+                {% if filter.children|length > 0 %}
+                    {{ _self.columns(filter.children, type) }}
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{% endmacro %}
+
+{% macro columns(data, type) %}
+    {% import "partials/components/_svg-icons.twig" as svg %}
+    {% import "partials/core/ui-kit.twig" as kit %}
+
+    <div class="filters__items" data-js-hook="filter-items" data-tab-content>
+    {% for item in data %}
+        {# base classes #}
+        {% set classVal = 'filters__anchor u-color-black u-style-body-2 grid-x align-middle' %}
+
+        {% if item.disabled is defined and item.disabled %}
+            {% set classVal =  classVal~' filters__anchor--inactive' %}
+        {% elseif item.active is defined and item.active %}
+            {% set classVal = classVal~' filters__anchor--active u-style-weight-bold' %}
+        {% endif %}
+
+
+        {# {% set classVal =  ? classVal : classVal~' filters__anchor--inactive' %} #}
+        {# {% if type == 'blog' %}
+            {% set classVal = item.count > 0 ? classVal : classVal~' filters__anchor--inactive' %}
+        {% else %}
+            {% set classVal = item.slug not getQuery('tags') ? classVal : classVal~' filters__anchor--inactive' %}
+        {% endif %} #}
+
+        {# {% set classVal = item.slug in getQuery('tags') ? classVal~' filters__anchor--active u-style-weight-bold' : classVal %} #}
+
+        {# {% set itemID = item.slug in getQuery('tags') ? null : [item.slug] %} #}
+
+        <div class="filters__item" data-js-hook="filter-item">
+            <a href="{{ item.urlQuery }}" rel="nofollow" class="{{ classVal }}" data-js-hook="filter-item-link">
+                <span class="filters__anchor-text">{{ item.title|raw }}</span>
+                <span class="filters__cross">{{ svg.cross }}</span>
+                {{ kit.spinner('black') }}
+            </a>
+        </div>
+    {% endfor %}
+    </div>
+{% endmacro %}
+
+{% macro headerMobile() %}
+    {% import "partials/components/_svg-icons.twig" as svg %}
+    <div class="filters-mob hide-for-medium">
+        <div class="filters-mob__top u-background-black grid-x align-middle" data-js-hook="filters-toggle">
+            <div class="filters-mob__arrow">{{ svg.back_arrow }}</div>
+            <div class="filters-mob__text u-color-white u-style-body-1 u-style-weight-bold">SEE RESULTS</div>
+        </div>
+
+        <div class="filters-mob__header grid-x align-middle u-border-black">
+            <div class="filters-mob__title cell small-6 u-style-body-3 u-style-weight-bold">Filter</div>
+            {# <a href="" rel="nofollow" class="filters-mob__clear cell small-6 text-right u-style-body-1 u-style-weight-bold">Clear all</a> #}
+        </div>
+    </div>
+{% endmacro %}

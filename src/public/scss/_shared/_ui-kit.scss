@@ -1,0 +1,641 @@
+/**
+ * Shared UI Styles
+ */
+@mixin ui-clear-styles() {
+    border: 0;
+    border-radius: 0;
+    margin: 0;
+    padding: 0;
+    background: none;
+    line-height: 1;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+@mixin ui-button() {
+    @include ui-clear-styles();
+    @include get-font-weight('bold');
+    text-transform: uppercase;
+    text-align: center;
+    font-size: rem-calc(14px);
+    letter-spacing: rem-calc(1px);
+    display: inline-block;
+    width: 100%;
+}
+
+@mixin ui-button-text() {
+    @include ui-button();
+    @include get-font-weight('extrabold');
+    text-transform: none;
+    width: auto;
+    max-width: none;
+    color: get-color('black');
+
+    &[disabled],
+    &--disabled {
+        color: get-color('gray3');
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+}
+
+@keyframes sk-bouncedelay {
+  0%, 80%, 100% {
+    transform: scale(0);
+    opacity: 0;
+  } 40% {
+    transform: scale(1.0);
+    opacity: 1;
+  }
+}
+
+/**
+ * Primary Button - Outline
+ */
+
+.ui-btn-primary {
+    width: 100%;
+    max-width: rem-calc(360px);
+    position: relative;
+
+    .page-classroom-solutions .classroom-solutions-landing__body-content &{
+        max-width: rem-calc(370px);
+    }
+
+    &__btn {
+        @include ui-button();
+        @include get-font-weight('extrabold');
+        border: #{rem-calc(3px)} #{get-color('black')} solid;
+        padding: rem-calc(16px 5px 14px);
+        color: get-color('black');
+        min-height: rem-calc(50px);
+
+        // &:hover {
+        //     background: get-color('black');
+        //     color: get-color('white');
+        // }
+
+        &[disabled],
+        &--disabled {
+            border-color: get-color('gray3');
+            color: get-color('gray3');
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+    }
+
+    &__svg {
+        display: inline-block;
+        // opacity: 0;
+        width: 0;
+        height: 12px;
+
+        svg {
+            color: get-color('white');
+            width: 100%;
+            height: 100%;
+        }
+        // opacity: 0;
+    }
+
+    &__shadow {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+        box-shadow: 0 8px 8px 0 rgba(0,0,0,0.2);
+        opacity: 0;
+    }
+}
+
+/**
+ * Secondary Button - Black
+ */
+
+.ui-btn-secondary {
+    @include ui-button();
+    line-height: rem-calc(20px);
+    background: get-color('black');
+    max-width: rem-calc(100px);
+    padding: rem-calc(16px 20px 14px);
+    color: get-color('white');
+
+    .events-list__register-btn & {
+        max-width: rem-calc(200px);
+    }
+
+    &:hover {
+        background: get-color('black');
+        color: get-color('white');
+    }
+
+    &[disabled],
+    &--disabled {
+        background: get-color('gray3');
+        color: get-color('white');
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+
+    &--special {
+        text-indent: rem-calc(-9999px);
+        max-width: rem-calc(40px);
+        max-height: rem-calc(40px);
+
+        // @TODO Add icon Styles
+    }
+}
+
+/**
+ * Tertiary Button
+ */
+
+.ui-btn-tertiary {
+    @include ui-button-text();
+    $size: 20;
+    text-transform: uppercase;
+
+
+    &__arrow{
+        display: inline-block;
+        vertical-align: middle;
+        background-color: get-color('black');
+        border-radius: 100%;
+        width: rem-calc($size);
+        height: rem-calc($size);
+        line-height: rem-calc($size);
+        margin-right: rem-calc(8px);
+        transform: scale( (($size / 6) / 10) ) rotate(-90deg);
+        position: relative;
+        bottom: rem-calc(1px);
+
+        @include breakpoint(large) {
+            bottom: 2px;
+        }
+    }
+
+    svg{
+        $size: rem-calc(8px);
+        display: inline-block;
+        vertical-align: middle;
+        opacity: 0;
+        color: get-color('white');
+        width: $size;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+/**
+ * Text Button
+ */
+
+.ui-btn-text {
+    @include ui-button-text();
+}
+
+/**
+ * Special Case: Blog Article Author
+ */
+.ui-blog-author {
+    @include ui-clear-styles();
+    text-align: left;
+    display: block;
+    background: get-color('white');
+    box-shadow: 0 8px 8px 0 rgba(0,0,0,0.2);
+    padding: rem-calc(15px 35px);
+    width: 100%;
+
+    &__name {
+        @include get-font-weight('bold');
+        color: get-color('black');
+        font-size: rem-calc(21px);
+    }
+
+    &[disabled],
+    &--disabled {
+        box-shadow: none;
+    }
+}
+
+/**
+ * Pagination
+ */
+.ui-pagination {
+    margin-bottom: rem-calc(48px);
+
+    &__prev,
+    &__next,
+    &__number {
+        @include get-font-weight('extrabold');
+        display: inline-block;
+        vertical-align: middle;
+        line-height: 0;
+    }
+
+    &__prev {
+        margin-right: rem-calc(16px);
+        width: rem-calc(12px);
+        height: rem-calc(18px);
+    }
+
+    &__next {
+        margin-left: rem-calc(16px);
+        transform: rotate(180deg);
+        width: rem-calc(12px);
+        height: rem-calc(18px);
+    }
+
+    &__number {
+        $size: rem-calc(25px);
+        margin: 0;
+        padding-top: 2px;
+        width: $size;
+        height: $size;
+        line-height: $size;
+        color: get-color('black');
+
+        &:hover {
+            background: get-color('gray4');
+            color: get-color('black');
+        }
+
+        &--active {
+            background-color: get-color('black');
+            color: get-color('white');
+        }
+
+        &--spacer {
+            pointer-events: none;
+
+            &:hover {
+                background: none;
+            }
+        }
+    }
+}
+
+/**
+ * Navigation Icon
+ */
+.ui-nav-icon {
+    @include ui-clear-styles;
+    $size: 60px;
+    width: rem-calc($size);
+    height: rem-calc($size);
+    vertical-align: top;
+    border-radius: 0;
+    outline:none;
+
+    svg {
+        $size: 24px;
+        width: rem-calc($size);
+        height: rem-calc($size);
+    }
+
+    @media (hover: hover) {
+        &:hover {
+            background: get-color('gold');
+        }
+    }
+
+    &--selected {
+        background: get-color('gold');
+    }
+
+    @include breakpoint(medium) {
+        $size: 60px;
+        width: rem-calc($size);
+        height: rem-calc($size);
+
+        svg {
+            $size: 28px;
+            width: rem-calc($size);
+            height: rem-calc($size);
+        }
+    }
+}
+
+/**
+ * Navigation Text Item
+ */
+.ui-nav-item {
+    @include ui-button-text;
+    @include get-font-weight('bold');
+    line-height: rem-calc(25);
+    font-size: rem-calc(14px);
+    line-height: 1;
+    overflow: hidden;
+    transition-property: color;
+    transition-duration: 0.5s;
+    transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    &:before {
+        content: '';
+        display: block;
+        height: rem-calc(3px);
+        width: 110%;
+        background-color: get-color('black');
+        margin-top: rem-calc(5px);
+        transform: translateX(-110%);
+        opacity: 0;
+        transition-property: transform, opacity, background-color;
+        transition-duration: 0.5s;
+        transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        
+        position: absolute;
+		bottom: -6px;
+    }
+	&:hover {
+		color: get-color('black');
+	}
+    &:hover:before {
+        opacity: 1;
+        transform: translateX(-10%);
+    }
+    
+    .is-active & {
+	    :before {
+        	opacity: 1;
+			transform: translateX(-10%);
+		}
+    }
+
+    &:active {
+        color: get-color('gray1');
+        &:after {
+            background-color: get-color('gray1');
+        }
+    }
+  
+
+    &--selected {
+        &:after {
+            opacity: 1;
+            transform: translateX(0);
+            background-color: get-color('gold');
+        }
+    }
+}
+
+.ui-spinner{
+    $size: 12px;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: translateY(-50%);
+    opacity: 0;
+
+    &--show &{
+        opacity: 1;
+    }
+
+    &__item{
+        width: rem-calc($size);
+        height: rem-calc($size);
+        background-color: get-color('white');
+        border-radius: 100%;
+        display: inline-block;
+        margin-right: rem-calc(10px);
+
+        .ui-spinner--show &{
+            animation: sk-bouncedelay 1.5s infinite ease-in-out both;
+
+            &--1 {
+                animation-delay: -0.40s;
+                margin-left: rem-calc(10px);
+            }
+
+            &--2 {
+                animation-delay: -0.20s;
+            }
+            &--3 {}
+        }
+    }
+}
+
+.ui-add-to-cart {
+    @include ui-clear-styles;
+
+    @include breakpoint(medium) {
+        @include flex;
+        @include flex-align(right);
+    }
+
+    &__plus-minus {
+        @include flex;
+        @include flex-align(center, middle);
+        border-top: rem-calc(3px) get-color('gray4') solid;
+        border-bottom: rem-calc(3px) get-color('gray4') solid;
+        height: rem-calc(50px);
+        margin-bottom: rem-calc(8px);
+        width: 100%;
+
+        @include breakpoint(medium) {
+            margin-bottom: 0;
+            margin-right: rem-calc(18px);
+            max-width: rem-calc(136px);
+        }
+
+        @include breakpoint(large) {
+            max-width: rem-calc(172px);
+        }
+    }
+
+    &__button {
+        @include ui-clear-styles;
+        font-size: rem-calc(18px);
+        width: 100%;
+        height: 100%;
+    }
+
+    &__input,
+    &__input-display {
+        @include ui-clear-styles;
+        @include get-font-weight('extrabold');
+        font-size: rem-calc(14px);
+        text-align: center;
+        width: rem-calc(108px);
+        -moz-appearance: textfield;
+
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+
+        @include breakpoint(medium) {
+            width: rem-calc(60px);
+        }
+
+        @include breakpoint(large) {
+            width: rem-calc(75px);
+        }
+    }
+
+    &__submit {
+        max-width: 100%;
+        padding-left: rem-calc(10px);
+        padding-right: rem-calc(10px);
+
+        @include breakpoint(medium) {
+            max-width: rem-calc(136px);
+        }
+
+        @include breakpoint(large) {
+            max-width: rem-calc(172px);
+        }
+    }
+}
+
+/**
+ * MDC Style overrides
+ */
+.mdc-text-field {
+
+    &.mdc-text-field--upgraded:not(.mdc-text-field--fullwidth):not(.mdc-text-field--box) {
+        @include breakpoint(small only) {
+            margin-bottom: rem-calc(42px);
+            margin-top: 0;
+        }
+    }
+
+    &__label {
+        font-size: rem-calc(14px);
+        line-height: rem-calc(18px);
+        text-transform: uppercase;
+        letter-spacing: rem-calc(1px);
+        bottom: rem-calc(12px);
+
+        &--float-above {
+            color: get-color('gray3');
+            transform: translateY(-28px) scale(1);
+        }
+    }
+
+    &__input {
+        font-family: $body-font-family;
+        font-size: rem-calc(21px);
+        border: 0;
+
+        // Make footer input full width
+        .footer & {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+    }
+
+    &--textarea {
+        border: 0;
+        border-radius: 0;
+        display: block;
+        padding-bottom: rem-calc(22px);
+    }
+
+    &--textarea &__bottom-line {
+        bottom: rem-calc(22px);
+    }
+
+    &--textarea &__input {
+        border-width: 0;
+        resize: none;
+        padding: rem-calc(14px) 0 0;
+        font-family: $body-font-family;
+        font-size: rem-calc(16px);
+        line-height: rem-calc(24px);
+        min-height: rem-calc(64px);
+    }
+
+    &--textarea &__label {
+        color: get-color('gray3');
+        padding: 0;
+        font-size: rem-calc(14px);
+        position: static;
+        &--float-above {
+            transform: none;
+        }
+    }
+
+    &--textarea--required &__label:after {
+        margin-left: 1px;
+        content: "*";
+    }
+
+    &--invalid &__label {
+        color: get-color('red');
+    }
+
+    &__bottom-line {
+        transition: none;
+        transform: none;
+        height: 3px;
+        background: get-color('black');
+        opacity: 1;
+    }
+
+    &--invalid &__bottom-line {
+        background: get-color('red');
+    }
+
+    &-helptext {
+        font-size: rem-calc(14px);
+        width: 100%;
+        text-align: right;
+        &--validation-msg {
+            color: get-color('red');
+        }
+    }
+
+    &--invalid &-helptext--validation-msg {
+        opacity: 1;
+    }
+
+    &__input ~ &-helptext {
+        top: rem-calc(8px);
+        position: relative;
+    }
+
+    &--textarea &__input ~ &-helptext {
+        top: rem-calc(24px);
+    }
+
+    &--fullwidth:not(&--textarea) {
+        height: rem-calc(64px);
+        padding: rem-calc(16px) 0 0;
+    }
+}
+
+.mdc-checkbox {
+    &--invalid + label {
+        color: get-color('red');
+    }
+
+    &--invalid &__background {
+        border-color: rgba(get-color('red'), 0.54) !important;
+    }
+}
+
+/**
+ * Tooltip override 
+ */
+.tooltip {
+	line-height: rem-calc(16px);
+}
+
+/**
+ * Table override 
+ */
+table thead, table tbody {
+    background: none;
+    border: 0;
+}

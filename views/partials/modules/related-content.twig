@@ -1,0 +1,37 @@
+{% macro main(params,requestCache) %}
+    <section class="related-content cell">
+        <h3 class="related-content__heading u-style-display-xxs u-style-weight-bold">Related Posts</h3>
+        <div class="related-content__content grid-x grid-margin-x" data-gtm-page-relatedBlogPosts="decode({{ params | json_encode() }})">
+        {% for item in params %}
+            {{ _self.entry(item, loop, requestCache) }}
+        {% endfor %}
+        </div>
+    </section>
+{% endmacro %}
+
+{% macro entry(entry, loop, requestCache) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+
+    <article class="related-content__item related-content__item--{{ loop.index }} cell medium-6 large-4 {% if loop.index == 1 %} large-offset-2{% endif %}">
+        <a href="{{ url(requestCache, ['/blog/', entry.slug]) }}">
+            {% if entry.blogHeroImage %}
+            <figure class="related-content__image-wrapper">
+                {{ helper.image(entry.blogHeroImage, {
+                    class: 'related-content__image',
+                }) }}
+            </figure>
+            {% endif %}
+            <div class="related-content__body">
+                {# @TODO Add link when getting content from the CMS #}
+                <h4 class="related-content__title u-style-display-xs u-style-weight-bold">{{ entry.title|raw }}</h4>
+                {# @TODO Add "Read More" link when getting content from the CMS #}
+                <p class="related-content__excerpt u-style-body-2">{{ entry.summaryHtml|raw }}</p>
+                <div class="related-content__author">
+                    <div class="related-content__author-name u-style-weight-bold">{{ entry.blogAuthor.name }}</div>
+                    <div class="related-content__author-title">{{ entry.blogAuthor.authorTitle|raw }}</div>
+                </div>
+                <time class="related-content__date u-style-body-2 u-style-weight-bold" datetime="{{ entry.postDate|date('Y-m-dTh:i') }}">{{ entry.postDate|date("F d, Y") }}</time>
+            </div>
+        </a>
+    </article>
+{% endmacro %}

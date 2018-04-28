@@ -1,0 +1,17 @@
+.blog-image {
+    margin-bottom: rem-calc(46px);
+
+    &__image {
+        width: 100%;
+        height: auto;
+        margin-bottom: rem-calc(8px);
+    }
+
+    &__caption {
+        line-height: rem-calc(17px);
+
+        @include breakpoint(medium) {
+            line-height: rem-calc(28px);
+        }
+    }
+}

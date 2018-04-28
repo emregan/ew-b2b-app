@@ -1,0 +1,284 @@
+.shop-results-content {
+    &__wrapper {
+        width: xy-cell-size(100%);
+        margin: 0;
+
+        @include breakpoint(large) {
+            $width: xy-cell-size(8 of 9); // Columns from design
+            width: $width;
+        }
+    }
+    &__empty {
+        margin-top: rem-calc(50px);
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        margin-bottom: rem-calc(80px);
+        &__term {
+            padding-top: rem-calc(5px);
+        }
+        &__list-container {
+            padding-top: rem-calc(100px);
+        }
+        &__list-header {
+            padding-bottom: rem-calc(20px);
+        }
+        &__item {
+            padding: rem-calc(2px);
+        }
+    }
+}
+
+.shop-results-item {
+    $c: &;
+    $listMode: '.shop-results-content--list';
+    $gridMode: '.shop-results-content--grid';
+
+    &__content {
+        overflow: hidden;
+        margin-bottom: rem-calc(40px);
+        line-height: 0;
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(70px);
+            padding: rem-calc(0 22px);
+            border-bottom: 3px solid get-color('gray4');
+
+            #{$gridMode} & {
+                @include flex-align(left, top);
+            }
+
+            #{$c}:hover & {
+                border-color: transparent;
+                padding: rem-calc(24px 22px 25px);
+                transform: translateY(rem-calc(-24px));
+                margin-bottom: rem-calc(20px);
+                box-shadow: 0 0 7px 5px rgba(get-color('black'), 0.1)
+            }
+
+            #{$listMode}:hover & {
+                margin-bottom: rem-calc(25px);
+            }
+        }
+
+        // List view mode
+        #{$listMode} & {
+            padding: rem-calc(0 0 25px);
+            margin-bottom: rem-calc(25px);
+            @include xy-gutters($grid-margin-gutters, margin, right left, true);
+        }
+
+        #{$listMode}:hover & {
+            padding: rem-calc(0 0 25px);
+            transform: none;
+            box-shadow: none;
+            border-color: get-color('gray4');
+        }
+    }
+
+    &__title {
+        margin-bottom: rem-calc(8px);
+        line-height: rem-calc(18px);
+
+        @include breakpoint(medium) {
+            margin-bottom: rem-calc(6px);
+            line-height: rem-calc(20px);
+        }
+
+        // List view mode
+        #{$listMode} & {
+            @include breakpoint(medium) {
+                display: block;
+                font-size: rem-calc(18px);
+                line-height: rem-calc(22px);
+            }
+
+            @include breakpoint(large) {
+                font-size: rem-calc(21px);
+                line-height: rem-calc(25px);
+            }
+        }
+    }
+
+    &__image {
+
+        // List view mode
+        #{$listMode} & {
+            @include breakpoint(medium) {
+                @include xy-cell(3 of 12); // Columns from design
+            }
+
+            @include breakpoint(large) {
+                @include xy-cell(2 of 8); // Columns from design
+            }
+        }
+        #{$gridMode} & {
+            @include flex;
+            @include flex-align(center, bottom);
+        }
+    }
+
+    &__image-asset {
+        // List view mode
+        #{$listMode} & {
+            @include breakpoint(medium) {
+                max-width: rem-calc(110px);
+            }
+
+            @include breakpoint(large) {
+                max-width: rem-calc(124px);
+            }
+        }
+    }
+
+    &__body {
+        $easeInOutBack: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+        @include breakpoint(medium) {
+            background: get-color('white');
+            transition: transform 0.5s $easeInOutBack;
+
+            #{$gridMode} & {
+                position: relative;
+                overflow: hidden;
+                padding-top: rem-calc(12px);
+            }
+
+            // List view mode
+            #{$listMode} & {
+                transition: none;
+            }
+        }
+
+        @include breakpoint(large) {
+            background: get-color('white');
+            transition: transform 0.5s $easeInOutBack;
+        }
+
+        #{$c}:hover & {
+            transform: translateY(0px) !important;
+        }
+
+        // List view mode
+        #{$listMode} & {
+            @include breakpoint(medium) {
+                @include xy-cell(9 of 12); // Columns from design
+                padding: 0;
+                margin: 0;
+                transform: none;
+            }
+
+            @include breakpoint(large) {
+                @include xy-cell(6 of 8); // Columns from design
+            }
+        }
+    }
+
+    &__body-content {
+        display: block;
+    }
+
+    &__meta {
+        line-height: rem-calc(16px);
+        display: inline-block;
+        margin-right: rem-calc(10px);
+
+        @include breakpoint(medium) {
+            #{$gridMode} & {
+                display: block;
+                margin: 0;
+            }
+        }
+    }
+
+    &__description {
+        display: none;
+        margin: rem-calc(12px 0 28px);
+
+        @include breakpoint(medium) {
+            margin: rem-calc(12px 0 20px);
+        }
+
+        // List view mode
+        #{$listMode} & {
+
+            @include breakpoint(medium) {
+                display: block;
+            }
+
+            &, * {
+                font-size: rem-calc(14px);
+                line-height: rem-calc(24px);
+            }
+        }
+    }
+
+    &__price {
+        @include get-font-size('display-xxs');
+        margin-top: rem-calc(12px);
+
+        #{$listMode} & {
+            @include get-font-size('display-xs');
+        }
+
+        @include breakpoint(medium) {
+            margin-top: rem-calc(14px);
+            margin-bottom: rem-calc(20px);
+        }
+
+        @include breakpoint(large) {
+            margin-top: rem-calc(16px);
+        }
+    }
+
+    &__price-box {
+        // List view mode
+        #{$listMode} & {
+            @include flex;
+            @include flex-align(justify, top);
+        }
+    }
+
+    &__add-to-cart {
+
+        @include breakpoint(medium) {
+            @include flex-direction(column);
+
+            .ui-add-to-cart__plus-minus {
+                height: rem-calc(35px);
+                margin: rem-calc(0 0 10px);
+            }
+
+            .ui-add-to-cart__submit {
+                padding-top: rem-calc(12px);
+                padding-bottom: rem-calc(10px);
+            }
+        }
+
+        // List view mode
+        #{$listMode} & {
+            @include breakpoint(medium) {
+                @include flex-direction(row);
+                min-width: 60%;
+
+                .ui-add-to-cart__plus-minus {
+                   margin: rem-calc(0 20px 0 10px);
+                   max-width: rem-calc(120px);
+                }
+
+                .ui-add-to-cart__submit {
+                    max-width: rem-calc(125px);
+                }
+            }
+        }
+    }
+
+    &__learn-more {
+        max-width: 100%;
+        padding: rem-calc(10px 10px 8px);
+
+        #{$listMode} & {
+            max-width: rem-calc(125px);
+        }
+    }
+}

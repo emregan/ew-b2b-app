@@ -1,0 +1,107 @@
+{% macro main(params, requestCache) %}
+    {% set showheading = params.showheading|default(true) %}
+    <div class="events-list">
+        {% if showheading %}
+            <div data-js-hook="ui-scroll-reveal-animation">
+                {% if not requestCache.xhr and not (getQuery(requestCache, 'topic') or getQuery(requestCache, 'series') or getQuery(requestCache, 'type') or getQuery(requestCache, 'location')) %}
+                    <div class="events-list__heading u-style-display-xxs u-style-weight-bold text-center">THE LATEST</div>
+                {% else %}
+                    <div class="u-style-body-4">{{ params.data|length }} Results</div>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        <div class="events-list__list" data-gtm-page-override="events & webinars landing page">
+            {% for entry in params.data %}
+                {{ _self.article(entry, requestCache) }}
+            {% endfor %}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro article(entry,requestCache) %}
+    <article class="events-list__entry events-list__entry--{{ entry.section }} grid-x grid-margin-x align-top" data-js-hook="ui-scroll-reveal-animation">
+
+        {# @TODO: Show only events for MVP #}
+        {# {{ attribute(_self, entry.section, [entry,requestCache]) }} #}
+        {{ _self.events(entry, requestCache) }}
+
+    </article>
+{% endmacro %}
+
+{#
+Entry {
+    eventDate
+    eventColor
+    eventLocation
+    eventVenue
+    id
+    section
+    slug
+    title
+}
+#}
+{% macro events(entry, requestCache) %}
+    <div class="events-list__content cell small-12 small-order-2 medium-7 medium-order-1">
+        <div class="events-list__section u-style-weight-bold">{{ entry.section }}</div>
+        <a href="{{ url(requestCache, ['event', entry.slug]) }}">
+            <h2 class="events-list__title u-color-black u-style-weight-bold">{{ entry.title|raw }}</h2>
+        </a>
+        <div class="events-list__body u-style-body-2">{{ entry.summaryHtml|raw }} <a href="{{ url(requestCache, ['event', entry.slug]) }}" class="u-style-weight-bold">Learn More</a></div>
+    </div>
+
+    <div class="events-list__info cell small-8 small-offset-4 small-order-1 medium-4 medium-offset-1 medium-order-2 large-3 large-offset-2 u-background-{{ entry.eventColor }}">
+        <time datetime="{{ entry.eventDate|date('Y-m-dTh:i') }}">
+            <span class="events-list__date events-list__date--number u-style-weight-bold">{{ entry.eventDate|date('d') }}</span>
+            <span class="events-list__date events-list__date--month u-style-display-xs u-style-weight-bold">{{ entry.eventDate|date('F') }}</span>
+        </time>
+        <div class="events-list__venue u-style-body-2">{{ entry.eventVenue }}</div>
+    </div>
+{% endmacro %}
+
+{#
+Entry {
+    eventDate
+    eventDuration
+    eventSpeakers
+    id
+    section
+    slug
+    title
+}
+#}
+{% macro webinars(entry, requestCache) %}
+    <div class="events-list__content cell small-12 small-order-2 medium-7 medium-order-1">
+        <div class="events-list__section u-style-weight-bold">{{ entry.section }}</div>
+        <a href="{{ url(requestCache, ['webinar', entry.slug]) }}">
+            <h2 class="events-list__title u-color-black u-style-weight-bold">{{ entry.title|raw }}</h2>
+        </a>
+        <div class="events-list__body u-style-body-2">{{ entry.summaryHtml|raw }} <a href="{{ url(requestCache, ['webinar', entry.slug]) }}" class="u-style-weight-bold">Watch now</a></div>
+
+        {% if entry.eventSpeakers|length > 0 %}
+            <div class="events-list__speaker-name u-style-body-1 u-style-weight-bold">{{ entry.eventSpeakers[0].title|raw }}</div>
+            <div class="events-list__speaker-title u-style-body-2">{{ entry.eventSpeakers[0].personTitle|raw }}</div>
+        {% endif %}
+
+        <time class="events-list__webinar-date u-tyle-body-2 u-style-weight-bold" datetime="{{ entry.eventDate|date('Y-m-dTh:i') }}">{{ entry.eventDate|date('F d, Y') }}</time>
+        <div class="events-list__duration u-style-body-2">{{ entry.eventDuration }}</div>
+
+    </div>
+
+    <div class="events-list__register cell small-7 small-offset-5 small-order-1 medium-4 medium-offset-1 medium-order-2 large-3 large-offset-2">
+        {% import 'partials/core/helpers.twig' as helper %}
+        {% if entry.eventSpeakers|length > 0 and entry.eventSpeakers[0].personImage %}
+            {% set firstSpeaker = entry.eventSpeakers|first %}
+
+            <figure class="events-list__speaker">
+                {{ helper.image(firstSpeaker.personImage, {
+                    class: 'events-list__speaker-image',
+                    alt: firstSpeaker.title|striptags|raw
+                }) }}
+            </figure>
+        {% endif %}
+        <div class="events-list__register-btn">
+            <a href="{{ url(requestCache, ['webinar', entry.slug]) }}" class="ui-btn-secondary">Register</a>
+        </div>
+    </div>
+{% endmacro %}

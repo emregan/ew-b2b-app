@@ -1,0 +1,41 @@
+{% macro main(params,requestCache) %}
+    <div class="program-component-list grid-x grid-margin-x">
+        {% for item in params.items %}
+            {{ _self.item(item, requestCache) }}
+        {% endfor %}
+    </div>
+{% endmacro %}
+
+{% macro item(item, requestCache) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    {% import "partials/core/ui-kit.twig" as kit %}
+
+    {% if isSearchProduct(item) %}
+        {% set url = searchProductUrl(requestCache, item) %}
+    {% else %}
+        {% set url = item.url %}
+    {% endif %}
+
+    <div class="program-component-list__item cell small-12 medium-4 large-3" data-js-hook="ui-scroll-reveal-animation">
+        <a href="{{ url }}" class="program-component-list__content grid-x">
+            <div class="program-component-list__image cell small-3 medium-12 medium-offset-0 text-center">
+                {% set imageUrl = item['thumbnail-image-url'] is defined ? '/shop/books'~item['thumbnail-image-url'] : '/sites/hmh/images/global/iconNoImage.png' %}
+                <img src="{{ imageUrl }}" class="program-component-list__image-img" />
+            </div>
+            <div class="program-component-list__body cell small-8 small-offset-1 medium-12 medium-offset-0 u-border-gray4">
+                <div class="program-component-list__title u-style-weight-bold u-style-display-xxs">{{ item.title }}</div>
+
+                <div class="program-component-list__meta u-style-body-2">{% spaceless %}
+                    {% if item.grades is defined %}
+                        {{ item.grades|grade_range }}
+                    {% endif %}
+                {% endspaceless %}</div>
+
+                <div class="program-component-list__btn show-for-medium">
+                    {{ kit.tertiaryButton({text: 'SHOP NOW'}) }}
+                </div>
+            </div>
+        </a>
+    </div>
+{% endmacro %}
+

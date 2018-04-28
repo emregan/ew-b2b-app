@@ -1,0 +1,64 @@
+.section-intro-large {
+    margin-bottom: $moduleMargin;
+
+    &__image-wrapper {
+        margin-bottom: rem-calc(45px);
+
+        &--right {
+            @include breakpoint(medium) {
+                $negativeMargin: xy-cell-size(2);
+                margin-left: calc( #{$negativeMargin} );
+            }
+
+            @include breakpoint(large) {
+                $negativeMargin: xy-cell-size(4);
+                margin-left: calc( #{$negativeMargin} );
+            }
+        }
+    }
+
+    &__image {
+        $negativeMargin: map-safe-get($grid-container-padding, 'small');
+        $negativeMargin: -($negativeMargin / 2);
+        margin-left: rem-calc($negativeMargin);
+        margin-right: rem-calc($negativeMargin);
+
+        @include breakpoint(medium) {
+            margin: 0;
+        }
+    }
+
+    &__content {
+        @include breakpoint(medium) {
+            $negativeMargin: xy-cell-size(4);
+            margin-left: calc( -#{$negativeMargin} );
+            margin-top: rem-calc(60px);
+        }
+
+        @include breakpoint(large) {
+            $negativeMargin: xy-cell-size(3);
+            margin-left: calc( -#{$negativeMargin} );
+            margin-top: rem-calc(50px);
+        }
+
+        &, * {
+            line-height: rem-calc(24px);
+
+            @include breakpoint(medium) {
+                line-height: rem-calc(28px);
+            }
+        }
+
+        &--right {
+            @include breakpoint(medium) {
+                $negativeMargin: xy-cell-size(12);
+                margin-left: calc( -#{$negativeMargin} );
+            }
+
+            @include breakpoint(medium) {
+                $negativeMargin: xy-cell-size(9);
+                margin-left: calc( -#{$negativeMargin} );
+            }
+        }
+    }
+}

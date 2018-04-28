@@ -1,0 +1,72 @@
+{# slides:{
+    items: [{
+        text: RichText
+        entry: Entries
+    }]
+} #}
+{% macro main(params,requestCache) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    {% set alignment = (params.loopMeta.centerModules) ? 'align-right' : 'align-center' %}
+    {% set nestedAlign = (params.slides.length == 1) ? 'align-center' : 'align-top' %}
+    {% set srID = random() %}
+
+    {{ helper.nestedLayoutOpen({
+        name: 'description',
+        align: alignment,
+        nestedAlign: nestedAlign,
+        id: params.loopMeta.slug,
+    }) }}
+        {% for item in params.slides %}
+            {{ _self.item(item, loop.index, srID, requestCache) }}
+        {% endfor %}
+    {{ helper.nestedLayoutClose() }}
+{% endmacro %}
+
+{% macro item(item, index, srID, requestCache) %}
+    {% import "partials/core/ui-kit.twig" as kit %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    <div class="description__item cell small-12 medium-6" data-js-hook="ui-scroll-reveal-animation" data-sequence-id="{{ srID }}">
+        {% if item.text %}<div class="description__text u-style-body-2">{{ item.text|raw }}</div>{% endif %}
+        {% if item.entry %}
+            <div class="description__program u-background-gray5">
+                <div class="description__title u-style-body-3">{{ item.entry.title|raw }}</div>
+
+                {% if item.entry.headline is defined and item.entry.headline is not empty %}
+                    <div class="description__body u-style-body-4">{{ item.entry.headline }}</div>
+                {% elseif item.entry.programTypeHeadline is defined and item.entry.programTypeHeadline is not empty %}
+                    <div class="description__body u-style-body-4">{{ item.entry.programTypeHeadline }}</div>
+                {% elseif item.entry.subjectHeadline is defined and item.entry.subjectHeadline is not empty %}
+                    <div class="description__body u-style-body-4">{{ item.entry.subjectHeadline }}</div>
+                {% endif %}
+
+                <div class="description__footer grid-x align-middle{% if item.entry.programLogo is defined and item.entry.programLogo is not empty %} description__footer--logo{% endif %}">
+                    {% if item.entry.section == 'programs' %}
+                        <div class="description__cta cell small-8">
+                            {{ kit.tertiaryButton({
+                                text: 'LEARN MORE',
+                                button: false,
+                                location: url(requestCache, ['programs', item.entry.slug])
+                            }) }}
+                        </div>
+                    {% elseif item.entry.section == 'programTypes' or item.entry.section == 'subjects' %}
+                        <div class="description__cta cell small-8">
+                            {{ kit.tertiaryButton({
+                                text: 'LEARN MORE',
+                                button: false,
+                                location: url(requestCache, ['classroom-solutions', item.entry.slug])
+                            }) }}
+                        </div>
+                    {% endif %}
+
+                    {% if item.entry.logo is defined and item.entry.logo is not empty %}
+                        <div class="description__logo cell small-4 text-right">
+                            {{ helper.image(item.entry.logo, {
+                                class: 'description__logo-img'
+                            }) }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endmacro %}

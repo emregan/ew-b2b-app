@@ -1,0 +1,31 @@
+.blog-author {
+    order: 1;
+    margin-bottom: rem-calc(35px);
+
+    @include breakpoint(medium) {
+        margin-bottom: rem-calc(120px);
+    }
+
+    @include breakpoint(large) {
+        margin-bottom: 0;
+    }
+
+    &__link {
+        padding: rem-calc(18px 16px);
+    }
+
+    &__name,
+    &__title {
+        display: block;
+    }
+
+    &__name {
+        color: get-color('black');
+        margin-bottom: rem-calc(8px);
+    }
+
+    &__title {
+        color: get-color('black');
+        font-size: rem-calc(14px);
+    }
+}

@@ -1,0 +1,17 @@
+{% macro main(params,requestCache) %}
+    {% import 'partials/core/helpers.twig' as helper %}
+    {% set offset = (params.loopMeta.centerModules) ? 'large-offset-3' : 'large-offset-2' %}
+
+    <div class="section-intro-large grid-x grid-padding-x" {% if params.loopMeta.slug %}id="{{ params.loopMeta.slug }}"{% endif %}>
+        <div class="section-intro-large__image-wrapper section-intro-large__image-wrapper--{{params.alignment }} cell medium-10 large-8 {{ offset }}">
+            <div class="section-intro-large__image">
+                {% if params.image %}
+                    {{ helper.image(params.image, {
+                        'class': 'section-intro-large__image-asset',
+                    }) }}
+                {% endif %}
+            </div>
+        </div>
+        <div class="section-intro-large__content section-intro-large__content--{{params.alignment }} cell medium-6 large-4 u-style-body-1">{{ params.bodyCopy|raw }}</div>
+    </div>
+{% endmacro %}

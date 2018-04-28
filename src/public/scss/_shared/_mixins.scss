@@ -1,0 +1,123 @@
+/**
+ * style input field placeholder
+ */
+@mixin placeholder{
+    &::-webkit-input-placeholder {
+        @content;
+    }
+
+    &:-moz-placeholder {
+        @content;
+    }
+
+    &::-moz-placeholder {
+        @content;
+    }
+
+    &:-ms-input-placeholder {
+        @content;
+    }
+}
+
+/**
+ * Maintain Aspect Ratio Mixin
+ * credit: https://css-tricks.com/snippets/sass/maintain-aspect-ratio-mixin/b
+ */
+
+@mixin aspect-ratio($width, $height) {
+  position: relative;
+  &:before {
+    display: block;
+    content: "";
+    width: 100%;
+    padding-top: ($height / $width) * 100%;
+  }
+  > .content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
+
+/**
+ * Since font sizes are predefined for different breakpoints we can use a mixin to keep things consistent
+ * This mixin will handle font sizes breakpoints as well
+ * @param  {Number} $index Index for font size group
+ * @return {[type]}        [description]
+ */
+@mixin get-font-size($key){
+    $sizes: map-get($font_sizes, $key);
+    $fontSize: map-get($sizes, 'small');
+    font-size:  rem-calc($fontSize);
+
+    @include breakpoint(medium) {
+        $fontSize: map-get($sizes, 'medium');
+        font-size:  rem-calc($fontSize);
+    }
+
+    @include breakpoint(large) {
+        $fontSize: map-get($sizes, 'large');
+        font-size:  rem-calc($fontSize);
+    }
+}
+
+/**
+ * Since font sizes are predefined for different breakpoints we can use a mixin to keep things consistent
+ * This mixin will handle font sizes breakpoints as well
+ * @param  {Number} $index Index for font size group
+ * @return {[type]}        [description]
+ */
+@mixin get-font-weight($key){
+    $weight: map-get($fontWeights, $key);
+    font-weight: $weight;
+}
+
+@mixin carousel-dots() {
+    @include flex;
+    @include flex-align(center, middle);
+    margin: rem-calc(12px 0 0);
+    padding: 0;
+    list-style: none;
+
+    @include breakpoint(medium) {
+        margin: rem-calc(14px 0 0);
+    }
+
+    @include breakpoint(large) {
+        margin: rem-calc(20px 0 0);
+    }
+
+    li {
+        &.slick-active {
+            button {
+                background: get-color('black');
+            }
+        }
+    }
+
+    button {
+        background: get-color('gray4');
+        border: 0;
+        text-indent: rem-calc(-9999px);
+        margin: rem-calc(0 17.5px);
+        padding: 0;
+        width: rem-calc(10px);
+        height: rem-calc(10px);
+        border-radius: 50%;
+
+        @include breakpoint(medium) {
+            width: rem-calc(15px);
+            height: rem-calc(15px);
+        }
+
+        &:focus {
+            outline: none;
+        }
+
+        &:hover {
+            background: get-color('black');
+        }
+    }
+}
