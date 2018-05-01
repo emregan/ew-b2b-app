@@ -1,5 +1,8 @@
-//Load the request module
 var request = require('request');
+var express = require('express');
+var router = express.Router();
+var bodyParser = require('body-parser');
+router.use(bodyParser.urlencoded({ extended: true }));
 
 //Lets configure and request
 request({
@@ -18,13 +21,6 @@ request({
         console.log(response.statusCode, body);
     }
 });
-
-
-
-var express = require('express');
-var router = express.Router();
-var bodyParser = require('body-parser');
-router.use(bodyParser.urlencoded({ extended: true }));
 var User = require('./User');
 // ADD THIS PART
 // CREATES A NEW USER

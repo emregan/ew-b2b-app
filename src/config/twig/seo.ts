@@ -88,7 +88,7 @@ export default class Seo {
       /**
        * About us and Trade pages with sub pages
        */
-       
+
       case "page-w-subpage-intro":
         template.title = `Introduction | ${data.title}`;
         template.description = this.truncDescription(data.summary) || template.description;
@@ -269,7 +269,7 @@ export default class Seo {
         template.title = "Thank You | HMH";
         delete template.description;
       break;
-      
+
       /**
        * Order History
        */
@@ -283,8 +283,7 @@ export default class Seo {
         template.description = data.summary ? this.truncDescription(data.summary) : template.description;
         template.date = data.postDate;
       break;
-      
-      
+
     }
 
     if (data) {

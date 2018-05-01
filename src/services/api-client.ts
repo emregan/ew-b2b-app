@@ -105,6 +105,90 @@ const httpRequest = (uri: string, method: string = "GET", data: any = {}, token?
   return doRequest();
 };
 
+
+
+const jsonRequest = (uri: string, method: string = "GET", data: any = {}, token?: string): Promise<any> => {
+  const TIMEOUT = process.env.API_CLIENT_TIMEOUT || 3000;
+  const httpUrl: string = process.env.WS_CLIENT_HTTP_URL || "http://localhost:8181/";
+  const proxyUrl: string = process.env.API_CLIENT_PROXY_URL || "";
+  const cacheEnabled: boolean = process.env.API_CLIENT_CACHE_ENABLED || false;
+  const timeout: number = (typeof process.env.API_CLIENT_TIMEOUT !== "undefined") ? Number(process.env.API_CLIENT_TIMEOUT) : 30000;
+  const isGet = method === "GET";
+  const hasData = Object.keys(data).length > 0;
+  const path = hasData ? `${uri}?${querystring.stringify(data)}` : uri;
+  const url = isGet ? `${httpUrl}${path}` : `${httpUrl}${uri}`;
+  const cacheKey = decodeURIComponent(`api-cache:${path}`);
+  const requestOptions: any = {
+    url: url,
+    method: method,
+    headers: {
+      "Accept": "application/json",
+      "User-Agent": "hmhco-b2b-app"
+    },
+    timeout: timeout,
+    resolveWithFullResponse: true
+  };
+
+  if (proxyUrl) {
+    requestOptions.proxy = proxyUrl;
+  }
+
+  if (token) {
+    requestOptions.auth = {
+      bearer: token
+    };
+  }
+
+  if (!isGet && hasData) {
+    requestOptions.form = data;
+  }
+
+  const responseHandler = (res: RequestResponse): any => {
+    // parse the response
+    const responseData = JSON.parse(res.body);
+
+    // cache the response value
+    if (isGet && cacheEnabled) {
+      cacheResponse(res.headers, cacheKey, responseData);
+    }
+
+    // resolve the promise
+    return responseData;
+  };
+
+  const doRequest = (): Promise<any> => promiseRetry(
+    (retry: (error: any) => never, number: number): Promise<any> => {
+      return rp(requestOptions)
+        .then(responseHandler)
+        .catch((err: any) => {
+          if (
+            err.code === "ETIMEDOUT" ||
+            (typeof err.connect !== "undefined" && err.connect === true) ||
+            err.statusCode === 503 ||
+            err.statusCode === 504
+          ) {
+            logger.error(`API Retry: ${uri}`, err);
+            retry(err);
+          } else {
+            throw err;
+          }
+        });
+    },
+    {
+      retries: process.env.API_CLIENT_RETRIES || 3,
+      minTimeout: timeout,
+    }
+  );
+
+  if (cacheEnabled) {
+    return cache.get(cacheKey)
+      .then((cachedValue: any) => Promise.resolve(cachedValue || doRequest()));
+  }
+
+  return doRequest();
+};
+
+
 const cacheResponse = (headers: Headers, key: string, value: any): void => {
   // check cache-control header
   if ("cache-control" in headers && headers["cache-control"]) {
@@ -343,6 +427,9 @@ export const getSitemap = (): Promise<any> => {
   return getWithGlobals("/api/html-sitemap");
 };
 
+
+
+
 /**
  * During dev you can add methods to this client
  * and simply return Promise.resolve({foo:"bar"})
@@ -369,66 +456,47 @@ export const getNews = (): Promise<any> => {
 };
 */
 
+export const getOrders = (): Promise<any> => {
+  return request('api/orders');
+}
 
-
-
-
-export const getOrderIndex = (query: any): Promise<any> => {
-  const params: any = {
-    limit: 10,
-    include: ["pagination", "landingPage"].join(","),
-    title: "TEST TITLE"
-  };
-
-  return getWithGlobals("api/orders", params)
-    .then(assignPaginationPromise);
+export const getLoginPage = (): Promise<any> => {
+  const params: any = {};
+  return getWithGlobals( "api/news" , params);
 };
 
+export const getHomePage = (): Promise<any> => {
+  const params: any = {};
+  return getWithGlobals( "api/news" , params);
+};
+
+export const getAccountPage = (): Promise<any> => {
+  const params: any = {};
+  return getWithGlobals( "api/news" , params);
+};
+
+
+export const temp = (request: Promise<any>): Promise<any> => {
+  return Promise.all([
+    getGlobals(),
+    request
+  ]).then((all: any[]) => Promise.resolve(
+    Object.assign(
+      {globals: all[0].data},
+      all[1]
+    )
+   ));
+};
+
+export const getOrderIndex = (): Promise<any> => {
+  const params: any = {};
+  return getWithGlobals( "api/news" , params);
+};
 
 export const getOrderDetail = (slug: string): Promise<any> => {
   const params: any = {
-    limit: 10,
-    include: ["pagination", "landingPage"].join(","),
-    title: "TEST TITLE"
+    copper: 'woof'
   };
-  return getWithGlobals("api/news", params);  
+  return getWithGlobals(`api/news`, params);
+  
 };
-
-
-export const getHomePage = (): Promise<any> => {
-	const params: any = {		
-		erin: 'poop'
-	};
-	
-	// return getWithGlobals("api/news", params);
-	return Promise.resolve([
-    {
-      id: 1,
-      title: "Foo"
-    },
-    {
-      id: 2,
-      title: "Bar"
-    }
-  ]);
-};
-
-
-
-export const getOrders = (): Promise<any> => {
-	const params: any = {		
-		erin: 'poop',
-		copper: 'woof'
-	};
-  return Promise.resolve([
-    {
-      id: 1,
-      title: "Foo"
-    },
-    {
-      id: 2,
-      title: "Bar"
-    }
-  ])
-};
-

@@ -1,0 +1,16 @@
+{% extends 'layouts/_main.twig' %}
+
+{% import 'partials/core/modules-importer.twig' as modules %}
+{% import 'partials/core/components-importer.twig' as component %}
+{% import 'partials/components/pagination.twig' as pagination  %}
+
+{% set pageType = 'account' %}
+
+{% block content %}
+
+	index.twig
+	
+
+{{ components.pagination(pagination, requestCache) }}
+
+{% endblock %}

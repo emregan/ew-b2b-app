@@ -1,0 +1,19 @@
+{% extends 'layouts/_main.twig' %}
+{% import 'partials/core/modules-importer.twig' as modules %}
+{% import 'partials/core/components-importer.twig' as components %}
+
+{% set pageType = 'account' %}
+
+{% set seoTemplate = pageType ~ '-detail' %}
+
+{% set baseUrl = '/account' %}
+
+{% set headerData = {
+    pageType: pageType
+} %}
+
+{% block content %}
+    
+    Register
+    
+{% endblock %}

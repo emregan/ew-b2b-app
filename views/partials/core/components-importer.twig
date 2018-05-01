@@ -27,3 +27,25 @@
     {% import 'partials/components/order-page-detail.twig' as component %}
     {{ component.main(params, requestCache) }}
 {% endmacro %}
+
+
+
+{% macro loginPage(params, requestCache) %}
+    {% import 'partials/components/login-page.twig' as component  %}
+    {{ component.main(params, requestCache) }}
+{% endmacro %}
+
+{% macro accountRegisterHeader(params, requestCache) %}
+    {% import 'partials/components/account-register-header.twig' as component %}
+    {{ component.main(params, requestCache) }}
+{% endmacro %}
+
+{% macro accountRegisterForm(params, requestCache) %}
+    {% import 'partials/components/account-register-form.twig' as component %}
+    {{ component.main(params, requestCache) }}
+{% endmacro %}
+
+{% macro defaultPageHeader(params, requestCache) %}
+    {% import 'partials/components/default-page-header.twig' as component %}
+    {{ component.main(params, requestCache) }}
+{% endmacro %}

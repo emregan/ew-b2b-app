@@ -1,0 +1,38 @@
+{% extends 'layouts/_account.twig' %}
+{% import 'partials/core/modules-importer.twig' as modules %}
+{% import 'partials/core/components-importer.twig' as components %}
+
+{% set pageType = 'account' %}
+{% set pageSubType = 'register' %}
+
+{% set seoTemplate = pageType ~ '-detail' %}
+
+{% set baseUrl = '/account' %}
+
+{% set headerData = {
+    pageType: pageType
+} %}
+
+{% block content %}
+    {{ components.accountRegisterHeader({
+        title: "",
+        back: {
+	        text: "Back to Lorem Ipsum",
+	        location: baseUrl
+        }
+    }, requestCache) }}
+    
+    
+    {{ components.accountRegisterForm({
+        title: "Sign up for a Houghton Harcourt Mifflin account as part of your district",
+        back: {
+	        text: "Back to Lorem Ipsum",
+	        location: baseUrl
+        }
+    }, requestCache) }}
+
+
+
+    {{ components.pagination(pagination, requestCache) }}
+    
+{% endblock %}

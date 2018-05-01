@@ -75,15 +75,9 @@ export function request(rawPath: string, protocol: string, host: string, params:
     return api.getEntries("programs").then((data) => {
       return reduceResponse(data.data, path, "title", protocol, host, false);
     });
-  } else if (path === "shop") {
-    return shopResult.apply(undefined, arguments);
-  } else if (path === "support") {
+} else if (path === "support") {
     return api.getEntries("support").then((data) => {
       return reduceResponse(data.data, path, "title", protocol, host, true);
-    });
-  } else if (path === "classroom-solutions") {
-    return api.getEntries("classroom-solutions", true).then((data) => {
-      return reduceResponse(data.meta.categories, path, "title", protocol, host, true);
     });
   } else if (path === "home") {
     return Promise.resolve().then(() => {
@@ -92,47 +86,6 @@ export function request(rawPath: string, protocol: string, host: string, params:
   } else {
     return api.getEntries(path).then((data) => {
       return reduceResponse(data.data, path, "title", protocol, host, false);
-    });
-  }
-}
-
-function shopResult(rawPath: string, protocol: string, host: string, params: any): Promise<any> {
-  if (params.hasOwnProperty("from")) {
-    return es.getShopEntries(params.from, searchSize).then((data) => {
-      const path = stripPath(rawPath);
-      return reduceResponse(data.response, `${path}/k12`, "title", protocol, host, "shop", params);
-    });
-  } else {
-    return es.getShopEntriesIndex().then((data) => {
-      const urlset: any = [];
-      const rootUrl = `${protocol}://${host}/sitemap-shop.xml`;
-
-      const total = data.total;
-      let page: number = 1;
-      let totalPages = total / searchSize;
-
-      while (totalPages >= 1) {
-        const from = page * searchSize;
-        const sitemap = formatUrl(`${rootUrl}?from=${from}&size=${searchSize}`, true);
-
-        urlset.push({
-          sitemap
-        });
-
-        totalPages -= 1;
-        page++;
-      }
-
-      return  [
-        {
-          name: "sitemapindex",
-          attrs: {
-            xmlns: "http://www.sitemaps.org/schemas/sitemap/0.9"
-          },
-          children: urlset
-        }
-      ];
-
     });
   }
 }
@@ -219,7 +172,6 @@ function routes(): string[] {
     "about-us",
     "blog",
     "case-studies",
-    "classroom-solutions",
     "pages",
     "event",
     "webinars",

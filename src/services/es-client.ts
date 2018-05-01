@@ -87,6 +87,8 @@ export const get = (term: string, params: any = {}): Promise<any> => {
   return request(term, "GET", params);
 };
 
+
+/**
 export const filter = (term: string, params: any = {}): Promise<any> => {
   const page: number = Number(params.page) || 1;
   const size: number = 20;
@@ -120,3 +122,4 @@ export const filter = (term: string, params: any = {}): Promise<any> => {
       };
     });
 };
+**/

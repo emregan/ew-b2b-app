@@ -3,34 +3,36 @@
 /*----------------------------------------------------*/
 /** Foundation */
 @import 'foundation-sites/scss/foundation';
-/** Slick Carousel */
-@import 'slick-carousel/slick/slick.scss';
 
 /*----------------------------------------------------*/
 /*  Core Styles
 /*----------------------------------------------------*/
-@import './pages/support/_support-variables';
+@import './pages/home/home-variables';
 @import './_shared/shared';
 
 /*----------------------------------------------------*/
 /*  Foundation styles
 /*----------------------------------------------------*/
+
+/*@include foundation-everything;
+
+@include foundation-accordion;
 @include foundation-xy-grid-classes;
 @include foundation-flex-classes;
 @include foundation-visibility-classes;
 @include foundation-typography;
+@include foundation-tooltip;
+@include foundation-tabs;
+
+@include motion-ui-transitions;
+@include motion-ui-animations;*/
 
 /*----------------------------------------------------*/
 /*  Global Styles
 /*----------------------------------------------------*/
-
-@import './pages/support/_support-global';
+@import './pages/login/login-global';
 
 /*----------------------------------------------------*/
 /*  Partials
 /*----------------------------------------------------*/
-@import './partials/skew-header';
-@import './partials/program-header';
-@import './partials/support-header';
-@import './partials/support-body';
-@import './partials/form';
+

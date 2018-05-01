@@ -3,11 +3,11 @@ import { getHomePage } from "../services/api-client";
 
 /**
  * GET /
- * Home page.
+ * Homee page.
  */
-
-export let index = (req: Request, res: Response, next: NextFunction) => {
-   getHomePage(req.params) 
+ 
+ export let index = (req: Request, res: Response, next: NextFunction) => {
+   getHomePage(req.params)  
    .then(data => res.render("pages/home/index", data))
    .catch(next);
 };

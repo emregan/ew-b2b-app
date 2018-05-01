@@ -1,31 +1,20 @@
 {% macro main(params,requestCache) %}
     <div class="order-history-list {{ params.class }}">
     
+    {# {{ params|json_encode() }} #}
     
-    {{ params|json_encode() }}
-    
-    {% set jsonArray = params|json_encode() %}
-    
-    <hr>
-    
-    {{ dump.jsonArray }}
-    
-    {% for order in params.json.orders %}
-    
-    	<h3>x{{ order.created }} </h3>
-    
-    {% endfor %}
+    {% set orders = params.data.orders %}
  
     	<!-- TABS -->
     	<ul class="tabs u-style-text-left" data-tabs id="order-tabs">
-		  <li class="tabs-title is-active"><a href="#panel1" aria-selected="true">Open Orders</a></li>
-		  <li class="tabs-title"><a data-tabs-target="panel2" href="#panel2">Closed Orders</a></li>
+		  <li class="tabs-title is-active"><a href="#tabOpen" aria-selected="true">Open Orders</a></li>
+		  <li class="tabs-title"><a data-tabs-target="tabClosed" href="#tabClosed">Closed Orders</a></li>
 		</ul>
     
     
 		<!-- CONTENT -->
 		<div class="tabs-content" data-tabs-content="order-tabs">
-		  <div class="tabs-panel is-active" id="panel1">
+		  <div class="tabs-panel is-active" id="tabOpen">
   
 		    <table id="orders-open" class="display unstriped">
 		        <thead>
@@ -38,46 +27,58 @@
 		            </tr>
 		        </thead>
 		        <tbody>
-		            <tr>
-		                <td>02/16/2018</td>
-		                <td><a href="#">20173589</a></td>
-		                <td><a href="/orders/0095052068">0095052068</a></td>
-		                <td class="address">
-		                	c/ o Jane Smith<br>
-		                	Acme Warehouse</br>
-		                	3201 Broad St<br>
-		                	Philadelphia, PA 19127-1603
-		                	<div>
-		                		<span data-tooltip xdata-tooltip-class="tooltip-2" class="top" tabindex="2" title="You see?  I'm open!">Shipping Instructions</span>
-		                	</div>
-		                
-		                </td>
-		                <td>Open</td>
-		            </tr>
-		            <tr>
-		                <td>02/16/2018</td>
-		                <td><a href="#">20173589</a></td>
-		                <td><a href="/orders/0095052068">0095052068</a></td>
-		                <td class="address">
-		                	c/o Arthur Goodwin<br>
-							Abraham Friedman Center<br>
-							1646 Olive St<br>
-							Philadelphia, PA 19127-1603
-							
-							<div>
-								<span data-tooltip data-click-open="false" title="Please deliver during business hours only.  Request for delivery date 3/28">Shipping Instructions</span>
-							</div>
-						
-						</td>
-		                <td>Open</td>
-		            </tr>
+		        
+		        
+		        	{% for order in orders %}
+		        	
+		        	{% set orderDate = order.created|date("m/d/Y") %}
+		        	{% set status = order.status|replace({'_': ' '}) %}
+		        	
+		        	{% if ( status != "SHIPPED" ) and ( status != "CANCELLED" ) %}
+		        	
+		        		{% set addressID = order.deliveryAddress.id %}
+				        	{% set orderDate = order.created|date("m/d/Y") %}
+				        	{% set sapOrderNumber = order.sapOrderNumber %}
+				        	{% set purchaseOrderNumber = order.purchaseOrderNumber %}
+				        	{% set firstName = order.deliveryAddress.firstName %}
+				        	{% set lastName = order.deliveryAddress.lastName %}
+				        	{% set defaultAddress = order.defaultAddress %}
+				        	{% set deliveryAddress = order.deliveryAddress %}
+				        	{% set address1 = order.deliveryAddress.line1 %}
+				        	{% set address2 = order.deliveryAddress.line2 %}
+				        	{% set phone = order.deliveryAddress.phone %}
+				        	{% set town = order.deliveryAddress.town %}
+				        	{% set country = order.deliveryAddress.country.isocode %}
+				        	
+				        	{% set shippingInstructions = '<strong>SHIPPING INSTRUCTIONS</strong><p style="padding-top:4px;">Please deliver during business hours only.  Request for delivery 3/28' %}
+				        	<tr>
+		    
+						    	<td>{{ orderDate }} </td>
+				                <td><a href="#">{{ purchaseOrderNumber }}</a></td>
+				                <td><a href="/orders/{{ sapOrderNumber }}">{{ sapOrderNumber }}</a></td>
+				                <td class="address">
+				                	c/ o {{ firstName }} {{ lastName }}<br>
+				                	{% if address1 %}{{ address2 }} {{ address1 }}</br>{% endif %}
+				                	Philadelphia, PA 19127-1603
+				                	<div>
+				                		<span data-tooltip xdata-tooltip-class="tooltip-2" data-allow-html="true" class="top" tabindex="2" title="{{ shippingInstructions }}">Shipping Instructions</span>
+				                	</div>
+				                
+				                </td>
+				                <td>{{ status }}</td>
+						    	
+						    </tr>
+		        	
+				    {% endif %}
+				    
+				    {% endfor %}
 		            		            
 		        </tbody>
 		    </table>
 		  </div>
 		  
 		  
-		  <div class="tabs-panel" id="panel2">
+		  <div class="tabs-panel" id="tabClosed">
 		  		
 		  		<table id="orders-open" class="display unstriped">
 			        <thead>
@@ -91,25 +92,46 @@
 			        </thead>
 			        <tbody>
 			        	
+			        	{% for order in orders %}
+		        	
+			        	{% set status = order.status|replace({'_': ' '}) %}
 			        	
+			        	{% if ( status == "SHIPPED" ) or ( status == "CANCELLED" ) %}
 			        	
-			        	
-			        	<tr>
-			                <td>02/16/2017</td>
-			                <td><a href="#">41284670</a></td>
-			                <td><a href="/orders/0095052068">0095052068</a></td>
-			                <td class="address">
-			                	c/o Robert Friedman<br>
-								Aggeler Opp Senior HS<br>
-								21050 Plummer St<br>
-								Philadelphia, PA 19127-1603
-							
-								<span data-tooltip data-click-open="false" title="Please deliver during business hours only.  Request for delivery date 3/28">Shipping Instructions</span>
-								
-							</td>
-			                <td>Fulfilled</td>
-			            </tr>
-			            
+			        		{% set addressID = order.deliveryAddress.id %}
+				        	{% set orderDate = order.created|date("m/d/Y") %}
+				        	{% set sapOrderNumber = order.sapOrderNumber %}
+				        	{% set purchaseOrderNumber = order.purchaseOrderNumber %}
+				        	{% set firstName = order.deliveryAddress.firstName %}
+				        	{% set lastName = order.deliveryAddress.lastName %}
+				        	{% set defaultAddress = order.defaultAddress %}
+				        	{% set deliveryAddress = order.deliveryAddress %}
+				        	{% set address1 = order.deliveryAddress.line1 %}
+				        	{% set address2 = order.deliveryAddress.line2 %}
+				        	{% set phone = order.deliveryAddress.phone %}
+				        	{% set town = order.deliveryAddress.town %}
+				        	{% set country = order.deliveryAddress.country.isocode %}
+				        	{% set shippingInstructions = '<strong>SHIPPING INSTRUCTIONS</strong><p style="padding-top:4px;">Please deliver during business hours only.  Request for delivery 3/28' %}
+				        	<tr>
+		    
+						    	<td>{{ orderDate }} </td>
+				                <td><a href="#">{{ purchaseOrderNumber }}</a></td>
+				                <td><a href="/orders/{{ sapOrderNumber }}">{{ sapOrderNumber }}</a></td>
+				                <td class="address">
+				                	c/ o {{ firstName }} {{ lastName }}<br>
+				                	{% if address1 %}{{ address2 }} {{ address1 }}</br>{% endif %}
+				                	Philadelphia, PA 19127-1603
+				                	<div>
+				                		<span data-tooltip xdata-tooltip-class="tooltip-2" class="top" tabindex="2" title="{{ shippingInstructions }}">Shipping Instructions</span>
+				                	</div>
+				                
+				                </td>
+				                <td>{{ status }}</td>
+						    	
+						    </tr>
+					    {% endif %}
+					    
+					    {% endfor %}			            
 			            
 			        </tbody>
 			    </table>

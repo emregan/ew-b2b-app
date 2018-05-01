@@ -1,0 +1,156 @@
+{% macro main(params,requestCache) %}
+    {% import "partials/components/_svg-icons.twig" as svg %}
+    {% import "partials/components/need-help.twig" as help %}
+    <div class="grid-container" data-js-hook="grid-container"></div>
+    <header class="login-header">
+        {% if params.back %}
+            <div class="cell">
+                <a href="{{ url(requestCache, [params.back.location]) }}" class="login-header__go-back u-style-weight-bold u-style-text-transform-uppercase u-animate-underline">{{ params.back.text }} {{ svg.back_arrow }} </a>
+
+            </div>
+        {% endif %}
+        <h1 class="login-header__title u-style-display-lg u-style-weight-bold u-style-width-100 u-style-text-center grid-container">{{ params.title }} {{ params.orderNumber }}</h1>
+        {% if params.subtitle %}
+        	<h3 class="login-header__subitle u-style-weight-bold text-center" >{{ params.subtitle }}</h3>
+        {% endif %}
+    </header>
+    
+    <div class="grid-container" data-js-hook="grid-container">
+    
+    
+	    <section class="form">
+	    
+	    <div class="grid-x grid-margin-x grid-margin-y-both">
+	        <div class="small-12 cell">
+	            <h2>Sign In</h2>
+	            
+	            <p class="u-messages-error-server is-hidden" id="RegistrationEmailError">We’re sorry, there was an error sending the notification email. Please try again.</p>
+	            <p class="u-messages-server-success is-hidden" id="Success">Success!</p>
+	            <p class="u-messages-error-server is-hidden" id="UserBelowAcceptableAge">We’re sorry, you are not eligible to create an HMH account. But that doesn’t mean you can’t explore our site and inspire your curiosity.</p>
+	            <p class="u-messages-error-server is-hidden" id="UserInformationIncomplete">We’re sorry, the user information you entered is not complete. Please try again.</p>
+	            
+	            <p class="u-messages-error-server is-hidden" id="GuestCheckoutError">That email address already has an HMH account. Please login for faster checkout or enter a different email address to continue checking out as a guest.</p>
+	            <p class="u-messages-error-server is-hidden" id="InvalidPassword">Passwords must be at least eight characters long and contain at least one number.</p>
+	            
+	            <p class="u-messages-error-server is-hidden" id="UserMigrationError">We’re sorry – there was an error verifying the account. Please try again.</p>
+	            <p class="u-messages-error-server is-hidden" id="InvalidCharacters">We’re sorry – there are some invalid characters. Please try again.</p>
+	            <p class="u-messages-error-server is-hidden" id="messageRiverside"></p>
+	        </div>
+	    </div>
+	    
+	   <form method="GET" action="/orders" id="form_newsignin" novalidate="novalidate">
+      
+                <div class="grid-x grid-margin-x grid-margin-y-both">
+					<div class="small-10 cell mdc-text-field mdc-text-field--upgraded">
+                        <input name="body1_0$txtEmail" type="email" maxlength="240" id="txtEmail" tabindex="1" class="mdc-text-field__input u-style-weight-regular valid" value="" required="true" autocomplete="off" aria-invalid="false">
+                        <label for="txtEmail" class="mdc-text-field__label u-style-weight-bold u-color-black mdc-text-field__label--float-above">Email</label>
+                        <div class="mdc-text-field__bottom-line mdc-text-field__bottom-line--active"></div>
+                    </div>
+                </div>
+                <div class="grid-x grid-margin-x grid-margin-y-both">
+					<div class="small-10 cell mdc-text-field mdc-text-field--upgraded">         
+                        <input name="body1_0$pwdSiPassword" maxlength="25" id="pwdSiPassword" tabindex="2" class="mdc-text-field__input u-style-weight-regular valid" type="password" value="" required="true" autocomplete="off" aria-invalid="false">
+                        <label for="pwdSiPassword" class="mdc-text-field__label u-style-weight-bold u-color-black mdc-text-field__label--float-above">Password</label>
+                        <div class="mdc-text-field__bottom-line mdc-text-field__bottom-line--active"></div>
+                    </div>
+                </div>
+                
+                
+                <div class="grid-x grid-margin-x grid-margin-y-both">
+					<div class="small-5 text-center cell">
+                        <div class="ui-btn-primary" data-js-animate="ui-btn-primary" id="ui-animate-8">
+                            <button type="submit" tabindex="3" title="Sign In" class="ui-btn-primary__btn" data-js-hook="ui-btn-primary__btn"> Sign In
+                                <span class="ui-btn-primary__svg ui-btn-primary__svg--direction" data-js-hook="ui-btn-primary__svg" style="opacity: 0; width: 0px; transform: translateX(-1px);">    
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 6 8">
+                                        <g>
+                                            <polygon points="1.39 8 0 6.8 3.23 4 0 1.2 1.39 0 6 4 1.39 8" class="u-fill-white"></polygon>
+                                        </g>
+                                    </svg>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="grid-x grid-margin-x grid-margin-y-both">
+					<div class="small-12 text-left cell">
+                        <a href="/account/forgot-password" class="ui-btn-tertiary ui-btn-tertiary__action">
+                            <span class="ui-btn-tertiary__arrow">
+                                <svg width="8px" height="13px" viewBox="0 0 8 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <style>
+                                        #small_arrow-Actions { stroke: currentColor; }
+                                    </style>
+                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <g id="small_arrow-Actions" transform="translate(-287.000000, -388.000000)" stroke-width="2" stroke="#FFFFFF">
+                                            <g id="Stacked-Group" transform="translate(54.000000, 92.000000)">
+                                                <g id="Group-3" transform="translate(0.000000, 243.000000)">
+                                                    <g id="Button-Copy" transform="translate(0.000000, 30.000000)">
+                                                        <g id="Group" transform="translate(128.000000, 24.000000)">
+                                                            <polyline id="Rectangle" transform="translate(106.500000, 5.500000) rotate(-45.000000) translate(-106.500000, -5.500000) " points="110 2 110 9 103 9"></polyline>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </svg>
+                            </span>Forgot password?</a>
+                            <br>
+                            <a href="/account/register" class="ui-btn-tertiary ui-btn-tertiary__action">
+                            <span class="ui-btn-tertiary__arrow">
+                                <svg width="8px" height="13px" viewBox="0 0 8 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <style>
+                                        #small_arrow-Actions { stroke: currentColor; }
+                                    </style>
+                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <g id="small_arrow-Actions" transform="translate(-287.000000, -388.000000)" stroke-width="2" stroke="#FFFFFF">
+                                            <g id="Stacked-Group" transform="translate(54.000000, 92.000000)">
+                                                <g id="Group-3" transform="translate(0.000000, 243.000000)">
+                                                    <g id="Button-Copy" transform="translate(0.000000, 30.000000)">
+                                                        <g id="Group" transform="translate(128.000000, 24.000000)">
+                                                            <polyline id="Rectangle" transform="translate(106.500000, 5.500000) rotate(-45.000000) translate(-106.500000, -5.500000) " points="110 2 110 9 103 9"></polyline>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </svg>
+                            </span>Sign up for an account</a>
+                    </div>
+                </div>
+                
+                
+                <div class="grid-x grid-margin-x grid-margin-y-both">
+					<div class="small-12 text-left cell">
+                        
+                        <hr>
+                        
+                        <h3 class="u-style-weight-bold">Don’t have an account but need to look up an order? </h3>
+                        <p>If your institution doesn’t have an account, look up your order <a href="#">here.</a></p>
+                    </div>
+                </div>
+
+            </form>
+	    
+	    
+	    
+	    </section>
+    
+    
+    
+    
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+{% endmacro %}

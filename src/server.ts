@@ -17,7 +17,7 @@ import * as manageCookies from "./middlewares/manage-cookies";
 import requestCache from "./middlewares/request-cache";
 import { appRouter } from "./middlewares/routes";
 import * as useragent from "express-useragent";
-// import * as api from "./services/api-client";
+import * as api from "./services/api-client";
 import expressValidator = require("express-validator");
 
 

@@ -1,0 +1,15 @@
+{% macro main(params,requestCache) %}
+    {% import "partials/components/_svg-icons.twig" as svg %}
+    {% import "partials/components/need-help.twig" as help %}
+    
+    <header class="account-register-header">
+        {% if params.back %}
+            <div class="cell">
+                <a href="{{ url(requestCache, [params.back.location]) }}" class="account-register-header__go-back u-style-weight-bold u-style-text-transform-uppercase u-animate-underline">{{ params.back.text }} {{ svg.back_arrow }} </a>
+                <a href="{{ url(requestCache, [params.back.location]) }}" class="account-register-header__go-back u-style-weight-bold u-style-text-transform-uppercase u-animate-underline text-right">Already have an account? <a href="/account/login">Sign In</a>
+            </div>
+        {% endif %}
+        <h1 class="account-register-header__title u-style-display-lg u-style-weight-bold u-style-width-100 u-style-text-center"></h1>
+    </header>
+    
+{% endmacro %}

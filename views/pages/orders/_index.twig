@@ -1,0 +1,24 @@
+{% extends 'layouts/_main.twig' %}
+
+{% import 'partials/core/modules-importer.twig' as modules %}
+{% import 'partials/core/components-importer.twig' as components %}
+
+{% set pageType = 'orders' %}
+{% set seoTemplate = pageType ~ '-index' %}
+
+
+{% block content %}
+    {{ components.orderPageHeader({
+        title: "Order History",
+        body: ""
+    }, requestCache) }}
+
+    {{ components.orderHistoryList({
+        data: data,
+        totalItems: pagination.totalItems,
+        class: 'order-history-list'
+    }, requestCache) }}
+
+    {{ components.pagination(pagination, requestCache) }}
+    
+{% endblock %}

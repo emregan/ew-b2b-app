@@ -30,20 +30,20 @@
     {{ assets.js(pageType) }}
 
 </head>
-<body class="loading page-{{ pageType }}{% if user %} user-logged-in{% endif %} {% if pageSubType %} {{ pageSubType }}{% endif %}" data-gtm-page-type="{{ pageType }}" data-gtm-page-currentBreakpoint="viewport()">
+<body class="loading page-{{ pageType }}{% if user %} user-logged-in{% endif %}" data-gtm-page-type="{{ pageType }}" data-gtm-page-currentBreakpoint="viewport()">
     {% if globals is defined and globals.header is defined and globals.header is not empty %}
         {{ components.navigation({
             header: globals.header,
             user: user,
         }, requestCache) }}
     {% endif %}
-
-    <div class="grid-container" data-js-hook="grid-container">
-        {% block content %}
-            <h1>Layout Template</h1>
-            <p>You shouldn't see this at all!</p>
-        {% endblock %}
-    </div>
+    
+    {% block content %}
+    	<div class="grid-container" data-js-hook="grid-container">
+	        <h1>Layout Template</h1>
+	        <p>You shouldn't see this at all!</p>
+        </div>
+    {% endblock %}
     
     {% if globals is defined and globals.footer is defined and globals.footer is not empty %}
     

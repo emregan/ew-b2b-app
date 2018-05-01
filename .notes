@@ -1,6 +1,11 @@
+make images/bg-logo.png into svg, add to src/views/partials/components/_svg-icons.twig
+
 src/views/partials/core
 -- ui-kit.twig - navItemDropdown add variables/params
 
 
-src/views/;partials/components
--- order-page-header.twig - add component for support accordion
+src/views/;partials/components/order-page-header.twig 
+-- add component for support accordion
+
+src/views/;partials/components/order-page-history-list.twig 
+-- add component for feed displays

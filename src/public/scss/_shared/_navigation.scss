@@ -49,6 +49,7 @@
 
     .navigation__top-nav,
     .navigation__right-menu {
+	    
         @include xy-cell(3);
 
         @include breakpoint(medium) {
