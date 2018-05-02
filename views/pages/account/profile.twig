@@ -1,8 +1,9 @@
-{% extends 'layouts/_main.twig' %}
+{% extends 'layouts/_account.twig' %}
 {% import 'partials/core/modules-importer.twig' as modules %}
 {% import 'partials/core/components-importer.twig' as components %}
 
 {% set pageType = 'account' %}
+{% set pageSubType = 'profile' %}
 
 {% set seoTemplate = pageType ~ '-detail' %}
 
@@ -14,6 +15,101 @@
 
 {% block content %}
     
-    Register
+    {{ components.defaultPageHeader({
+        title: "My Account",
+        subtitle: "",
+        user: "Erin",
+        body: ""
+    }, requestCache) }}
+
+    
+    <!-- MOVE TO COMPONENT -->
+    
+    
+    <div class="grid-container" data-js-hook="grid-container">
+    
+    	<div class="content" style="padding: 0 50px">
+    	
+    	
+    	<div class="grid-container">
+			  <div class="grid-x grid-margin-x">
+			    <div class="cell medium-3">
+			      <ul class="vertical tabs" data-tabs id="example-tabs">
+			        <li class="tabs-title is-active"><a href="#panel1v" aria-selected="true">Profile & Settings</a></li>
+			        <li class="tabs-title"><a href="#panel2v">Schools & Notifications</a></li>
+			      </ul>
+			    </div>
+			    <div class="cell medium-9">
+			      <div class="tabs-content" data-tabs-content="example-tabs">
+			        
+			        
+			        <div class="tabs-panel is-active" id="panel1v">
+			          <h2>Hi, Frodo!</h2>
+			          
+			          <h3>User Profile</h3>
+			          
+			         
+			        <!-- ROW 1 -->
+			        <div class="grid-x grid-margin-x">
+			        
+				        <div class="cell medium-12">
+				        	 <div class="circle">
+						  <div class="circle__inner">
+						    <div class="circle__wrapper">
+						      <div class="circle__content">FB</div>
+						    </div>
+						  </div>
+						</div>
+						
+						<h4>Frodo Baggins</h4>
+						<h5>Middle Earth Unified School District</h5>
+						
+				        </div>
+			        </div>
+			        
+			        <hr>
+			        
+			        <!-- ROW 2 -->
+			        <div class="grid-x grid-margin-x" style="padding: 10px 40px;">
+			        
+				        <div class="grid-x grid-margin-x u-style-width-100" style="padding: 10px 40px;">
+					        <div class="cell medium-3">
+					        	<strong>Job Title</strong>
+					        </div>
+					        <div class="cell medium-9">
+					        	<p>Bearer of the Ring</p>
+							</div>
+					    </div>
+					    <hr class="u-style-width-100">
+					    <div class="grid-x grid-margin-x u-style-width-100" style="padding: 10px 40px;">
+					        <div class="cell medium-3">
+					        	<strong>Phone Number</strong>
+					        </div>
+					        <div class="cell medium-9">
+					        	<p>(212) 555-1212</p>
+							</div>
+					    </div>
+			        </div>
+			        
+			        
+			        
+			        
+			        
+			        </div>
+			        
+			        
+			        
+			        
+			        
+			        
+			        
+			      </div>
+			    </div>
+			  </div>
+			</div>
+    
+    
+    </div>
+</div>
     
 {% endblock %}

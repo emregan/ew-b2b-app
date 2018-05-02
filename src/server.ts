@@ -37,7 +37,8 @@ require("./config/twig");
 /**
  * App settings.
  */
-app.set("port", args.port || process.env.PORT || 3030);
+// app.set("port", args.port || process.env.PORT || 3030);
+app.set("port", args.port || process.env.PORT || 3000);
 app.set("views", path.join(__dirname, "../views"));
 app.set("view engine", "twig");
 app.set("twig options", {

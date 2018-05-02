@@ -3,7 +3,16 @@
 @import '@material/menu/mdc-menu';
 
 .form {
+    
+    padding-top: rem-calc(30px);
     margin-bottom: rem-calc(50px);
+    
+    h3 {
+		font-size: rem-calc(21px);
+		line-height: rem-calc(25px);
+		margin-bottom: 24px;
+		padding-bottom: rem-calc(20px);
+    }
 
     &__wrapper {
         padding: rem-calc(40px) rem-calc(25px);
@@ -238,6 +247,12 @@
 
     &__error-checkbox .mdc-checkbox__background .mdc-checkbox__checkmark .mdc-checkbox__checkmark__path {
         stroke: get-color('red') !important;
+    }
+    
+    
+    /* MAKE THIS PRETTY */
+    .cell {
+	    margin-bottom: rem-calc(10px);
     }
 }
 
@@ -576,3 +591,11 @@
 .is-invalid-label .select2-container--default .select2-selection--single {
   background-color: #ffffff; }
 
+
+/* FOUNDATION OVERRIDES */
+[type='text'], [type='password'], [type='date'], [type='datetime'], [type='datetime-local'], [type='month'], [type='week'], [type='email'], [type='number'], [type='search'], [type='tel'], [type='time'], [type='url'], [type='color'], textarea {
+	margin: 0;
+    border: 0 !important;
+    padding: 0;
+    box-shadow: none;
+}

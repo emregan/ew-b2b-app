@@ -9,8 +9,8 @@
                 {% if params.button %}
 					
 					<!-- move to component -->
-					<button class="order-history-header__get-help u-style-weight-bold u-background-gold u-style-text-transform-uppercase" data-open="modalHelp">{{ params.button.text }}</button>
-					<div class="reveal" id="modalHelp" data-reveal>
+					<button class="order-history-header__get-help u-style-weight-bold u-background-gold u-style-text-transform-uppercase" data-open="modalHelp" data-animate="fade-in fade-out">{{ params.button.text }}</button>
+					<div class="reveal" id="modalHelp" data-reveal data-animate="fade-in fade-out">
 					   <button class="close-button" data-close aria-label="Close modal" type="button">
 					    <span aria-hidden="true">&times;</span>
 					  </button>

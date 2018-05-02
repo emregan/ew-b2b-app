@@ -4,11 +4,238 @@
 	    <div class="grid-container" data-js-hook="grid-container">
 	        
 		    <div class="content">
-		    	<section class="form">
+		    	<section class="form" style="margin-top: -90px;">
 		    	
 		    		<form>
 		    	
-			    		<h1 class="u-style-weight-bold">{{ params.title }}</h1>
+			    		<h1 class="u-style-weight-bold" style="margin:0 0 15px 0;">{{ params.title }}</h1>
+
+	    
+	    <div class="grid-x grid-margin-x grid-margin-y-both">
+	        <div class="small-12 cell">
+	        
+	            <p>Please tell us a little about yourself.</h2>
+	            <br><br><br><br>
+	            <p class="u-messages-error-server is-hidden" id="RegistrationEmailError">We’re sorry, there was an error sending the notification email. Please try again.</p>
+	            <p class="u-messages-server-success is-hidden" id="Success">Success!</p>
+	            <p class="u-messages-error-server is-hidden" id="UserBelowAcceptableAge">We’re sorry, you are not eligible to create an HMH account. But that doesn’t mean you can’t explore our site and inspire your curiosity.</p>
+	            <p class="u-messages-error-server is-hidden" id="UserInformationIncomplete">We’re sorry, the user information you entered is not complete. Please try again.</p>
+	            
+	            <p class="u-messages-error-server is-hidden" id="GuestCheckoutError">That email address already has an HMH account. Please login for faster checkout or enter a different email address to continue checking out as a guest.</p>
+	            <p class="u-messages-error-server is-hidden" id="InvalidPassword">Passwords must be at least eight characters long and contain at least one number.</p>
+	            
+	            <p class="u-messages-error-server is-hidden" id="UserMigrationError">We’re sorry – there was an error verifying the account. Please try again.</p>
+	            <p class="u-messages-error-server is-hidden" id="InvalidCharacters">We’re sorry – there are some invalid characters. Please try again.</p>
+	            <p class="u-messages-error-server is-hidden" id="messageRiverside"></p>
+	        </div>
+	    </div>
+	    
+	   <form method="GET" action="/orders" id="form_newsignin" novalidate="novalidate">
+	   
+	   <h3 class="u-style-weight-bold u-style-text-transform-uppercase">Personal information</h3>       
+      
+                <div class="grid-x grid-margin-x grid-margin-y-both">
+					<div class="small-10 cell">
+						<div class="mdc-text-field">
+                        	<input type="text" maxlength="240" id="txtFirstName" tabindex="1" class="mdc-text-field__input u-style-weight-regular valid" value="" required="true" autocomplete="off" aria-invalid="false">
+							<label for="txtFirstName" class="mdc-text-field__label u-style-weight-bold u-color-black mdc-text-field__label--float-above">First Name</label>
+							<div class="mdc-text-field__bottom-line mdc-text-field__bottom-line--active"></div>
+						</div>
+                    </div>
+                </div>
+                <br>
+                <div class="grid-x grid-margin-x grid-margin-y-both">
+					<div class="small-10 cell">
+						<div class="mdc-text-field">
+                        	<input type="text" maxlength="240" id="txtLastName" tabindex="1" class="mdc-text-field__input u-style-weight-regular valid" value="" required="true" autocomplete="off" aria-invalid="false">
+							<label for="txtLastName" class="mdc-text-field__label u-style-weight-bold u-color-black mdc-text-field__label--float-above">Last Name</label>
+							<div class="mdc-text-field__bottom-line mdc-text-field__bottom-line--active"></div>
+						</div>
+                    </div>
+                </div>
+                <br>
+                <div class="grid-x grid-margin-x grid-margin-y-both">
+					<div class="small-10 cell">
+						<div class="mdc-text-field">
+                        	<input type="text" maxlength="240" id="txtPhone" tabindex="1" class="mdc-text-field__input u-style-weight-regular valid" value="" required="true" autocomplete="off" aria-invalid="false">
+							<label for="txtPhone" class="mdc-text-field__label u-style-weight-bold u-color-black mdc-text-field__label--float-above">Phone</label>
+							<div class="mdc-text-field__bottom-line mdc-text-field__bottom-line--active"></div>
+						</div>
+                    </div>
+                </div>
+                <br>
+                <div class="grid-x grid-margin-x grid-margin-y-both">
+					<div class="small-10 cell">
+						<div class="mdc-text-field">
+                        	<input type="text" maxlength="240" id="txtPhone" tabindex="1" class="mdc-text-field__input u-style-weight-regular valid" value="" required="true" autocomplete="off" aria-invalid="false">
+							<label for="txtPhone" class="mdc-text-field__label u-style-weight-bold u-color-black mdc-text-field__label--float-above">Phone</label>
+							<div class="mdc-text-field__bottom-line mdc-text-field__bottom-line--active"></div>
+						</div>
+                    </div>
+                </div>
+
+                <br><br>
+                
+	   
+	   <h3 class="u-style-weight-bold u-style-text-transform-uppercase">School District</h3>
+      
+                <div class="grid-x grid-margin-x grid-margin-y-both">
+					<div class="small-10 cell">
+						<div class="mdc-text-field">
+                        	
+                        	
+                                        <select name="state" data-select2-id="state" tabindex="-1" class="select2-select mdc-text-field__input u-style-weight-regular mdc-text-field__label--float-above select2-select__active select2-hidden-accessible" id="state" required="" aria-hidden="true">
+                                            <option value="" data-select2-id="2">Select a state</option>
+                                            <option value="AL" data-select2-id="5">Alabama</option>
+                                            <option value="AK" data-select2-id="6">Alaska</option>
+                                            <option value="AZ" data-select2-id="7">Arizona</option>
+                                            <option value="AR" data-select2-id="8">Arkansas</option>
+                                            <option value="CA" data-select2-id="9">California</option>
+                                            <option value="CO" data-select2-id="10">Colorado</option>
+                                            <option value="CT" data-select2-id="11">Connecticut</option>
+                                            <option value="DE" data-select2-id="12">Delaware</option>
+                                            <option value="DC" data-select2-id="13">District of Columbia</option>
+                                            <option value="FL" data-select2-id="14">Florida</option>
+                                            <option value="GA" data-select2-id="15">Georgia</option>
+                                            <option value="HI" data-select2-id="16">Hawaii</option>
+                                            <option value="ID" data-select2-id="17">Idaho</option>
+                                            <option value="IL" data-select2-id="18">Illinois</option>
+                                            <option value="IN" data-select2-id="19">Indiana</option>
+                                            <option value="IA" data-select2-id="20">Iowa</option>
+                                            <option value="KS" data-select2-id="21">Kansas</option>
+                                            <option value="KY" data-select2-id="22">Kentucky</option>
+                                            <option value="LA" data-select2-id="23">Louisiana</option>
+                                            <option value="ME" data-select2-id="24">Maine</option>
+                                            <option value="MD" data-select2-id="25">Maryland</option>
+                                            <option value="MA" data-select2-id="26">Massachusetts</option>
+                                            <option value="MI" data-select2-id="27">Michigan</option>
+                                            <option value="MN" data-select2-id="28">Minnesota</option>
+                                            <option value="MS" data-select2-id="29">Mississippi</option>
+                                            <option value="MO" data-select2-id="30">Missouri</option>
+                                            <option value="MT" data-select2-id="31">Montana</option>
+                                            <option value="NE" data-select2-id="32">Nebraska</option>
+                                            <option value="NV" data-select2-id="33">Nevada</option>
+                                            <option value="NH" data-select2-id="34">New Hampshire</option>
+                                            <option value="NJ" data-select2-id="35">New Jersey</option>
+                                            <option value="NM" data-select2-id="36">New Mexico</option>
+                                            <option value="NY" data-select2-id="37">New York</option>
+                                            <option value="NC" data-select2-id="38">North Carolina</option>
+                                            <option value="ND" data-select2-id="39">North Dakota</option>
+                                            <option value="OH" data-select2-id="40">Ohio</option>
+                                            <option value="OK" data-select2-id="41">Oklahoma</option>
+                                            <option value="OR" data-select2-id="42">Oregon</option>
+                                            <option value="PA" data-select2-id="43">Pennsylvania</option>
+                                            <option value="RI" data-select2-id="44">Rhode Island</option>
+                                            <option value="SC" data-select2-id="45">South Carolina</option>
+                                            <option value="SD" data-select2-id="46">South Dakota</option>
+                                            <option value="TN" data-select2-id="47">Tennessee</option>
+                                            <option value="TX" data-select2-id="48">Texas</option>
+                                            <option value="UT" data-select2-id="49">Utah</option>
+                                            <option value="VT" data-select2-id="50">Vermont</option>
+                                            <option value="VA" data-select2-id="51">Virginia</option>
+                                            <option value="WA" data-select2-id="52">Washington</option>
+                                            <option value="WV" data-select2-id="53">West Virginia</option>
+                                            <option value="WI" data-select2-id="54">Wisconsin</option>
+                                            <option value="WY" data-select2-id="55">Wyoming</option>
+                                        </select><span class="select2 select2-container select2-container--default select2-container--above select2-container--open" dir="ltr" data-select2-id="56" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="true" tabindex="8" aria-labelledby="select2-state-container" aria-owns="select2-state-results"><span class="select2-selection__rendered" id="select2-state-container" role="textbox" aria-readonly="true" title="Select a state">Select State</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                        <label for="state" class="mdc-text-field__label u-style-weight-bold u-color-black select2__label--float-above mdc-text-field__label--float-above">State</label>
+                                        <div class="mdc-text-field__bottom-line"></div>
+                                        <span class="u-messages-error-server hide" id="StateRequired">Please select your state.</span>
+                        	
+                        	
+                        	
+						</div>
+                    </div>
+                </div>
+                 <br><br>
+                
+                
+                
+                <div class="grid-x grid-margin-x grid-margin-y-both">
+					<div class="small-10 cell">
+						<div class="mdc-text-field">
+                        	<div class="small-12 medium-12 large-6 cell mdc-text-field mdc-text-field--upgraded" data-select2-id="60">
+                                        <select name="state" data-select2-id="state" tabindex="-1" class="select2-select mdc-text-field__input u-style-weight-regular mdc-text-field__label--float-above select2-select__active select2-hidden-accessible" id="state" required="" aria-hidden="true">
+                                            <option value="" data-select2-id="2">Select a District</option>
+                                            <option value="AL" data-select2-id="5">District A</option>
+                                            <option value="AK" data-select2-id="6">District B</option>
+                                        </select><span class="select2 select2-container select2-container--default select2-container--above select2-container--open" dir="ltr" data-select2-id="56" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="true" tabindex="8" aria-labelledby="select2-state-container" aria-owns="select2-state-results"><span class="select2-selection__rendered" id="select2-state-container" role="textbox" aria-readonly="true" title="Select a state">Select District</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                        <label for="state" class="mdc-text-field__label u-style-weight-bold u-color-black select2__label--float-above mdc-text-field__label--float-above">District</label>
+                                        <div class="mdc-text-field__bottom-line"></div>
+                                        <span class="u-messages-error-server hide" id="StateRequired">Please select your state.</span>
+                                    </div>
+						</div>
+                    </div>
+                </div>
+                
+                
+                 <br>
+                <div class="grid-x grid-margin-x grid-margin-y-both">
+					<div class="small-10 cell">
+						<div class="mdc-text-field">
+                        	<input type="text" maxlength="240" id="txtPhone" tabindex="1" class="mdc-text-field__input u-style-weight-regular valid" value="" required="true" autocomplete="off" aria-invalid="false">
+							<label for="txtPhone" class="mdc-text-field__label u-style-weight-bold u-color-black mdc-text-field__label--float-above">District Account ID</label>
+							<div class="mdc-text-field__bottom-line mdc-text-field__bottom-line--active"></div>
+						</div>
+                    </div>
+                </div>
+
+                <br><br>
+	   
+	   
+	   
+	   <h3 class="u-style-weight-bold u-style-text-transform-uppercase">create your login id</h3>
+      
+                <div class="grid-x grid-margin-x grid-margin-y-both">
+					<div class="small-10 cell">
+						<div class="mdc-text-field">
+                        	<input type="email" maxlength="240" id="txtEmail" tabindex="1" class="mdc-text-field__input u-style-weight-regular valid" value="" required="true" autocomplete="off" aria-invalid="false">
+							<label for="txtEmail" class="mdc-text-field__label u-style-weight-bold u-color-black mdc-text-field__label--float-above">Email</label>
+							<div class="mdc-text-field__bottom-line mdc-text-field__bottom-line--active"></div>
+						</div>
+                    </div>
+                </div>
+                <br>
+                <div class="grid-x grid-margin-x grid-margin-y-both">
+					<div class="small-10 cell">
+						<div class="mdc-text-field">         
+	                        <input name="body1_0$pwdSiPassword" maxlength="25" id="pwdSiPassword" tabindex="2" class="mdc-text-field__input u-style-weight-regular valid" type="password" value="" required="true" autocomplete="off" aria-invalid="false">
+	                        <label for="pwdSiPassword" class="mdc-text-field__label u-style-weight-bold u-color-black mdc-text-field__label--float-above">Password</label>
+	                        <div class="mdc-text-field__bottom-line mdc-text-field__bottom-line--active"></div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="grid-x grid-margin-x grid-margin-y-both">
+					<div class="small-10 cell">
+						<div class="mdc-text-field">         
+	                        <input name="body1_0$pwdSiPassword" maxlength="25" id="pwdSiPassword" tabindex="2" class="mdc-text-field__input u-style-weight-regular valid" type="password" value="" required="true" autocomplete="off" aria-invalid="false">
+	                        <label for="pwdSiPassword" class="mdc-text-field__label u-style-weight-bold u-color-black mdc-text-field__label--float-above">Confirm Password</label>
+	                        <div class="mdc-text-field__bottom-line mdc-text-field__bottom-line--active"></div>
+                        </div>
+                    </div>
+                </div>
+                <br><br>
+                
+                <div class="grid-x grid-margin-x grid-margin-y-both">
+					<div class="small-3 text-center cell">
+                        <div class="ui-btn-primary" data-js-animate="ui-btn-primary" id="ui-animate-8">
+                            <button type="submit" tabindex="3" title="Sign In" class="ui-btn-primary__btn" data-js-hook="ui-btn-primary__btn"> submit
+                                <span class="ui-btn-primary__svg ui-btn-primary__svg--direction" data-js-hook="ui-btn-primary__svg" style="opacity: 0; width: 0px; transform: translateX(-1px);">    
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 6 8">
+                                        <g>
+                                            <polygon points="1.39 8 0 6.8 3.23 4 0 1.2 1.39 0 6 4 1.39 8" class="u-fill-white"></polygon>
+                                        </g>
+                                    </svg>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                
+                
 			    	
 			    	</form>
 			    	

@@ -30,7 +30,7 @@
     {{ assets.js(pageType) }}
 
 </head>
-<body class="loading page-{{ pageType }}{% if user %} user-logged-in{% endif %}" data-gtm-page-type="{{ pageType }}" data-gtm-page-currentBreakpoint="viewport()">
+<body class="loading page-{{ pageType }}{% if pageSubType %} {{ pageSubType }}{% endif %}{% if user %} user-logged-in{% endif %}" data-gtm-page-type="{{ pageType }}" data-gtm-page-currentBreakpoint="viewport()">
     {% if globals is defined and globals.header is defined and globals.header is not empty %}
         {{ components.navigation({
             header: globals.header,

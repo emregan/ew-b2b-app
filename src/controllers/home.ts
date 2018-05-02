@@ -7,7 +7,7 @@ import { getHomePage } from "../services/api-client";
  */
  
  export let index = (req: Request, res: Response, next: NextFunction) => {
-   getHomePage(req.params)  
+   getHomePage()
    .then(data => res.render("pages/home/index", data))
    .catch(next);
 };

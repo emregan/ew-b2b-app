@@ -6,7 +6,14 @@ import { getHomePage, getOrderIndex, getOrderDetail } from "../services/api-clie
  * Order History page.
  */
  
- export let index = (req: Request, res: Response, next: NextFunction) => {
+'use strict';
+export let index = (req: Request, res: Response, next: NextFunction) => {
+   getOrderIndex()
+   .then(data => res.render("pages/orders/index", data))
+   .catch(next);
+};
+
+ export let xxindex = (req: Request, res: Response, next: NextFunction) => {
    getOrderIndex(req.params)  
    .then(data => res.render("pages/orders/index", data))
    .catch(next);

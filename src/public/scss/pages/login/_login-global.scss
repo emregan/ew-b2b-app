@@ -9,9 +9,16 @@ body {
 	}
 	
 	background-color: get-color('white') !important;
-	background: url('/images/bg-login.png');
+	&.login {
+		background: url('/images/bg-login.png');
+		background-repeat: no-repeat;
+	}
     background-size: 100%;
     background-repeat: no-repeat;
+    
+    .navigation__account {
+	    display: none;
+    }
     background-position-y: 90px;
 	
 	header {

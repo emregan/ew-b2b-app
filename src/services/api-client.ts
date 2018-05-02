@@ -107,7 +107,7 @@ const httpRequest = (uri: string, method: string = "GET", data: any = {}, token?
 
 
 
-const jsonRequest = (uri: string, method: string = "GET", data: any = {}, token?: string): Promise<any> => {
+const httpRequest2 = (uri: string, method: string = "GET", data: any = {}, token?: string): Promise<any> => {
   const TIMEOUT = process.env.API_CLIENT_TIMEOUT || 3000;
   const httpUrl: string = process.env.WS_CLIENT_HTTP_URL || "http://localhost:8181/";
   const proxyUrl: string = process.env.API_CLIENT_PROXY_URL || "";
@@ -284,6 +284,11 @@ const normalizeModularPage = (context: any): Promise<any> => {
 /**
  * Make a request to the Craft API and get a JSON response
  */
+
+export const request = (uri: string, method: string = "GET", data: any = {}): Promise<any> => {
+  return httpRequest(uri, method, data, generateJwt());
+};
+
 export const request = (uri: string, method: string = "GET", data: any = {}): Promise<any> => {
   return httpRequest(uri, method, data, generateJwt());
 };
@@ -476,21 +481,91 @@ export const getAccountPage = (): Promise<any> => {
 };
 
 
-export const temp = (request: Promise<any>): Promise<any> => {
-  return Promise.all([
-    getGlobals(),
-    request
-  ]).then((all: any[]) => Promise.resolve(
-    Object.assign(
-      {globals: all[0].data},
-      all[1]
-    )
-   ));
+var request = require('request');
+const url: string = process.env['WS_CLIENT_HTTP_URL'] || '';
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
+const apiRequest = (uri: string, method: string = "GET", data: any = {}, token?: string): Promise<any> => {
+  const TIMEOUT = process.env.API_CLIENT_TIMEOUT || 3000;
+  const httpUrl: string = process.env.WS_CLIENT_HTTP_URL || "http://localhost:8181/";
+  const proxyUrl: string = process.env.API_CLIENT_PROXY_URL || "";
+  const cacheEnabled: boolean = process.env.API_CLIENT_CACHE_ENABLED || false;
+  const timeout: number = (typeof process.env.API_CLIENT_TIMEOUT !== "undefined") ? Number(process.env.API_CLIENT_TIMEOUT) : 30000;
+  const isGet = method === "GET";
+  const hasData = Object.keys(data).length > 0;
+  const path = hasData ? `${uri}?${querystring.stringify(data)}` : uri;
+  const url = isGet ? `${httpUrl}${path}` : `${httpUrl}${uri}`;
+  const cacheKey = decodeURIComponent(`api-cache:${path}`);
+  const requestOptions: any = {
+    url: httpUrl,
+    method: method,
+    headers: {
+      "Accept": "application/json",
+      "User-Agent": "hmhco-b2b-app"
+    },
+    timeout: timeout,
+    resolveWithFullResponse: true
+  };
+
+  if (proxyUrl) {
+    requestOptions.proxy = proxyUrl;
+  }
+
+  if (token) {
+    requestOptions.auth = {
+      bearer: token
+    };
+  }
+
+  if (!isGet && hasData) {
+    requestOptions.form = data;
+  }
+
+  const responseHandler = (res: RequestResponse): any => {
+    // parse the response
+    const responseData = JSON.parse(res.body);
+
+    // cache the response value
+    if (isGet && cacheEnabled) {
+      cacheResponse(res.headers, cacheKey, responseData);
+    }
+
+    // resolve the promise
+    return responseData;
+  };
+
+  const doRequest = (): Promise<any> => promiseRetry(
+    (retry: (error: any) => never, number: number): Promise<any> => {
+      return rp(requestOptions)
+        .then(responseHandler)
+        .catch((err: any) => {
+          if (
+            err.code === "ETIMEDOUT" ||
+            (typeof err.connect !== "undefined" && err.connect === true) ||
+            err.statusCode === 503 ||
+            err.statusCode === 504
+          ) {
+            logger.error(`API Retry: ${uri}`, err);
+            retry(err);
+          } else {
+            throw err;
+          }
+        });
+    },
+    {
+      retries: process.env.API_CLIENT_RETRIES || 3,
+      minTimeout: timeout,
+    }
+  );
+
+  return doRequest();
 };
+
 
 export const getOrderIndex = (): Promise<any> => {
   const params: any = {};
   return getWithGlobals( "api/news" , params);
+  
 };
 
 export const getOrderDetail = (slug: string): Promise<any> => {

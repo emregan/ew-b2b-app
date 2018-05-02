@@ -196,7 +196,9 @@
         @include get-font-weight($weight);
     }
 }
-
+.u-style-width-100 {
+	width: 100%;
+}
 .u-style-underline {
     text-decoration: underline;
 }

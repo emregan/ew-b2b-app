@@ -9,7 +9,9 @@ body {
 	}
 	
 	background-color: get-color('white') !important;
-	background: url('/images/bg-login.png');
+	&.login {
+		background: url('/images/bg-login.png');
+	}
     background-size: 100%;
     background-repeat: no-repeat;
     background-position-y: 90px;
@@ -19,6 +21,10 @@ body {
     }
 	
 	header {
+		
+		
+		// GLOBAL MOVE TO SHARED
+		
 		
 		.cell {
 			
@@ -80,10 +86,16 @@ body {
 		
 	}
 	
+	&.profile {
+		header {
+			background-color: get-color('gray5');
+		}
+	}
+	
 	h1 {
 		width: 100%;
 		font-size: rem-calc(48px);
-		margin: 0;
+		margin: 80px 0 0;
 		padding: rem-calc(50px 0 10px);
 
 	}
@@ -383,9 +395,7 @@ body {
 	
 }
 
-.navigation__account {
-	    display: none;
-    }
+
 	
 section.form {
     max-width: 650px;
@@ -432,14 +442,107 @@ section.form {
 	.account-register-form {
 		
 		section {
-			width: 90%;
-			max-width: 90%;
+			width: 80%;
+			max-width: 80%;
+			padding: 60px 80px;
 			
 			h1 {
 				font-size: rem-calc(38px);
 				line-height: rem-calc(44px);
 				padding: 0;
 			}
+			
+			h4 {
+				padding: 5px 0;
+			}
+			
+			h5 {
+				font-size: rem-calc(16px);
+				line-height: rem-calc(24px);
+				padding: 5px;
+			}
 		}
 		
 	}
+	
+	
+	
+.circle {
+  position: relative;
+    display: inline-block;
+    margin: 0 20px;
+    width: 60px;
+    background-color: transparent;
+    color: #222;
+    text-align: center;
+    float: left;
+  
+  &:after {
+	  display: block;
+	  padding-bottom: 100%;
+	  width: 100%;
+	  height: 0;
+	  border-radius: 50%;
+	  background-color: get-color('turquoise');
+	  content: "";
+  }
+  
+  &__inner {
+	  position: absolute;
+	  top: 0;
+	  bottom: 0;
+	  left: 0;
+	  width: 100%;
+	  height: 100%;
+	}
+	&__wrapper {
+	  display: table;
+	  width: 100%;
+	  height: 100%;
+	}
+	&__content {
+	  display: table-cell;
+	  vertical-align: middle;
+	  font-weight: bold;
+	  font-size: 24px;
+	}
+}
+
+
+body .tabs-content {
+	border: 0;
+	padding: 0;
+	min-height: 500px;
+	
+	h2 {
+		font-weight: bold;
+		font-size: rem-calc(28px);
+		line-height: rem-calc(32px);
+		margin-bottom: rem-calc(50px);
+	}
+	h3 {
+		font-weight: bold;
+		font-size: rem-calc(21px);
+		line-height: rem-calc(25px);
+		border-bottom: 2px solid get-color('gray4');
+		margin-bottom: 24px;
+		padding-bottom: rem-calc(20px);
+		
+	}
+	h4 {
+		font-size: rem-calc(21px);
+		line-height: rem-calc(25px);
+		padding: 5px 0;
+		font-weight: normal;
+	}
+	h5 {
+		font-size: rem-calc(16px);
+		line-height: rem-calc(24px);
+		padding: 0 0 5px 0;
+		font-weight: normal;
+	}
+	
+	.cell {
+		padding: 5px 0 10px;
+	}
+}
